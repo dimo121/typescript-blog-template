@@ -1,0 +1,17 @@
+.sponsor-container {
+  position: absolute;
+  margin-top: $xl-size;
+  margin-left: $blog-margin;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  li {
+    text-decoration: none;
+    list-style-type: none;
+    text-align: center;
+  }
+}

@@ -1,0 +1,26 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Helvetica, Arial, Sans-serif;
+  font-size: 1.6rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.main-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+
+/*
+background-image: url("/images/background3.jpg");
+background-repeat: repeat;
+*/

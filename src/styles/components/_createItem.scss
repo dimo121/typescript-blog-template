@@ -1,0 +1,15 @@
+.create-container {
+  background: $gainsboro;
+  border-radius: 2rem;
+  width: 89%;
+  height: 70vh;
+  margin: $xl-size 0 0 $xl-size;
+  padding: 2rem;
+  position: absolute;
+  overflow: scroll auto;
+
+  h1 {
+    margin-left: 2.5rem;
+    font-family: 'Source code pro', Helvetica;
+  }
+}

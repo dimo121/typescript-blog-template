@@ -1,0 +1,37 @@
+$background-linear1: #8b008b;
+$background-linear2: #a33d7c;
+$button-blue: #006bc6;
+$dark-blue: #002a4e;
+$fire-brick: #b22222;
+$floral-white: #fffaf0;
+$grey: #808080;
+$grey-blue: #337590;
+$gainsboro: #dcdcdc;
+$header-dark: #33363a;
+$off-black: #1c1c1c;
+$off-white: #a5afd7;
+$purple: #8B008B;
+$hot-pink: #a33d7c;
+
+//Spacing
+$s-size: 1.2rem;
+$m-size: 1.6rem;
+$lm-size: 2.4rem;
+$l-size: 3.2rem;
+$xl-size: 4.8rem;
+$desktop-breakpoint: 45rem;
+$sign-in-line-height: 0.8rem;
+$footer-height: 7rem;
+$blog-margin: 15rem;
+$title-margin: 18rem;
+
+$bb-margin-left: 95rem;
+$bb-margin-top: -8.5rem;
+$signin-margin-top: -6rem;
+
+$header-hamburger--size: 24px; // hamburger button, width and height
+$header-hamburger--thickness: 2px; // hamburger button, stroke width
+$header-hamburger--radius: null; // hamburger button, lines radius cap
+$header-hamburger--distance: 7px; // hamburger button, top and bottom lines distance from center
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');

@@ -1,0 +1,26 @@
+.list-filter-container {
+  background: rgba(35, 36, 39, 0.7);
+  display: flex;
+  justify-content: space-around;
+  border-radius: 1rem;
+  width: 30rem;
+  height: 3rem;
+  position: absolute;
+  margin: $xl-size auto 0 18rem;
+  padding: 1.5rem;
+  align-items: center;
+}
+
+.search-bar {
+  //margin: auto;
+  background: white;
+  outline: 1px solid black;
+  height: $m-size;
+  width: 18rem;
+}
+
+.search-pulldown {
+  //margin: auto;
+  border: 1px solid black;
+  height: $lm-size;
+}

@@ -1,0 +1,30 @@
+@import './settings';
+
+@import './components/appRouter';
+
+@import './components/buttons';
+
+@import './components/entryForm';
+
+@import './components/footer';
+
+@import './components/createItem';
+
+@import './components/header';
+
+@import './components/item';
+
+@import './components/listfilter';
+
+@import './components/modalComponent';
+
+@import './components/spinner';
+
+@import './components/sponsors';
+
+.page-container {
+  
+    height: 200rem;
+    width: 100vw;
+  }
+  
