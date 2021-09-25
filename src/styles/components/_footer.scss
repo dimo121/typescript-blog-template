@@ -3,11 +3,8 @@
   flex-direction: column;
   justify-content: center;
 
-  background-image: linear-gradient(
-    to right,
-    $background-linear1,
-    $background-linear2
-  );
+  background: #39445F; 
+  
   color: white;
   width: 100vw;
   border-top: 3px solid $header-dark;
@@ -22,10 +19,6 @@
     li {
       list-style-type: none;
       margin-right: $xl-size;
-
-      //flex-wrap: wrap;
-
-      //text-align: center;
 
       &:nth-child(5) {
         margin-left: auto;

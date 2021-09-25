@@ -13,14 +13,6 @@ interface ICreateBlogProps {
 
 export class CreateBlog extends React.Component<ICreateBlogProps,{}>{
 
-  // constructor(props:ICreateBlogProps){
-  //   super(props);
-
-  //   // this.state = {
-  //   //   blog: 
-  //   // }    
-  // }
-
   render(){
     return (
       <div className="page-container">

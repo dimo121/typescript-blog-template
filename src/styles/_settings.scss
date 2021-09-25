@@ -8,6 +8,7 @@ $grey: #808080;
 $grey-blue: #337590;
 $gainsboro: #dcdcdc;
 $header-dark: #33363a;
+$hover-blue: cornflowerblue;
 $off-black: #1c1c1c;
 $off-white: #a5afd7;
 $purple: #8B008B;
@@ -27,11 +28,11 @@ $title-margin: 18rem;
 
 $bb-margin-left: 95rem;
 $bb-margin-top: -8.5rem;
-$signin-margin-top: -6rem;
+$signin-margin-top: -2.3rem;
 
 $header-hamburger--size: 24px; // hamburger button, width and height
 $header-hamburger--thickness: 2px; // hamburger button, stroke width
 $header-hamburger--radius: null; // hamburger button, lines radius cap
 $header-hamburger--distance: 7px; // hamburger button, top and bottom lines distance from center
 
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');

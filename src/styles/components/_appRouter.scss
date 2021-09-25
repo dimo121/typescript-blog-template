@@ -1,34 +1,9 @@
-.App {
-    text-align: center;
-  }
-  
-  .App-logo {
-    height: 40vmin;
-    pointer-events: none;
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .App-link {
-    color: #61dafb;
-  }
-  
+
   .main-button {
     text-decoration: none;
     border: none;
     padding: 8px 30px;
     margin: 1.4rem;
-    //width: 11rem;
-    //font-size: 16px;
     background-color: $button-blue;
     color: #fff;
     border-radius: 5px;
@@ -37,11 +12,9 @@
     outline: none;
     transition: 0.2s all;
   }
-  /* Adding transformation when the button is active */
+
   
   .main-button:active {
     transform: scale(0.94);
-    /* Scaling button to 0.98 to its original size */
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-    /* Lowering the shadow */
   }

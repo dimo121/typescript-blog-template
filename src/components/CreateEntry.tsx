@@ -19,16 +19,9 @@ interface CustomState {
   blog_id: number;
 }
 
-//change to hooks FC with useMutation
 export const CreateEntry:React.FC<ICreateEntryProps & ICreateEntryType> = (props) => {
-  // const [blog_id, setId] = useState('');
-  // const [newEntry, entry] = useMutation(CREATE_ENTRY);
 
-  // useEffect(() => {
-  //   setId(props.location.state.blog_id);
-  // }, []);
   const { state } = useLocation<CustomState>();
-
 
   return (
     <div className="page-container">

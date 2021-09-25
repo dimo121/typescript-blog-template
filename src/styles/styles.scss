@@ -1,7 +1,5 @@
 @import './settings';
 
-@import './components/appRouter';
-
 @import './components/buttons';
 
 @import './components/entryForm';
@@ -9,6 +7,8 @@
 @import './components/footer';
 
 @import './components/createItem';
+
+@import './components/hamburger';
 
 @import './components/header';
 
@@ -23,8 +23,8 @@
 @import './components/sponsors';
 
 .page-container {
-  
-    height: 200rem;
+    background: #303A52;
+    height: 300em;
     width: 100vw;
   }
   
