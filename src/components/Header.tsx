@@ -12,7 +12,7 @@ interface IHeaderState {
 
 interface IHeaderProps {
     authService: AuthService;
-    user: User | undefined;
+    user?: User;
     setUser: (authUser:User|undefined) => void;
 }
 
@@ -30,6 +30,10 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
         this.onSubmission = this.onSubmission.bind(this)
         this.openMenu = this.openMenu.bind(this)
         this.closeMenu = this.closeMenu.bind(this)
+    }
+
+    public static defaultProps = {
+        user: undefined
     }
 
     private openMenu():void{
@@ -72,6 +76,17 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
 
 
     render() {
+
+        if(this.props.user) {
+            this.props.user.user.getUserAttributes((err,result) => {
+                if(err){
+                console.log(err);
+                } else{
+                    if(result) console.log(result[0].Value)
+                }
+          });
+        }
+
         return(
         <header className="header-container">
             <div className="header-title">
@@ -123,6 +138,5 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
         )
     }
 }
-
 
 export default Header;

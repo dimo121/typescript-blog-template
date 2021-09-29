@@ -59,6 +59,22 @@ export class AuthService {
         }
     }
 
+    public async confirmSignUp(username:string, code:string) {
+        try{
+            await Auth.confirmSignUp(username, code);
+        } catch(error){
+            console.log('Error confirming sign up', error)
+        }
+    }
+
+    public async signOut() {
+        try{
+            await Auth.signOut();
+        }catch(error){
+            console.log('Error signing out: ', error)
+        }
+    }
+
     // public async getAWSTemporaryCreds(user:CognitoUser){
     //     const cognitoUserPool = `cognito-idp.${config.REGION}.amazonaws.com/${config.USER_POOL_ID}`;
     //     AWS.config.credentials = new AWS.CognitoIdentityCredentials({

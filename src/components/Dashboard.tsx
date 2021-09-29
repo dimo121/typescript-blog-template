@@ -11,14 +11,14 @@ interface IDashState {
   text: string;
   search: Search;
   page: number;
-  dataCollection: Blog[] ;
+  blogCollection: Blog[] ;
   blogsLength: number;
-  //loading: boolean;
 }
 
 interface IDashProps {
   dataService: DataService
 }
+
 
 export default class Dashboard extends React.Component<IDashProps,IDashState> {
 
@@ -29,9 +29,8 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
       text : '',
       search : 'Title',
       page : 1,
-      dataCollection: [],
-      blogsLength: 0,
-      //loading: true
+      blogCollection: [],
+      blogsLength: 0
     }
 
     this.loadBlogs = this.loadBlogs.bind(this);
@@ -46,7 +45,7 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
     
     let resultBlogs: Blog[] = await this.props.dataService.getBlogs();
 
-    this.setState({dataCollection: resultBlogs});
+    this.setState({blogCollection: resultBlogs});
 
   }
   
@@ -66,60 +65,58 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
   };
 
   public render() {
+      // if(loading) return (
+      //     <div className="lds-default">
+      //       <div></div><div></div><div></div>
+      //       <div></div><div></div><div></div>
+      //       <div></div><div></div><div></div>
+      //       <div></div><div></div><div></div>
+      //     </div>
+      // );
 
-  // if (this.state.loading) {
-    //   return (
-    //     //loader-spinner
-    //     <div class="lds-default">
-    //       <div></div><div></div><div></div>
-    //       <div></div><div></div><div></div>
-    //       <div></div><div></div><div></div>
-    //       <div></div><div></div><div></div>
-    //     </div>
-    //   );
-    // } else {
+      let resultBlogs = this.state.blogCollection;
 
-  let resultBlogs = this.state.dataCollection;
+      if(this.state.text){
+        this.state.search === "Title"
+        ? (resultBlogs = resultBlogs.filter((item:Blog) => item.title.includes(this.state.text)))
+        : (resultBlogs = resultBlogs.filter((item:Blog) => item.content.includes(this.state.text)));
+      }
 
-  if(this.state.text){
-    this.state.search === "Title"
-    ? (resultBlogs = resultBlogs.filter((item) => item.title.includes(this.state.text)))
-    : (resultBlogs = resultBlogs.filter((item) => item.content.includes(this.state.text)));
-  }
+      const displayLength = resultBlogs.length;
 
-  let displayLength = resultBlogs.length;
+      resultBlogs = this.paginateLocal(resultBlogs);
 
-  resultBlogs = this.paginateLocal(resultBlogs);
-  
-  return (
-    <div className="page-container">
-      <BlogListFilter
-        text={this.state.text}
-        search={this.state.search}
-        setText={(textArg:string) => this.setState({
-                                                      text: textArg,
-                                                      page: 1
-                                                    })}
-        setSearch={(searchArg:Search) => this.setState({search: searchArg})}
-      />
-      <div className="blog-container">
-        {resultBlogs?.map((item) => (
-          <BlogItem key={item.id} blog={{ ...item }} />
-        ))}
-        <div className="page-numbers">
-          {[...Array(Math.ceil(displayLength / 5))].map((_, index) => (
-            <button
-              key={index}
-              className="page-button"
-              onClick={() => this.setState({page: (index+1)})}
-            >
-              {index + 1}
-            </button>
-          ))}
+
+      
+      return (
+        <div className="page-container">
+          <BlogListFilter
+            text={this.state.text}
+            search={this.state.search}
+            setText={(textArg:string) => this.setState({
+                                                          text: textArg,
+                                                          page: 1
+                                                        })}
+            setSearch={(searchArg:Search) => this.setState({search: searchArg})}
+          />
+          <div className="blog-container">
+            {resultBlogs?.map((item:Blog) => (
+              <BlogItem key={item.id} blog={{ ...item }} />
+            ))}
+            <div className="page-numbers">
+              {[...Array(Math.ceil(displayLength / 5))].map((_, index) => (
+                <button
+                  key={index}
+                  className="page-button"
+                  onClick={() => this.setState({page: (index+1)})}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    );
-  };
-
+      )
+    }
 }
+

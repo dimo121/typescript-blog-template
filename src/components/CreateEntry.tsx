@@ -1,22 +1,20 @@
 // *** transferring to Appsync client *** //
 
 import EntryFormPage from './EntryFormPage';
-//import { CREATE_ENTRY } from '../apollo/protocol';
 import React from 'react';
 import { RouteComponentProps, useLocation } from 'react-router-dom';
-import { Entry } from '../types/TypeDefs';
-//import { useMutation } from '@apollo/react-hooks';
-import { v4 } from 'uuid';
+import { User } from '../types/TypeDefs';
 import { DataService } from '../services/DataService';
 
 type ICreateEntryType = RouteComponentProps<{}>
 
 interface ICreateEntryProps {
   dataService: DataService;
+  user: User|undefined;
 }
 
 interface CustomState {
-  blog_id: number;
+  blog_id: string;
 }
 
 export const CreateEntry:React.FC<ICreateEntryProps & ICreateEntryType> = (props) => {
@@ -30,30 +28,27 @@ export const CreateEntry:React.FC<ICreateEntryProps & ICreateEntryType> = (props
         <EntryFormPage
           onSubmission={(title:string,content:string) => {
 
-            const id:number = parseInt(v4());
-
-            const createdAt = new Date().toLocaleString();
-
-            const result:Entry = {
-              id,
-              createdAt,
-              title,
-              content,
-              blog_id : state.blog_id
+            if(!props.user){
+              console.log('Please sign in to createEntry')
+              return null;
             }
 
-            props.dataService.addEntry(result);
-            // newEntry({
-            //   variables: {
-            //     createEntryInput: {
-            //       title: entry.title,
-            //       content: entry.content,
-            //       blog_id,
-            //     },
-            //   },
-            // }).then(() => {
-            //   window.location.replace('/');
-            // });
+            let userId:string = '';
+
+            props.user.user.getUserAttributes((err,result) => {
+              if(err) console.log(err)
+              else{
+                userId = result![0].Value;
+              }
+            }) 
+
+            props.dataService.createEntry({
+              title,
+              content,
+              user: userId,
+              blog_id : state.blog_id
+            });
+
           }}
         />
       </div>

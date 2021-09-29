@@ -18,6 +18,8 @@ import ScrollToTop from './ScrollToTop';
 import Partners from './Partners';
 
 
+
+
 interface IAppState {
   user: User | undefined
 }
@@ -37,6 +39,9 @@ export default class AppRouter extends React.Component<{},IAppState>{
   private authService: AuthService = new AuthService();
   private dataService: DataService = new DataService();
 
+
+
+
   private setUser(user:User|undefined){
     
     this.setState({
@@ -48,47 +53,40 @@ export default class AppRouter extends React.Component<{},IAppState>{
 
   render(){
     return (
-      <div className='main-container'>
-        <Router history={history}>
-          <div>
-            <ScrollToTop />
-            <Header user={this.state.user} setUser={this.setUser} authService={this.authService}/>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route  exact path='/dashboard' 
+        <div className='main-container'>
+          <Router history={history}>
+            <div>
+              <ScrollToTop />
+              <Header user={this.state.user} setUser={this.setUser} authService={this.authService}/>
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/dashboard' 
+                        render={(props) => (
+                          <Dashboard {...props} dataService={this.dataService} />
+                        )} 
+                />
+                <Route exact path="/createblog"
                       render={(props) => (
-                        <Dashboard {...props} dataService={this.dataService} />
+                          <CreateBlog {...props} dataService={this.dataService} user={this.state.user}/>
                       )} 
-              />
-              <Route exact path="/createblog"
-                     render={(props) => (
-                        <CreateBlog {...props} dataService={this.dataService} />
-                     )} 
-              />
-              <Route exact path="/createentry"
-                     render={(props) => (
-                        <CreateEntry {...props} dataService={this.dataService} />
-                     )} 
-              />
-              <Route exact path="/myblogs"
-                     render={(props) => (
-                        <MyBlogsPage {...props} dataService={this.dataService} />
-                     )} 
-              />
-              <Route exact path="/blog/:id" component={BlogPage} />
-              <Route exact path="/partners" component={Partners} />
-            </Switch>
-            <Footer />
-          </div>
-        </Router>
-      </div>
+                />
+                <Route exact path="/createentry"
+                      render={(props) => (
+                          <CreateEntry {...props} dataService={this.dataService} user={this.state.user}/>
+                      )} 
+                />
+                <Route exact path="/myblogs"
+                      render={(props) => <MyBlogsPage {...props} dataService={this.dataService} />} 
+                />
+                <Route exact path="/blog/:id" 
+                      render={(props) => <BlogPage {...props} dataService={this.dataService}/>}
+                />
+                <Route exact path="/partners" component={Partners} />
+              </Switch>
+              <Footer />
+            </div>
+          </Router>
+        </div>
     )
   }
 }
-
-// 
-//<Route exact path="/createblog" component={CreateBlog} />
-//            <Route exact path="/createentry" component={CreateEntry} />
-//          <Route exact path="/myblogs" component={MyBlogsPage} />
-//        <Route path="/blog/:id" component={BlogPage} />
-//      <Route exact path="/sponsors" component={Sponsors} /> 

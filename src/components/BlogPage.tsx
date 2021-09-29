@@ -2,47 +2,51 @@ import React from "react";
 import BlogItem from "./BlogItem";
 import { EntryItem } from "./EntryItem";
 import { Blog } from '../types/TypeDefs';
-// import { useQuery } from "@apollo/react-hooks";
-// import { FIND_BLOG } from "../apollo/protocol";
-import { db_mock } from "../apollo/db_mock";
 import { RouteComponentProps } from "react-router-dom";
+import { DataService } from "../services/DataService";
 
-type IBlogPageProps = RouteComponentProps<{ id: string }>
+interface IBlogPageProps {
+  dataService: DataService;
+}
 
-export class BlogPage extends React.Component<IBlogPageProps,{}> {
+interface IBlogPageState {
+  blog: Blog;
+}
 
-  // constructor(props:IBlogPageProps){
-  //   super(props);
-  // }
+export class BlogPage extends React.Component<IBlogPageProps & RouteComponentProps<{ id: string }>,IBlogPageState> {
 
-  // const {
-  //   data = { blog: {} },
-  //   loading,
-  //   error,
-  // } = useQuery(FIND_BLOG, {
-  //   variables: {
-  //     blogId: this.props.match.params.id,
-  //   },
-  // });
+  constructor(props:IBlogPageProps&RouteComponentProps<{id:string}>){
+    super(props);
 
-  // if (loading) {
-  //   return <p>loading...</p>;
-  // }
+    this.state = {
+      blog : {
+        id: '',
+        createdAt: '',
+        title: '',
+        content: '',
+        user:''
+      } 
+    }
+  }
 
-  // if (error) {
-  //   data.blog = db_mock[props.match.params.id - 1];
-  // }
+  componentDidMount(){
+    this.loadBlog();
+  }
+
+  private async loadBlog(){
+    const result = await this.props.dataService.loadBlog(this.props.match.params.id)
+
+    this.setState({blog:result});
+  }
 
   render(){
-
-
-    let data:Blog[] = db_mock.filter(item => item.id === parseInt(this.props.match.params.id))
+    //let data:Blog[] = db_mock.filter(item => item.id === parseInt(this.props.match.params.id))
 
     return (
       <div className="page-container">
         <div className="blog-container">
-          <BlogItem key={data[0].id} blog={{ ...data[0] }} />
-          {data[0].entries?.map((item) => {
+          <BlogItem key={this.state.blog?.id} blog={{ ...this.state.blog }} />
+          {this.state.blog?.entries?.map((item) => {
             return <EntryItem key={item.id} entry={item} />;
           })}
         </div>
