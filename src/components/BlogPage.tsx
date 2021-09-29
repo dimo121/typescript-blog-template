@@ -3,7 +3,7 @@ import BlogItem from "./BlogItem";
 import { EntryItem } from "./EntryItem";
 import { Blog } from '../types/TypeDefs';
 import { RouteComponentProps } from "react-router-dom";
-import { DataService } from "../services/DataService";
+import { DataService } from "../services/DataService/DataService";
 
 interface IBlogPageProps {
   dataService: DataService;
