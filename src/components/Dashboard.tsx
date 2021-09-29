@@ -5,7 +5,7 @@ import BlogItem from "./BlogItem";
 import BlogListFilter from "./BlogListFilter";
 import React from "react";
 import { Blog, Search } from "../types/TypeDefs";
-import { DataService } from "../services/DataService";
+import { DataService } from "../services/DataService/DataService";
 
 interface IDashState {
   text: string;
