@@ -1,7 +1,7 @@
 // *** Under construction - transferring to Appsync client - currently using mock data*** //
 
 import React from 'react';
-import { DataService } from '../services/DataService';
+import { DataService } from '../services/DataService/DataService';
 import { Blog } from '../types/TypeDefs';
 import BlogItem from './BlogItem';
 //import { Blog } from '../types/TypeDefs';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataService } from '../services/DataService';
+import { DataService } from '../services/DataService/DataService';
 import EntryFormPage from './EntryFormPage';
 import { User } from '../types/TypeDefs';
 import { Redirect } from 'react-router';

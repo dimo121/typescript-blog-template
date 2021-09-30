@@ -1,7 +1,7 @@
 import React from 'react';
 import img from './react-logo.png';
 import { ModalComponent } from './Modal';
-import { AuthService } from '../services/AuthService';
+import { AuthService } from '../services/AuthService/AuthService';
 import { User, NewUserInput } from '../types/TypeDefs';
 import { NavLink } from 'react-router-dom';
 

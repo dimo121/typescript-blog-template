@@ -4,7 +4,7 @@ import EntryFormPage from './EntryFormPage';
 import React from 'react';
 import { RouteComponentProps, useLocation } from 'react-router-dom';
 import { User } from '../types/TypeDefs';
-import { DataService } from '../services/DataService';
+import { DataService } from '../services/DataService/DataService';
 
 type ICreateEntryType = RouteComponentProps<{}>
 
