@@ -1,5 +1,5 @@
 import React from "react";
-import BlogItem from "./BlogItem";
+import { BlogItem } from "./BlogItem";
 import { EntryItem } from "./EntryItem";
 import { Blog } from '../types/TypeDefs';
 import { RouteComponentProps } from "react-router-dom";
@@ -46,6 +46,7 @@ export class BlogPage extends React.Component<IBlogPageProps & RouteComponentPro
       <div className="page-container">
         <div className="blog-container">
           <BlogItem key={this.state.blog?.id} blog={{ ...this.state.blog }} />
+          <h3 style={{ marginLeft: '30px', color: "white", fontWeight: 'lighter', paddingBottom: '30px'}}>Entries:</h3>
           {this.state.blog?.entries?.map((item) => {
             return <EntryItem key={item.id} entry={item} />;
           })}

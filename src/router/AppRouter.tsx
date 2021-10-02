@@ -1,21 +1,21 @@
 
 import React from 'react';
 import '../styles/styles.css';
-import Header from './Header';
-import BlogPage from './BlogPage';
-import CreateBlog from './CreateBlog';
-import Dashboard from './Dashboard';
-import Home from './Home';
+import Header from '../components/Header';
+import BlogPage from '../components/BlogPage';
+import CreateBlog from '../components/CreateBlog';
+import Dashboard from '../components/Dashboard';
+import Home from '../components/Home';
 import history from '../utils/history';
-import { Route, Router,Switch }  from 'react-router-dom';
+import { Route, Router, Switch }  from 'react-router-dom';
 import { User } from '../types/TypeDefs';
 import { AuthService } from '../services/AuthService/AuthService';
 import { DataService } from '../services/DataService/DataService';
-import { CreateEntry } from './CreateEntry';
-import { Footer } from './Footer';
-import { MyBlogsPage } from './MyBlogsPage';
-import ScrollToTop from './ScrollToTop';
-import Partners from './Partners';
+import { CreateEntry } from '../components/CreateEntry';
+import { Footer } from '../components/Footer';
+import { MyBlogsPage } from '../components/MyBlogsPage';
+import ScrollToTop from '../components/ScrollToTop';
+import Partners from '../components/Partners';
 
 
 

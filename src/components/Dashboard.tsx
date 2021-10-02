@@ -1,8 +1,8 @@
 // *** transferring to Appsync client *** //
 
 
-import BlogItem from "./BlogItem";
-import BlogListFilter from "./BlogListFilter";
+import { BlogItem } from "./BlogItem";
+import { BlogListFilter } from "./BlogListFilter";
 import React from "react";
 import { Blog, Search } from "../types/TypeDefs";
 import { DataService } from "../services/DataService/DataService";
@@ -11,8 +11,9 @@ interface IDashState {
   text: string;
   search: Search;
   page: number;
-  blogCollection: Blog[] ;
+  blogCollection: Blog[];
   blogsLength: number;
+  loading: boolean;
 }
 
 interface IDashProps {
@@ -30,7 +31,8 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
       search : 'Title',
       page : 1,
       blogCollection: [],
-      blogsLength: 0
+      blogsLength: 0,
+      loading: true
     }
 
     this.loadBlogs = this.loadBlogs.bind(this);
@@ -45,7 +47,8 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
     
     let resultBlogs: Blog[] = await this.props.dataService.getBlogs();
 
-    this.setState({blogCollection: resultBlogs});
+    this.setState({ blogCollection: resultBlogs,
+                    loading: false});
 
   }
   
@@ -65,14 +68,19 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
   };
 
   public render() {
-      // if(loading) return (
-      //     <div className="lds-default">
-      //       <div></div><div></div><div></div>
-      //       <div></div><div></div><div></div>
-      //       <div></div><div></div><div></div>
-      //       <div></div><div></div><div></div>
-      //     </div>
-      // );
+
+      if(this.state.loading) return (
+        <div className="page-container">
+          <div className="lds-container">
+            <div className="lds-default">
+              <div></div><div></div><div></div>
+              <div></div><div></div><div></div>
+              <div></div><div></div><div></div>
+              <div></div><div></div><div></div>
+            </div>
+          </div>
+        </div>
+      );
 
       let resultBlogs = this.state.blogCollection;
 

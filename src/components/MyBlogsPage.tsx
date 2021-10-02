@@ -3,7 +3,7 @@
 import React from 'react';
 import { DataService } from '../services/DataService/DataService';
 import { Blog } from '../types/TypeDefs';
-import BlogItem from './BlogItem';
+import { BlogItem } from './BlogItem';
 //import { Blog } from '../types/TypeDefs';
 //import { useQuery } from '@apollo/react-hooks';
 //import config from '../config/config';
@@ -15,7 +15,8 @@ interface IMyBlogsPageProps {
 }
 
 interface IMyBlogsPageState {
-  blogCollection: Blog[]
+  blogCollection: Blog[];
+  loading: boolean;
 }
 
 export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPageState> {
@@ -24,7 +25,8 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
     super(props);
 
     this.state = {
-      blogCollection: []
+      blogCollection: [],
+      loading: true
     }
   }
 
@@ -32,50 +34,29 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
     this.loadBlogs();
   }
 
-  //*** delete blog function */
-
-  // const [deleteBlog, blog] = useMutation(DELETE_BLOG);
-
-  // private funcDeleteBlog(blog_id:number):void {
-  //   console.log('Deleting blog with id: ', blog_id)
-  // }
-
   private async loadBlogs():Promise<void>{
     const blogCollection = await this.props.dataService.getBlogs();
-    this.setState({blogCollection})
+    this.setState({ blogCollection,
+                    loading: false });
   
   }
 
 
-  // }
-  // const funcDeleteBlog = (deleteBlogId) => {
-  //   deleteBlog({
-  //     variables: {
-  //       deleteBlogId,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       console.log(response);
-  //       refetch();
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
-
-  //*** blogs by user query */
-
-  // const { data, loading, error, refetch, networkStatus } = useQuery(
-  //   BLOGS_BY_USER,
-  //   {
-  //     variables: {
-  //       userId: decoded.id,
-  //     },
-  //     notifyOnNetworkStatusChange: true,
-  //   },
-  // );
-
-  //if (networkStatus === 4) return <p>reloading...</p>;
-
   render(){
+
+    if(this.state.loading) return (
+      <div className="page-container">
+        <div className="lds-container">
+          <div className="lds-default">
+            <div></div><div></div><div></div>
+            <div></div><div></div><div></div>
+            <div></div><div></div><div></div>
+            <div></div><div></div><div></div>
+          </div>
+        </div>
+      </div>
+    );
+
     return (
       <div className="page-container">
         <div className="blog-container">

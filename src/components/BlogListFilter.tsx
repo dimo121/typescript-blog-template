@@ -9,22 +9,21 @@ interface IFilterProps {
   setSearch: (search:Search) => void;
 }
 
-export default class BlogListFilter extends React.Component<IFilterProps,{}> {
+export const BlogListFilter:React.FC<IFilterProps> = (props) => {
   
-  render() {
     return(
       <div className="list-filter-container">
         <input
           className="search-bar"
           type="text"
-          value={this.props.text}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.props.setText(e.target.value)}
+          value={props.text}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => props.setText(e.target.value)}
         />
         <span>
           <select
             className="search-pulldown"
-            value={this.props.search}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.props.setSearch(e.target.value as Search)}
+            value={props.search}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => props.setSearch(e.target.value as Search)}
           >
             <option value='Title'>Title</option>
             <option value='Content'>Content</option>
@@ -32,5 +31,4 @@ export default class BlogListFilter extends React.Component<IFilterProps,{}> {
         </span>
       </div>
   );
-}
 }

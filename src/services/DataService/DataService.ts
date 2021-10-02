@@ -43,8 +43,10 @@ export class DataService {
         
         let resultEntry: Entry;
 
+        console.log('From dataservice', entry);
+
         try{
-            resultEntry = await API.graphql({query:CREATE_ENTRY, variables:{createEntryInput:{...entry}}}) as Entry
+            resultEntry = await API.graphql(({query:CREATE_ENTRY, variables:{createEntryInput:entry}})) as Entry;
         }catch(e){
             console.log(e);
             return false;

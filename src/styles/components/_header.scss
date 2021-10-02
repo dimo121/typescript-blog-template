@@ -52,13 +52,12 @@
 			color:$hover-blue;
 		}
 	}
-		
 	
-	// .nav-signin {
-	// 	right: 0; 
-	// 	line-height: unset;
-	// 	font-size: 1.6rem;
-	// }
+	.nav-signin {
+		right: 0; 
+		line-height: 0.8;
+		font-size: 1.6rem;
+	}
 }
 
 
@@ -101,23 +100,6 @@
 
 		}
 
-		// button{
-		// 	text-decoration: none;
-		// 	display: block;
-		// 	padding: 1em 1em;
-		// 	color: white;
-		// 	background:none;
-		// 	box-shadow: none;
-		// 	margin: 0; 
-		// 	font-family: Arial, Helvetica, sans-serif;
-		// 	font-weight: 100;
-		// 	font-size: 1.6rem;
-
-		// 	&:hover{
-		// 			color: $hover-blue;
-		// 		}
-			
-		// }
 	}
 
 	.header-title {
