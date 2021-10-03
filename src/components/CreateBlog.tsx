@@ -55,11 +55,6 @@ export class CreateBlog extends React.Component<ICreateBlogProps,{ userId: strin
           <EntryFormPage
             onSubmission={async (title:string,content:string) => {
 
-              if(!this.props.user){
-                console.log('Please sign in to create blog')
-                return null;
-              }
-
               const result:boolean = await this.props.dataService.createBlog({
                 title,
                 content,

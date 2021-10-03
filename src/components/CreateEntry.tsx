@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, useLocation } from 'react-router-dom';
 import { User } from '../types/TypeDefs';
 import { DataService } from '../services/DataService/DataService';
-
-type ICreateEntryType = RouteComponentProps<{}>
+import { Redirect } from 'react-router';
 
 interface ICreateEntryProps {
   dataService: DataService;
@@ -17,10 +16,11 @@ interface CustomState {
   blog_id: string;
 }
 
-export const CreateEntry:React.FC<ICreateEntryProps & ICreateEntryType> = (props) => {
+export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> = (props) => {
 
   const { state } = useLocation<CustomState>();
   const [userId,setId] = useState<string>('');
+  const [completed, setResult] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -55,31 +55,23 @@ export const CreateEntry:React.FC<ICreateEntryProps & ICreateEntryType> = (props
       <div className="create-container">
         <h1>Create entry</h1>
         <EntryFormPage
-          onSubmission={(title:string,content:string) => {
+          onSubmission={async (title:string,content:string) => {
 
-            if(!props.user){
-              console.log('Please sign in to createEntry')
-              return null;
-            }
-
-            console.log('User ID: ',userId);
-            console.log(typeof userId);
-            console.log('State: ', state.blog_id);
-            console.log(typeof state.blog_id);
-            console.log('Title: ', title);
-            console.log(typeof title);
-            console.log('Content: ', content);
-            console.log(props);
-
-            props.dataService.createEntry({
+            const result: boolean = await props.dataService.createEntry({
               title,
               content,
               user: userId,
               blog_id : state.blog_id
             });
 
+            if(result === true){
+              setResult(true);
+            }
+            
+
           }}
         />
+        {completed && <Redirect to='/dashboard' />}
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { BlogListFilter } from "./BlogListFilter";
 import React from "react";
 import { Blog, Search } from "../types/TypeDefs";
 import { DataService } from "../services/DataService/DataService";
+import { Spinner } from './Spinner';
 
 interface IDashState {
   text: string;
@@ -51,8 +52,6 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
                     loading: false});
 
   }
-  
-  //Also paginate server side
 
   private paginateLocal (blogs:Blog[]):Blog[] {
 
@@ -71,14 +70,7 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
 
       if(this.state.loading) return (
         <div className="page-container">
-          <div className="lds-container">
-            <div className="lds-default">
-              <div></div><div></div><div></div>
-              <div></div><div></div><div></div>
-              <div></div><div></div><div></div>
-              <div></div><div></div><div></div>
-            </div>
-          </div>
+          <Spinner />
         </div>
       );
 

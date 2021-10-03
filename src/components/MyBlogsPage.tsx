@@ -4,10 +4,10 @@ import React from 'react';
 import { DataService } from '../services/DataService/DataService';
 import { Blog } from '../types/TypeDefs';
 import { BlogItem } from './BlogItem';
+import { Spinner } from './Spinner';
 //import { Blog } from '../types/TypeDefs';
 //import { useQuery } from '@apollo/react-hooks';
 //import config from '../config/config';
-//import { useMutation } from '@apollo/react-hooks';
 //import { BLOGS_BY_USER, DELETE_BLOG } from '../apollo/protocol';
 
 interface IMyBlogsPageProps {
@@ -46,14 +46,7 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
 
     if(this.state.loading) return (
       <div className="page-container">
-        <div className="lds-container">
-          <div className="lds-default">
-            <div></div><div></div><div></div>
-            <div></div><div></div><div></div>
-            <div></div><div></div><div></div>
-            <div></div><div></div><div></div>
-          </div>
-        </div>
+        <Spinner />
       </div>
     );
 
