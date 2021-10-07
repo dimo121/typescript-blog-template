@@ -1,17 +1,14 @@
-// *** Under construction - transferring to Appsync client - currently using mock data*** //
-
 import React from 'react';
 import { DataService } from '../services/DataService/DataService';
-import { Blog } from '../types/TypeDefs';
+import { Blog, User } from '../types/TypeDefs';
 import { BlogItem } from './BlogItem';
 import { Spinner } from './Spinner';
-//import { Blog } from '../types/TypeDefs';
-//import { useQuery } from '@apollo/react-hooks';
-//import config from '../config/config';
+
 //import { BLOGS_BY_USER, DELETE_BLOG } from '../apollo/protocol';
 
 interface IMyBlogsPageProps {
   dataService: DataService;
+  user: User|undefined;
 }
 
 interface IMyBlogsPageState {
@@ -30,12 +27,40 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
     }
   }
 
+  private retrieveUserId(){
+    return new Promise((res,rej) => {
+      if(this.props.user) {
+        this.props.user.user.getUserAttributes((err,result) => {
+          if(err){
+            alert(err);
+            return '';
+          } else{
+            if(result){
+              res(result[0].Value);
+            }
+          }
+        })
+      } else {
+        rej('Error retrieving user id');
+      }
+    })
+  }
+
   componentDidMount(){
     this.loadBlogs();
   }
 
+
   private async loadBlogs():Promise<void>{
-    const blogCollection = await this.props.dataService.getBlogs();
+
+    const id:string = await this.retrieveUserId() as string;
+
+    console.log('id', id);
+
+    const blogCollection:Blog[] = await this.props.dataService.getBlogsByUser(id);
+
+    console.log(blogCollection);
+
     this.setState({ blogCollection,
                     loading: false });
   

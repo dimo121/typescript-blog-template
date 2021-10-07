@@ -76,7 +76,7 @@ export default class AppRouter extends React.Component<{},IAppState>{
                       )} 
                 />
                 <Route exact path="/myblogs"
-                      render={(props) => <MyBlogsPage {...props} dataService={this.dataService} />} 
+                      render={(props) => <MyBlogsPage {...props} dataService={this.dataService} user={this.state.user} />} 
                 />
                 <Route exact path="/blog/:id" 
                       render={(props) => <BlogPage {...props} dataService={this.dataService}/>}

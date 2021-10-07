@@ -25,7 +25,7 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
 
   useEffect(() => {
     const retrieveUserId = () => {
-      return new Promise((res) => {
+      return new Promise((resolve,reject) => {
         if(props.user) {
           props.user.user.getUserAttributes((err,result) => {
             if(err){
@@ -33,18 +33,18 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
               return '';
             } else{
               if(result){
-                res(result[0].Value);
+                resolve(result[0].Value);
               }
             }
           })
         } else {
-          res('');
+          reject('');
         }
       })
     }
 
-    retrieveUserId().then(res => {
-      setId(res as string);
+    retrieveUserId().then(response => {
+      setId(response as string);
     });
 
   },[props.user])

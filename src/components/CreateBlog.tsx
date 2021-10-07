@@ -10,7 +10,12 @@ interface ICreateBlogProps {
   user?: User;
 }
 
-export class CreateBlog extends React.Component<ICreateBlogProps,{ userId: string, completed:boolean }>{
+interface ICreateBlogState {
+  userId: string;
+  completed: boolean;
+}
+
+export class CreateBlog extends React.Component<ICreateBlogProps,ICreateBlogState> {
 
   constructor(props:ICreateBlogProps) {
     super(props);
@@ -30,7 +35,7 @@ export class CreateBlog extends React.Component<ICreateBlogProps,{ userId: strin
   }
 
   private retrieveUserId(){
-    return new Promise((res) => {
+    return new Promise((resolve,reject) => {
       if(this.props.user) {
         this.props.user.user.getUserAttributes((err,result) => {
           if(err){
@@ -38,10 +43,12 @@ export class CreateBlog extends React.Component<ICreateBlogProps,{ userId: strin
             return '';
           } else{
             if(result){
-              res(result[0].Value);
+              resolve(result[0].Value);
             }
           }
         })
+      } else {
+        reject('');
       }
     })
   }
