@@ -15,6 +15,7 @@ interface IModalState {
   password:string;
   error: string;
   registerMod: boolean;
+  verify: boolean;
 }
 
 interface CustomEvent {
@@ -32,7 +33,8 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
       username: '',
       error: '',
       password: '',
-      registerMod: false
+      registerMod: false,
+      verify: false
     }
 
     this.onChangeUsername = this.onChangeUsername.bind(this)
@@ -70,9 +72,17 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
         error: '',
         email:'',
         username:'',
-        password:''});
+        password:'',
+        verify: true });
 
-      this.props.clearModal();
+      setTimeout(() => {
+        
+        this.setState({
+          verify: false
+        });
+
+        this.props.clearModal();
+      },5000);
     }
   };
 
@@ -87,9 +97,10 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
         ariaHideApp={false}
         className="modal" 
       >
-        <h3 className="modal-title">{ this.state.registerMod ? 'Registration details' : 'Sign in details' } </h3>
+        {!this.state.verify && <h3 className="modal-title">{ this.state.registerMod ? 'Registration details' : 'Sign in details' } </h3>}
         {this.state.error && (<div className="modal-error"><h5>{this.state.error}</h5></div>)}
-        <form onSubmit={this.onSubmission}>
+        {!this.state.verify ? 
+        (<form onSubmit={this.onSubmission}>
           {this.state.registerMod && (
             <>
               <br />
@@ -128,13 +139,7 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
             style={{ fontSize: "12px", height: "1.5rem", width: "22rem" }}
             onChange={this.onChangePassword}
           ></input>
-          <br/>
-          {!this.state.registerMod && (
-            <div>
-              <br/>
-              <br/>
-            </div>
-          )}
+            <br/>
             <br/>
             <br/>
             <br/>
@@ -154,10 +159,19 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
             Cancel
           </button>
           <button className="main-button" type="submit">Enter</button>
-        </form>
-        { !this.state.registerMod && (<div>
+        </form>) : 
+        (
+          <div className="modal-verify">
+            <h5>Please check your email to verify</h5>
+            <h5>your account before login</h5>
+          </div>
+        )}
+        { !this.state.registerMod && !this.state.verify && (<div>
           <h5>If you are not a member please register</h5>
-          <button className="main-button" onClick={() => this.setState({registerMod:true})}>
+          <button className="main-button" onClick={() => this.setState({
+                                                                          registerMod:true, 
+                                                                          error:''
+                                                                        })}>
             Register
           </button>
         </div>)}

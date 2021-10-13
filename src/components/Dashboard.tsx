@@ -7,13 +7,14 @@ import React from "react";
 import { Blog, Search } from "../types/TypeDefs";
 import { DataService } from "../services/DataService/DataService";
 import { Spinner } from './Spinner';
+import paginateLocal from '../utils/paginate';
+import filterBlogs from '../utils/filter';
 
 interface IDashState {
   text: string;
   search: Search;
   page: number;
   blogCollection: Blog[];
-  blogsLength: number;
   loading: boolean;
 }
 
@@ -32,7 +33,6 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
       search : 'Title',
       page : 1,
       blogCollection: [],
-      blogsLength: 0,
       loading: true
     }
 
@@ -53,19 +53,6 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
 
   }
 
-  private paginateLocal (blogs:Blog[]):Blog[] {
-
-    const end:number = this.state.page * 5;
-    const start:number = end - 5;
-    const result:Blog[] = [];
-
-    for (let i = start; i < end; i++) {
-      if (blogs[i]) result.push(blogs[i]);
-    }
-
-    return result;
-  };
-
   public render() {
 
       if(this.state.loading) return (
@@ -74,19 +61,11 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
         </div>
       );
 
-      let resultBlogs = this.state.blogCollection;
-
-      if(this.state.text){
-        this.state.search === "Title"
-        ? (resultBlogs = resultBlogs.filter((item:Blog) => item.title.includes(this.state.text)))
-        : (resultBlogs = resultBlogs.filter((item:Blog) => item.content.includes(this.state.text)));
-      }
+      let resultBlogs: Blog[] = filterBlogs(this.state.blogCollection,this.state.text,this.state.search)
 
       const displayLength = resultBlogs.length;
 
-      resultBlogs = this.paginateLocal(resultBlogs);
-
-
+      resultBlogs = paginateLocal(resultBlogs, this.state.page);
       
       return (
         <div className="page-container">
@@ -96,14 +75,15 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
             setText={(textArg:string) => this.setState({
                                                           text: textArg,
                                                           page: 1
-                                                        })}
+                                                      })}
             setSearch={(searchArg:Search) => this.setState({search: searchArg})}
           />
           <div className="blog-container">
             {resultBlogs?.map((item:Blog) => (
               <BlogItem key={item.id} blog={{ ...item }} />
             ))}
-            <div className="page-numbers">
+          </div>
+          <div className="page-numbers">
               {[...Array(Math.ceil(displayLength / 5))].map((_, index) => (
                 <button
                   key={index}
@@ -114,7 +94,6 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
                 </button>
               ))}
             </div>
-          </div>
         </div>
       )
     }

@@ -1,7 +1,7 @@
-import { Blog, Entry, NewBlogInput, NewEntryInput } from '../../types/TypeDefs';
+import { Blog, Entry, NewBlogInput, NewEntryInput, NewUserInput } from '../../types/TypeDefs';
 import awsconfig from '../../aws-exports';
 import Amplify, { API, Auth } from 'aws-amplify';
-import { LOAD_BLOGS, FIND_BLOG, CREATE_BLOG, CREATE_ENTRY, BLOGS_BY_USER } from "./protocol";
+import { LOAD_BLOGS, FIND_BLOG, CREATE_BLOG, CREATE_ENTRY, BLOGS_BY_USER, CREATE_USER } from "./protocol";
 
 
 Amplify.configure(awsconfig);
@@ -65,7 +65,7 @@ export class DataService {
             const authToken = await this.getAuthToken();
 
             resultEntry = await API.graphql({   query:CREATE_ENTRY, 
-                                                variables:{createEntryInput:entry},
+                                                variables:{createEntryInput:{ ...entry}},
                                                 authMode: 'AMAZON_COGNITO_USER_POOLS',
                                                 authToken }) as Entry;
         }catch(e){
@@ -78,6 +78,18 @@ export class DataService {
         return true;
     }
 
+    public async createUser(user:NewUserInput): Promise<boolean>{
+
+        try{    
+            await API.graphql({ query:CREATE_USER, 
+                                variables:{createUserInput: {...user }}});
+            return true;
+        } catch(err){
+            console.log('From dataservice ',err);
+            return false;
+        }
+
+    }
     // public getEntries():Entry[] {
     //     //return this.entryCollection
     //     return [];

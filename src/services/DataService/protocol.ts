@@ -8,7 +8,6 @@ export const CREATE_USER = gql`
       email
       password
       createdAt
-      tokens
     }
   }
 `;

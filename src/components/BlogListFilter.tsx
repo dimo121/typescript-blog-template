@@ -13,22 +13,25 @@ export const BlogListFilter:React.FC<IFilterProps> = (props) => {
   
     return(
       <div className="list-filter-container">
-        <input
-          className="search-bar"
-          type="text"
-          value={props.text}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => props.setText(e.target.value)}
-        />
-        <span>
-          <select
-            className="search-pulldown"
-            value={props.search}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => props.setSearch(e.target.value as Search)}
-          >
-            <option value='Title'>Title</option>
-            <option value='Content'>Content</option>
-          </select>
-        </span>
+        <h3 className="search-title">Search by:</h3>
+        <div className="search-container">
+          <input
+            className="search-bar"
+            type="text"
+            value={props.text}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => props.setText(e.target.value)}
+          />
+          <span>
+            <select
+              className="search-pulldown"
+              value={props.search}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => props.setSearch(e.target.value as Search)}
+            >
+              <option value='Title'>Title</option>
+              <option value='Content'>Content</option>
+            </select>
+          </span>
+        </div>
       </div>
   );
 }

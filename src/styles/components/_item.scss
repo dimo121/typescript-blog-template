@@ -1,6 +1,5 @@
 .blog-container {
-  margin-top: $blog-margin;
-  margin-left: $blog-margin;
+  margin-top: 10em;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -17,7 +16,7 @@
   color: white;
   padding: $s-size;
   font-family: "Playfair Display", serif;
-  margin: 0 0 $l-size $l-size;
+  margin: 0 0 $l-size 2rem;
   width: 120em;
   flex: 1 1 auto;
   display: flex;
@@ -26,7 +25,7 @@
   position: relative;
 
   h1 {
-    margin: $m-size;
+    margin: $l-size;
   }
 
   span {
@@ -43,8 +42,8 @@
   display: flex;
 
   p {
-    flex: 0 0 120em;
-    margin-left: $m-size;
+    flex: 0 0 100em;
+    margin-left: $l-size;
   }
 }
 
@@ -67,5 +66,25 @@
 }
 
 .item__lower{
-  margin-left: $m-size;
+  margin-left: $l-size;
+}
+
+@media(min-width:450px) {
+
+  .item-container{
+    margin: $xl-size auto 0 6rem;
+  }
+
+}
+
+@media(min-width:800px) {
+
+  .blog-container{
+    margin-top: 15em;
+  }
+
+  .item-container{
+    margin: $xl-size auto 0 18rem;
+  }
+
 }

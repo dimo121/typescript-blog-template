@@ -1,13 +1,22 @@
 .list-filter-container {
   background: rgba(35, 36, 39, 0.7);
-  display: flex;
-  justify-content: space-around;
   border-radius: 1rem;
   width: 30rem;
-  height: 3rem;
+  height: 5rem;
   position: absolute;
-  margin: $xl-size auto 0 18rem;
+  margin: $xl-size auto 0 2rem;
   padding: 1.5rem;
+}
+
+.search-title{
+  color: white;
+  font-size: 0.8em;
+  margin: 0 0 0.5em 0.8em;
+}
+
+.search-container{
+  display: flex;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -21,4 +30,20 @@
 .search-pulldown {
   border: 1px solid black;
   height: $lm-size;
+}
+
+@media(min-width:450px) {
+
+  .list-filter-container{
+    margin: $xl-size auto 0 6rem;
+  }
+
+}
+
+@media(min-width:800px) {
+
+  .list-filter-container{
+    margin: 8rem auto 0 18rem;
+  }
+
 }

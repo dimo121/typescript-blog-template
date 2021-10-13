@@ -45,7 +45,7 @@ export const Footer:React.FC = () => (
         </a>
       </li>
       <li>
-        <NavLink className="footer-links" to="/contact">
+        <NavLink className="footer-links" to="/contactus">
           Contact Us
         </NavLink>
       </li>

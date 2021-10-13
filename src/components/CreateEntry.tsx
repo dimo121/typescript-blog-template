@@ -64,11 +64,8 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
               blog_id : state.blog_id
             });
 
-            if(result === true){
-              setResult(true);
-            }
+            setResult(result);
             
-
           }}
         />
         {completed && <Redirect to='/dashboard' />}

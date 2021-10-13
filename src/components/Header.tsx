@@ -68,9 +68,10 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
         }
         else{
             //change to register Cognito user 
-            const authUser = await this.props.authService.login(user.email, user.password)
-            console.log('Register: ',user);
-            this.props.setUser(authUser);
+            const authUser = await this.props.authService.signUp(user.username,user.password,user.email)
+            console.log('Registered: ', authUser);
+            console.log('Verify account email');
+            //this.props.setUser(authUser);
         }
     }
 
@@ -91,7 +92,7 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
         <header className="header-container">
             <div className="header-title">
                 <span>
-                    <h1><img src={img} className='header-logo' alt="React logo" />React.JS blog</h1>
+                    <h1><img  src={img} className='header-logo' alt="React logo" />React.JS blog</h1>
                 </span>
                 <button className="nav-toggle" onClick={this.state.isActive ? this.closeMenu: this.openMenu}>
                     <span className="hamburger">
@@ -99,8 +100,8 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
                     </span>
                 </button>
             </div>
-            <div>
-                <ul className="nav-container">
+            <div className="nav-container">
+                <ul>
                     <li>
                         <NavLink className="nav-links" to="/">
                             Home
