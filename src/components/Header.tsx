@@ -70,7 +70,6 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
             //change to register Cognito user 
             const authUser = await this.props.authService.signUp(user.username,user.password,user.email)
             console.log('Registered: ', authUser);
-            console.log('Verify account email');
             //this.props.setUser(authUser);
         }
     }

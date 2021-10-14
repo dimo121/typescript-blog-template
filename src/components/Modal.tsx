@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import { NewUserInput } from "../types/TypeDefs";
+import * as EmailValidator from 'email-validator';
 
 
 interface IModalProps {
@@ -31,7 +32,7 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
     this.state = {
       email: '',
       username: '',
-      error: '',
+      error: ``,
       password: '',
       registerMod: false,
       verify: false
@@ -57,9 +58,23 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
 
   private onSubmission(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]{8,16}$/;
+
     if((this.state.registerMod && !this.state.username) || !this.state.password || !this.state.email){
       this.setState({error:'All fields are required'})
-    } else{
+    } else if (!EmailValidator.validate(this.state.email)){
+      this.setState({error:'Email must be in a valid format'});
+    }else if (!passwordRegex.test(this.state.password)) {
+      this.setState({error:`Password policy requires at least :
+      
+      8-16 characters
+      One number
+      One uppercase letter
+      One lowercase letter
+      One special character`})
+    }
+    else {
 
       this.props.onSubmission({
         username: this.state.username,
@@ -82,7 +97,7 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
         });
 
         this.props.clearModal();
-      },5000);
+      },4000);
     }
   };
 
@@ -98,7 +113,6 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
         className="modal" 
       >
         {!this.state.verify && <h3 className="modal-title">{ this.state.registerMod ? 'Registration details' : 'Sign in details' } </h3>}
-        {this.state.error && (<div className="modal-error"><h5>{this.state.error}</h5></div>)}
         {!this.state.verify ? 
         (<form onSubmit={this.onSubmission}>
           {this.state.registerMod && (
@@ -141,11 +155,19 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
           ></input>
             <br/>
             <br/>
+            {this.state.error && (<div className="modal-error"><h5>{this.state.error}</h5></div>)}
             <br/>
             <br/>
             <br/>
             <br/>
             <br/>
+            {this.state.registerMod && (
+              <div>
+                <br/>
+                <br/>
+                <br/>
+              </div>
+            )}
           <button className="main-button" onClick={() => {
             this.setState({
               registerMod: false,

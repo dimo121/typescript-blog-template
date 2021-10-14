@@ -64,6 +64,8 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
 
     const id:string = await this.retrieveUserId() as string;
 
+    if (id === 'Error retrieving user id') return;
+
     const blogCollection:Blog[] = await this.props.dataService.getBlogsByUser(id);
 
     this.setState({ blogCollection,
@@ -73,6 +75,11 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
 
 
   render(){
+
+    if(!this.props.user) return (
+    <div className="page-container">
+      <h1>Please login to see user specific blogs</h1>
+    </div>);
 
     if(this.state.loading) return (
       <div className="page-container">

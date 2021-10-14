@@ -416,8 +416,11 @@ button:disabled {
 
 .modal-error {
   position: absolute;
-  margin: 18rem 0 0 6.2rem;
-  text-align: center; }
+  right: 0;
+  left: 0;
+  text-align: center;
+  margin: auto;
+  white-space: pre; }
 
 .modal-verify {
   margin-top: 18rem; }
