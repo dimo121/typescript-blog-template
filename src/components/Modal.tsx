@@ -62,19 +62,24 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_])[a-zA-Z0-9!@#$%^&*_]{8,16}$/;
 
     if((this.state.registerMod && !this.state.username) || !this.state.password || !this.state.email){
-      this.setState({error:'All fields are required'})
+      
+      this.setState({error:'All fields are required'});
+
     } else if (!EmailValidator.validate(this.state.email)){
+      
       this.setState({error:'Email must be in a valid format'});
+
     }else if (!passwordRegex.test(this.state.password)) {
+      
       this.setState({error:`Password policy requires at least :
       
       8-16 characters
       One number
       One uppercase letter
       One lowercase letter
-      One special character`})
-    }
-    else {
+      One special character`});
+
+    } else {
 
       this.props.onSubmission({
         username: this.state.username,
