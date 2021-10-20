@@ -69,7 +69,7 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
       
       this.setState({error:'Email must be in a valid format'});
 
-    }else if (!passwordRegex.test(this.state.password)) {
+    }else if (this.state.registerMod && !passwordRegex.test(this.state.password)) {
       
       this.setState({error:`Password policy requires at least :
       
@@ -87,22 +87,37 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
         password: this.state.password 
       });
 
-      this.setState({
-        registerMod: false,
-        error: '',
-        email:'',
-        username:'',
-        password:'',
-        verify: true });
+      if(this.state.registerMod){
+        this.setState({
+          registerMod: false,
+          error: '',
+          email:'',
+          username:'',
+          password:'',
+          verify: true });
 
-      setTimeout(() => {
+        setTimeout(() => {
+          
+          this.setState({
+            verify: false
+          });
+
+          this.props.clearModal();
+        },4000);
+      } else {
         
         this.setState({
-          verify: false
-        });
+          registerMod: false,
+          error: '',
+          email:'',
+          username:'',
+          password:'',
+          verify: false});
 
         this.props.clearModal();
-      },4000);
+      }
+
+
     }
   };
 
@@ -127,7 +142,7 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
               <br />
                 <input
                   type="text"
-                  id="username"
+                  data-testid="username"
                   name="username"
                   placeholder="username"
                   style={{ fontSize: "12px", height: "1.5rem", width: "22rem" }}
@@ -140,7 +155,7 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
           <br />
           <input
             type="text"
-            id="useremail"
+            data-testid="useremail"
             name="useremail"
             placeholder="email"
             style={{ fontSize: "12px", height: "1.5rem", width: "22rem" }}
@@ -152,7 +167,7 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
           <br />
           <input
             type="text"
-            id="password"
+            data-testid="password"
             name="password"
             placeholder="password"
             style={{ fontSize: "12px", height: "1.5rem", width: "22rem" }}

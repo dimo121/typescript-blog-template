@@ -17,7 +17,7 @@
 	}
 }
 
-.header-logo{
+.header-logo {
 	height:35px; 
 	width:40px;
 	margin: 1em 0.5em -.1em 0.2em;
@@ -55,7 +55,7 @@
 		li a {
 			text-decoration: none;
 			display: block;
-			padding: 1em 1em;
+			padding: 1em;
 			color: white;
 			font-weight: 100;
 			font-size: 1.2em;
@@ -65,13 +65,8 @@
 			}
 		}
 		
-		.nav-signin {
-			right: 0; 
-			font-size: 1.2em;
-		}
 	}
 }
-
 
 .nav-toggle {
 	background: transparent;
@@ -80,6 +75,32 @@
 	padding: 0;
 }
 
+.nav-signin {
+	display: flex;
+	margin-top:-1em;
+	margin-right:0;
+	width: 10em;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+			
+	h3 {
+		margin-top: 4em;
+		font-size: 1em;
+		font-weight: 100;
+		line-height: 1.8em;
+	}
+	button {
+		margin: 0 1em;
+		
+	}
+
+}
+
+.nav-active {
+	background: #303A52;
+	border-bottom: 2px solid white;
+}
 
 @media(min-width:450px){
 
@@ -119,6 +140,26 @@
 				}
 			}
 		}
+		
+	}
+
+	.nav-signin{
+
+		margin-top: -1em;
+		margin-right:0;
+		width: 12em;
+		height: 5.2em;
+				
+		h3 {
+			margin: 1em auto 1em auto;
+			font-size: 1em;
+			font-weight: 100;
+			line-height: 1.2em;
+		}
+		button {
+			margin: 0 auto;
+		}
+	
 	}
 
 	.header-title {
@@ -135,12 +176,6 @@
 		width:55px;
 		margin: 1em 0.5em -0.1em 0.2em;
 	}
-	
-	.nav-signin {
-		right: 15rem; 
-		line-height: 0.8rem;
-		font-size: 1.2rem;
-	}
 
 }
 
@@ -153,6 +188,7 @@
 		}
 
 	}
+	
 }
 
 

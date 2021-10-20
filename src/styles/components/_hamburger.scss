@@ -2,9 +2,9 @@
 .hamburger{
   cursor: pointer;
   pointer-events: all;
-  position:fixed;
+  position:absolute;
   right: 2em;
-  top:4em;
+  top:3em;
   width: $header-hamburger--size;
   height: $header-hamburger--size;
 }

@@ -5,9 +5,15 @@
   flex-direction: column;
   overflow-y: scroll;
   overflow-x: hidden;
-  //padding-right: $l-size;
-  width: 120rem;
-  height: 180rem;
+  width: 100vw;
+  height: 115em;
+
+  h3 {
+    margin-left: 2rem;
+    color: white;
+    font-weight: lighter;
+    padding-bottom: 2em;
+  }
 }
 
 .item-container {
@@ -17,74 +23,133 @@
   padding: $s-size;
   font-family: "Playfair Display", serif;
   margin: 0 0 $l-size 2rem;
-  width: 120em;
+  width: 20em;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-
   position: relative;
 
-  h1 {
-    margin: $l-size;
-  }
-
-  span {
-    float: right;
-    font-size: 1.6em;
-    font-weight: 100;
-    margin-top: 0.5rem;
-  }
 }
 
 .item__inner {
-  padding-top: 2.5em;
-  flex: 1 0 auto;
+  padding-top: 1.5em;
+  flex: 1 1 auto;
   display: flex;
 
   p {
-    flex: 0 0 100em;
-    margin-left: $l-size;
+    flex: 0 0 18em;
+    margin-left: 1em;
   }
 }
 
 .item__upper {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   color: white;
   flex: 0 0 5em;
 
   span {
-    margin-left: auto;
+    margin: 0.8rem 0 0 1.2em;
+    font-size: 1em;
+    font-weight: 100;
   }
 
   h1 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    flex: 0 0 100em;
+    font-size: 1.2em;
+    margin-left: 1em;
   }
 }
 
 .item__lower{
-  margin-left: $l-size;
+  margin: 3em 0 0 1em;
 }
 
 @media(min-width:450px) {
 
-  .item-container{
-    margin: $xl-size auto 0 6rem;
+  .blog-container{
+    h3{
+      margin-top:6rem;
+      margin-left: 6rem;
+      padding:0;
+    }
   }
 
+  .item-container{
+    margin: $l-size auto 0 4.2em;
+    width: 38em;
+  }
+
+  .item__inner {
+    padding-top: 2em;
+  
+    p {
+      flex: 0 0 33em;
+      margin-left: $l-size;
+    }
+  }
+
+  .item__upper{
+    
+    span {
+      margin: 1rem 0 0 $l-size;
+      font-size: 1.2em;
+      font-weight: 100;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin-left: $l-size;
+    }
+  }
+
+  .item__lower{
+    margin: $m-size $l-size;
+  }
 }
 
 @media(min-width:800px) {
 
   .blog-container{
-    margin-top: 15em;
+    margin-top: 12em;
+    
+    h3{
+      margin-left: 18rem;
+    }
+  
   }
 
   .item-container{
-    margin: $xl-size auto 0 18rem;
+    margin: $xl-size auto 0 7em;
+    width: 65em;
   }
 
+  .item__inner {
+    padding-top: 2.5em;
+  
+    p {
+      flex: 0 0 60em;
+      margin-left: $l-size;
+    }
+  }
+
+  .item__upper{
+    flex-direction: row;
+
+    h1 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 0 0 80rem;
+      font-size: 1.8em;
+    }
+  }
+
+  .item__lower{
+    
+    margin: $m-size $l-size;
+    
+  }
 }

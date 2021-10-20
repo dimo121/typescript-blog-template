@@ -46,7 +46,7 @@ export class BlogPage extends React.Component<IBlogPageProps & RouteComponentPro
       <div className="page-container">
         <div className="blog-container">
           <BlogItem key={this.state.blog?.id} blog={{ ...this.state.blog }} />
-          <h3 style={{ marginLeft: '30px', color: "white", fontWeight: 'lighter', paddingBottom: '30px'}}>Entries:</h3>
+          <h3>Entries:</h3>
           {this.state.blog?.entries?.map((item) => {
             return <EntryItem key={item.id} entry={item} />;
           })}

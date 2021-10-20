@@ -46,3 +46,22 @@
     }
   }
 }
+
+@media(max-width:450px){
+
+  .footer-container{
+    ul{
+      flex-direction: column;
+      align-items: start;
+      
+      li:first-of-type {
+        font-weight: bold;
+        margin: 1em 0 2em 0;
+      }
+
+      li:nth-child(5){
+          margin: 1.5em 0;
+      }
+    }
+  }
+}

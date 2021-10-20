@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should take a snapshot of the header 1`] = `
+<div>
+  <header
+    class="header-container"
+  >
+    <div
+      class="header-title"
+    >
+      <span>
+        <h1>
+          <img
+            alt="React logo"
+            class="header-logo"
+            src="react-logo.png"
+          />
+          React.JS blog
+        </h1>
+      </span>
+      <button
+        class="nav-toggle"
+      >
+        <span
+          class="hamburger"
+          data-testid="hamburger"
+        >
+          <span
+            class="hamburger-inner"
+          />
+        </span>
+      </button>
+    </div>
+    <div
+      class="nav-container"
+    >
+      <ul>
+        <li>
+          <a
+            aria-current="page"
+            class="nav-links active"
+            href="/"
+          >
+            Home
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-links"
+            href="/dashboard"
+          >
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-links"
+            href="/createblog"
+          >
+            Create blog
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-links"
+            href="/myblogs"
+          >
+            My blogs
+          </a>
+        </li>
+        <li>
+          <p
+            class="nav-signin"
+          />
+          <button
+            class="main-button"
+          >
+            Sign In
+          </button>
+        </li>
+      </ul>
+    </div>
+  </header>
+</div>
+`;

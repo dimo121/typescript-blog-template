@@ -94,7 +94,7 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
                     <h1><img  src={img} className='header-logo' alt="React logo" />React.JS blog</h1>
                 </span>
                 <button className="nav-toggle" onClick={this.state.isActive ? this.closeMenu: this.openMenu}>
-                    <span className="hamburger">
+                    <span className="hamburger" data-testid="hamburger">
                         <span className="hamburger-inner"></span>
                     </span>
                 </button>
@@ -102,30 +102,32 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
             <div className="nav-container">
                 <ul>
                     <li>
-                        <NavLink className="nav-links" to="/">
+                        <NavLink exact onClick={this.closeMenu} className="nav-links" activeClassName="nav-active" to="/">
                             Home
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink className="nav-links" to="/dashboard">
+                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-active" to="/dashboard">
                             Dashboard
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink className="nav-links" to="/createblog">
+                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-active" to="/createblog">
                             Create blog
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink className="nav-links" to="/myblogs">
+                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-active" to="/myblogs">
                             My blogs
                         </NavLink>
                     </li>
                     <li>
-                        <p className="nav-signin">{this.props.user ? `Signed in as : ${this.props.user.username}` : ''}</p>
-                        <button className="main-button" onClick={this.onSignInClick}>
-                            {this.props.user ? "Sign Out" : "Sign In"}
-                        </button>
+                        <div className="nav-signin">
+                            <h3>{this.props.user ? `Signed in as : ${this.props.user.username}` : ''}</h3>
+                            <button className="main-button" onClick={this.onSignInClick}>
+                                {this.props.user ? "Sign Out" : "Sign In"}
+                            </button>
+                        </div>
                     </li>
                 </ul>
             </div>

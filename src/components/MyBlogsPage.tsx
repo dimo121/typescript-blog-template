@@ -36,7 +36,7 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
     }
   }
 
-  private retrieveUserId(){
+  private retrieveUserId(): Promise<string>{
     return new Promise((res) => {
       if(this.props.user) {
         this.props.user.user.getUserAttributes((err,result) => {
@@ -78,7 +78,7 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
 
     if(!this.props.user) return (
     <div className="page-container">
-      <h1>Please login to see user specific blogs</h1>
+      <h1 style={{fontSize : '1em', color:'white', padding:'4em',marginTop:'0'}}>Login to see user specific blogs</h1>
     </div>);
 
     if(this.state.loading) return (
