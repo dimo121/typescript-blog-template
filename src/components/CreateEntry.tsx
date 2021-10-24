@@ -1,5 +1,3 @@
-// *** transferring to Appsync client *** //
-
 import EntryFormPage from './EntryFormPage';
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, useLocation } from 'react-router-dom';

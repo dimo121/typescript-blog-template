@@ -59,7 +59,6 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
         this.setState({modalOpen: false});
     };
   
-    //Is onSubmission called before clearModal, required for if else statement loginMod true
     private async onSubmission (user:NewUserInput): Promise<void> {
         if(!user.username){
             const authUser = await this.props.authService.login(user.email, user.password)
@@ -67,10 +66,8 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
             this.props.setUser(authUser);
         }
         else{
-            //change to register Cognito user 
             const authUser = await this.props.authService.signUp(user.username,user.password,user.email)
             console.log('Registered: ', authUser);
-            //this.props.setUser(authUser);
         }
     }
 

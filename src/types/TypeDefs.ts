@@ -7,18 +7,9 @@ export interface NewUserInput {
     password: string;
 }
 
-export interface NewEntryInput {
-    title:string;
-    content:string;
-    user:string;
-    blog_id:string;
-}
+export type NewEntryInput = Omit<Entry, 'id'|'createdAt'>
 
-export interface NewBlogInput {
-    title:string;
-    content:string;
-    user:string;
-}
+export type NewBlogInput = Omit<Item, 'id'|'createdAt' >
 
 export interface User {
     username: string;
@@ -46,7 +37,7 @@ export interface Blog extends Item{
 }
 
 export interface Entry extends Item{
-    blog_id: number;
+    blog_id: string;
 }
 
 export type Search = 'Title'|'Content';
