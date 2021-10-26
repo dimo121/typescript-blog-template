@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import '../styles/styles.css';
 import Header from '../components/Header';
 import BlogPage from '../components/BlogPage';
@@ -11,12 +11,13 @@ import { Route, Router, Switch }  from 'react-router-dom';
 import { User } from '../types/TypeDefs';
 import { AuthService } from '../services/AuthService/AuthService';
 import { DataService } from '../services/DataService/DataService';
-import { Contact } from '../components/Contact';
 import { CreateEntry } from '../components/CreateEntry';
 import { Footer } from '../components/Footer';
 import { MyBlogsPage } from '../components/MyBlogsPage';
 import { ScrollToTop } from '../components/ScrollToTop';
 import { Partners } from '../components/Partners';
+
+const Contact = lazy(() => import("../components/Contact"));
 
 
 interface IAppState {
@@ -80,7 +81,15 @@ export default class AppRouter extends React.Component<{},IAppState>{
                       render={(props) => <BlogPage {...props} dataService={this.dataService}/>}
                 />
                 <Route exact path="/partners" component={Partners} />
-                <Route exact path="/contactus" component={Contact} />
+                <Route exact path="/contactus" render={() => (
+                  <Suspense fallback={
+                    <div className="page-container">
+                      <h1 style={{fontSize : '1em', color:'white', padding:'4em',marginTop:'0'}}>Loading...</h1>
+                    </div>} >
+                    <Contact />
+                  </Suspense>
+                )}
+                />
               </Switch>
               <Footer />
             </div>

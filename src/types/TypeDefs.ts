@@ -41,3 +41,10 @@ export interface Entry extends Item{
 }
 
 export type Search = 'Title'|'Content';
+
+export type EmailMessage = {
+    name : string;
+    email: string;
+    subject: string;
+    content: string;
+}

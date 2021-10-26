@@ -71,7 +71,6 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
         }
     }
 
-
     render() {
 
         if(this.props.user) {
@@ -99,22 +98,22 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
             <div className="nav-container">
                 <ul>
                     <li>
-                        <NavLink exact onClick={this.closeMenu} className="nav-links" activeClassName="nav-active" to="/">
+                        <NavLink exact onClick={this.closeMenu} className="nav-links" activeClassName="nav-link-active" to="/">
                             Home
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-active" to="/dashboard">
+                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-link-active" to="/dashboard">
                             Dashboard
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-active" to="/createblog">
+                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-link-active" to="/createblog">
                             Create blog
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-active" to="/myblogs">
+                        <NavLink onClick={this.closeMenu} className="nav-links" activeClassName="nav-link-active" to="/myblogs">
                             My blogs
                         </NavLink>
                     </li>
