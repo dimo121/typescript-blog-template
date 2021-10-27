@@ -55,11 +55,7 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
 
   public render() {
 
-      if(this.state.loading) return (
-        <div className="page-container">
-          <Spinner />
-        </div>
-      );
+      if(this.state.loading) return <Spinner />;
 
       let resultBlogs: Blog[] = filterBlogs(this.state.blogCollection,this.state.text,this.state.search)
 
@@ -68,7 +64,7 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
       resultBlogs = paginateLocal(resultBlogs, this.state.page);
       
       return (
-        <div className="page-container">
+        <div>
           <BlogListFilter
             text={this.state.text}
             search={this.state.search}

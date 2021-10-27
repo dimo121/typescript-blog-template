@@ -43,14 +43,12 @@ export class BlogPage extends React.Component<IBlogPageProps & RouteComponentPro
     //let data:Blog[] = db_mock.filter(item => item.id === parseInt(this.props.match.params.id))
 
     return (
-      <div className="page-container">
-        <div className="blog-container">
-          <BlogItem key={this.state.blog?.id} blog={{ ...this.state.blog }} />
-          <h3>Entries:</h3>
-          {this.state.blog?.entries?.map((item) => {
-            return <EntryItem key={item.id} entry={item} />;
-          })}
-        </div>
+      <div className="blog-container">
+        <BlogItem key={this.state.blog?.id} blog={{ ...this.state.blog }} />
+        <h3>Entries:</h3>
+        {this.state.blog?.entries?.map((item) => {
+          return <EntryItem key={item.id} entry={item} />;
+        })}
       </div>
     );
   }

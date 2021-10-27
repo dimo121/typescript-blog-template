@@ -49,25 +49,23 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
 
 
   return (
-    <div className="page-container">
-      <div className="create-container">
-        <h1>Create entry</h1>
-        <EntryFormPage
-          onSubmission={async (title:string,content:string) => {
+    <div className="create-container">
+      <h1>Create entry</h1>
+      <EntryFormPage
+        onSubmission={async (title:string,content:string) => {
 
-            const result: boolean = await props.dataService.createEntry({
-              title,
-              content,
-              user: userId,
-              blog_id : state.blog_id
-            });
+          const result: boolean = await props.dataService.createEntry({
+            title,
+            content,
+            user: userId,
+            blog_id : state.blog_id
+          });
 
-            setResult(result);
-            
-          }}
-        />
-        {completed && <Redirect to='/dashboard' />}
-      </div>
+          setResult(result);
+          
+        }}
+      />
+      {completed && <Redirect to='/dashboard' />}
     </div>
   );
 };

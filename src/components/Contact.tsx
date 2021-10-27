@@ -25,61 +25,59 @@ const Contact:React.FC = () => {
     }
 
     return (
-        <div className='page-container'>
-            <div className='create-container'>
-                <h1>Contact us</h1>
-                <h5><i>Please fill in the form and we will respond within 48 business hours</i></h5>
-                <div className="entry-form-container">
-                    <form onSubmit={onSubmit}>
-                        <label htmlFor="name">Name:</label>
-                        <br />
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder=""
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>):void => setName(e.target.value)}
-                        ></input>
-                        <br />
-                        <br />
-                        <label htmlFor="email">Email:</label>
-                        <br />
-                        <input
-                            type="text"
-                            id="email"
-                            name="email"
-                            placeholder=""
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>):void => setEmail(e.target.value)}
-                        ></input>
-                        <br />
-                        <br />
-                        <label htmlFor="title">Subject:</label>
-                        <br />
-                        <input
-                            type="text"
-                            id="subject"
-                            name="subject"
-                            placeholder=""
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>):void => setSubject(e.target.value)}
-                        ></input>
-                        <br />
-                        <br />
-                        <label htmlFor="content">Content:</label>
-                        <br />
-                        <textarea
-                            id="content"
-                            name="content"
-                            cols={100}
-                            rows={20}
-                            placeholder=""
-                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>):void => setContent(e.target.value)}
-                        ></textarea>
-                        <br />
-                        <br />
-                        <input className="button" type="submit" value="Send" />
-                    </form>
-                    {error && <p className="entry-error">Error : {error}</p>}
-                </div>
+        <div className='create-container'>
+            <h1>Contact us</h1>
+            <h5><i>Please fill in the form and we will respond within 48 business hours</i></h5>
+            <div className="entry-form-container">
+                <form onSubmit={onSubmit}>
+                    <label htmlFor="name">Name:</label>
+                    <br />
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder=""
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>):void => setName(e.target.value)}
+                    ></input>
+                    <br />
+                    <br />
+                    <label htmlFor="email">Email:</label>
+                    <br />
+                    <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        placeholder=""
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>):void => setEmail(e.target.value)}
+                    ></input>
+                    <br />
+                    <br />
+                    <label htmlFor="title">Subject:</label>
+                    <br />
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder=""
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>):void => setSubject(e.target.value)}
+                    ></input>
+                    <br />
+                    <br />
+                    <label htmlFor="content">Content:</label>
+                    <br />
+                    <textarea
+                        id="content"
+                        name="content"
+                        cols={100}
+                        rows={20}
+                        placeholder=""
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>):void => setContent(e.target.value)}
+                    ></textarea>
+                    <br />
+                    <br />
+                    <input className="button" type="submit" value="Send" />
+                </form>
+                {error && <p className="entry-error">Error : {error}</p>}
             </div>
         </div>
     )

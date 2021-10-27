@@ -76,16 +76,9 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
 
   render(){
 
-    if(!this.props.user) return (
-    <div className="page-container">
-      <h1 style={{fontSize : '1em', color:'white', padding:'4em',marginTop:'0'}}>Login to see user specific blogs</h1>
-    </div>);
+    if(!this.props.user) return <h1 style={{fontSize : '1em', color:'white', padding:'4em',marginTop:'0'}}>Login to see user specific blogs</h1>;
 
-    if(this.state.loading) return (
-      <div className="page-container">
-        <Spinner />
-      </div>
-    );
+    if(this.state.loading) return <Spinner />;
 
     let resultBlogs: Blog[] = filter(this.state.blogCollection,this.state.text,this.state.search)
 
@@ -94,7 +87,7 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
     resultBlogs = paginateLocal(resultBlogs, this.state.page);    
 
     return (
-      <div className="page-container">
+      <div>
          <BlogListFilter
             text={this.state.text}
             search={this.state.search}

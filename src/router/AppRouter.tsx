@@ -15,9 +15,9 @@ import { CreateEntry } from '../components/CreateEntry';
 import { Footer } from '../components/Footer';
 import { MyBlogsPage } from '../components/MyBlogsPage';
 import { ScrollToTop } from '../components/ScrollToTop';
-import { Partners } from '../components/Partners';
 
 const Contact = lazy(() => import("../components/Contact"));
+const Partners = lazy(() => import("../components/Partners"));
 
 
 interface IAppState {
@@ -40,7 +40,6 @@ export default class AppRouter extends React.Component<{},IAppState>{
   private dataService: DataService = new DataService();
 
 
-
   private setUser(user:User|undefined){
     
     this.setState({
@@ -57,40 +56,43 @@ export default class AppRouter extends React.Component<{},IAppState>{
             <div>
               <ScrollToTop />
               <Header user={this.state.user} setUser={this.setUser} authService={this.authService}/>
-              <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/dashboard' 
+              <div className='page-container'>
+                <Switch>
+                  <Route exact path='/' component={Home} />
+                  <Route exact path='/dashboard' 
+                          render={(props) => (
+                            <Dashboard {...props} dataService={this.dataService} />
+                          )} 
+                  />
+                  <Route exact path="/createblog"
                         render={(props) => (
-                          <Dashboard {...props} dataService={this.dataService} />
+                            <CreateBlog {...props} dataService={this.dataService} user={this.state.user}/>
                         )} 
-                />
-                <Route exact path="/createblog"
-                      render={(props) => (
-                          <CreateBlog {...props} dataService={this.dataService} user={this.state.user}/>
-                      )} 
-                />
-                <Route exact path="/createentry"
-                      render={(props) => (
-                          <CreateEntry {...props} dataService={this.dataService} user={this.state.user}/>
-                      )} 
-                />
-                <Route exact path="/myblogs"
-                      render={(props) => <MyBlogsPage {...props} dataService={this.dataService} user={this.state.user} />} 
-                />
-                <Route exact path="/blog/:id" 
-                      render={(props) => <BlogPage {...props} dataService={this.dataService}/>}
-                />
-                <Route exact path="/partners" component={Partners} />
-                <Route exact path="/contactus" render={() => (
-                  <Suspense fallback={
-                    <div className="page-container">
-                      <h1 style={{fontSize : '1em', color:'white', padding:'4em',marginTop:'0'}}>Loading...</h1>
-                    </div>} >
-                    <Contact />
-                  </Suspense>
-                )}
-                />
-              </Switch>
+                  />
+                  <Route exact path="/createentry"
+                        render={(props) => (
+                            <CreateEntry {...props} dataService={this.dataService} user={this.state.user}/>
+                        )} 
+                  />
+                  <Route exact path="/myblogs"
+                        render={(props) => <MyBlogsPage {...props} dataService={this.dataService} user={this.state.user} />} 
+                  />
+                  <Route exact path="/blog/:id" 
+                        render={(props) => <BlogPage {...props} dataService={this.dataService}/>}
+                  />
+                  <Route exact path="/partners" 
+                        render={() => 
+                    <Suspense fallback={<h1>Loading...</h1>}>
+                      <Partners />
+                    </Suspense>} 
+                  />
+                  <Route exact path="/contactus" render={() => 
+                    <Suspense fallback={<h1>Loading...</h1>}>
+                      <Contact />
+                    </Suspense>}
+                  />
+                </Switch>
+              </div>
               <Footer />
             </div>
           </Router>

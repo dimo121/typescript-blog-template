@@ -56,26 +56,24 @@ export class CreateBlog extends React.Component<ICreateBlogProps,ICreateBlogStat
   render(){
 
     return (
-      <div className="page-container">
-        <div className="create-container">
-          <h1>Create blog</h1>
-          <EntryFormPage
-            onSubmission={async (title:string,content:string) => {
+      <div className="create-container">
+        <h1>Create blog</h1>
+        <EntryFormPage
+          onSubmission={async (title:string,content:string) => {
 
-              const result:boolean = await this.props.dataService.createBlog({
-                title,
-                content,
-                user: this.state.userId
-              });
+            const result:boolean = await this.props.dataService.createBlog({
+              title,
+              content,
+              user: this.state.userId
+            });
 
-              if(result === true){
-                this.setState({completed:true});
-              }
-              
-            }}
-          />
-          {this.state.completed && <Redirect to='/dashboard' />}
-        </div>
+            if(result === true){
+              this.setState({completed:true});
+            }
+            
+          }}
+        />
+        {this.state.completed && <Redirect to='/dashboard' />}
       </div>
       );
   };
