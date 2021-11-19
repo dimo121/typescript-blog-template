@@ -1,23 +1,25 @@
 import { render, screen } from '@testing-library/react';
 import Header from '../components/Header';
 import { AuthService } from '../services/AuthService/AuthService';
-import { User } from '../types/TypeDefs';
 import { Router } from 'react-router-dom';
 import history from '../utils/history';
+import '../styles/styles.css';
+import Enzyme, { mount } from 'enzyme'; 
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+
+Enzyme.configure({
+    adapter: new Adapter()
+});
 
 
 const authService = new AuthService();
 
-function setUser(user:User|undefined){
-    
-  console.log('Logged in user is: ', user?.username);
-};
-
+const mockSetUser = jest.fn();
 
 test('renders header title React.JS blog', () => {
 
   render(<Router history={history}>
-    <Header setUser={setUser} authService={authService}/>
+    <Header setUser={mockSetUser} authService={authService}/>
     </Router>);
   const linkElement = screen.getByText(/React.JS blog/i);
   expect(linkElement).toBeInTheDocument();
@@ -27,27 +29,29 @@ test('renders header title React.JS blog', () => {
 
 test('should take a snapshot of the header', () => {
   const { container } = render(<Router history={history}>
-    <Header setUser={setUser} authService={authService}/>
+    <Header setUser={mockSetUser} authService={authService}/>
     </Router>);
 
   expect(container).toMatchSnapshot();
 })
 
-test('should render hamburger for mobile interface only', () => {
-    
-    render(<Router history={history}>
-            <Header setUser={setUser} authService={authService}/>
-          </Router>);
 
-    global.innerWidth = 520;
+test('should render hamburger for mobile screen size only', () => {
+    
+    render(<Router history={history}> 
+              <Header setUser={mockSetUser} authService={authService}/>
+            </Router>);
+
+    global.innerWidth = 320;
     global.innerHeight = 750;
     global.dispatchEvent(new Event('resize'));
 
-
-    expect(window.innerWidth).toEqual(520);
+    expect(window.innerWidth).toEqual(320);
     expect(window.innerHeight).toEqual(750);
     
-    expect(screen.getByTestId('hamburger')).toBeInTheDocument();
+    //expect(screen.getByTestId('hamburger')).toHaveStyle('display: none');
+    //expect(wrapper.find('#hamburger').getDOMNode()).toHaveStyle('display: none');
+    //toHaveStyle('display : none');
     //expect(button).toHaveAttribute('class','nav-toggle');
     //still renders with display : none
 })

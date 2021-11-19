@@ -57,6 +57,10 @@ export class DataService {
         return true;
     }
 
+    // public async deleteBlog(id: string): Promise<void> {
+
+    // }
+
     public async createEntry(entry:NewEntryInput): Promise<boolean>{
         
         let resultEntry: Entry;

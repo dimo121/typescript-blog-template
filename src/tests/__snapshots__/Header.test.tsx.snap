@@ -38,7 +38,7 @@ exports[`should take a snapshot of the header 1`] = `
         <li>
           <a
             aria-current="page"
-            class="nav-links active"
+            class="nav-links nav-link-active"
             href="/"
           >
             Home
@@ -69,14 +69,16 @@ exports[`should take a snapshot of the header 1`] = `
           </a>
         </li>
         <li>
-          <p
+          <div
             class="nav-signin"
-          />
-          <button
-            class="main-button"
           >
-            Sign In
-          </button>
+            <h3 />
+            <button
+              class="main-button"
+            >
+              Sign In
+            </button>
+          </div>
         </li>
       </ul>
     </div>

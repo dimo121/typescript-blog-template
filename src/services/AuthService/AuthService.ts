@@ -45,7 +45,7 @@ export class AuthService {
                     email
                 }
             });
-            console.log(user);
+        
             return {
                 username: user.getUsername(),
                 user

@@ -175,7 +175,7 @@ export class ModalComponent extends React.Component<IModalProps,IModalState>{
           ></input>
             <br/>
             <br/>
-            {this.state.error && (<div className="modal-error"><h5>{this.state.error}</h5></div>)}
+            {this.state.error && (<div className="modal-error" data-testid="modal-error"><h5>{this.state.error}</h5></div>)}
             <br/>
             <br/>
             <br/>

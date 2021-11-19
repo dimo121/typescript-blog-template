@@ -5,13 +5,9 @@ import user from "@testing-library/user-event";
 
 let modalOpen: boolean = true;
 
-const mockSubmission = () => {
-  console.log("form submitted");
-};
+const mockSubmission = jest.fn();
 
-const mockClearModal = () => {
-  modalOpen = false;
-};
+const mockClearModal = jest.fn(); 
 
 it("test if modal is open and rendering elements", () => {
   render(
@@ -30,7 +26,7 @@ it("test if modal is open and rendering elements", () => {
     screen.getByText(/If you are not a member please register/i)
   ).toBeInTheDocument();
   expect(screen.getByRole("button", { name: "Register" })).toBeInTheDocument();
-  //screen.debug();
+  
 });
 
 it("test registration modal is rendering after register button is pressed", () => {
@@ -75,7 +71,6 @@ it("should render error message if Email field is missing", () => {
 
     expect(screen.getByText(/All fields are required/i)).toBeInTheDocument();
 
-    //screen.debug();
 })
 
 it("should render error message if Password field is missing", () => {
@@ -97,10 +92,9 @@ it("should render error message if Password field is missing", () => {
 
     expect(screen.getByText(/All fields are required/i)).toBeInTheDocument();
 
-    //screen.debug();
 })
 
-it("should not render error message if no fields is missing", () => {
+it("should submit and trigger mockSubmission if no fields are missing", () => {
     render(
         <ModalComponent
           modalOpen={modalOpen}
@@ -109,26 +103,118 @@ it("should not render error message if no fields is missing", () => {
         />
     );
 
-    const passwordInput = screen.getByTestId('useremail');
+    const passwordInput = screen.getByTestId('password');
 
     user.type(passwordInput, 'testing123');
+
+    const emailInput = screen.getByTestId('useremail')
+
+    user.type(emailInput, 'testing123@gmail.com');
 
     const submitButton = screen.getByRole('button', { name: 'Enter'});
 
     user.click(submitButton);
 
-    expect(screen.getByText(/All fields are required/i)).toBeInTheDocument();
+    expect(mockSubmission).toHaveBeenCalledWith({
+      username: '',
+      email: 'testing123@gmail.com',
+      password: 'testing123'
+    });
 
-    //screen.debug();
 })
 
-test("should take a snapshot of the container", () => {
-  const { container } = render(
-    <ModalComponent
-      modalOpen={modalOpen}
-      onSubmission={mockSubmission}
-      clearModal={mockClearModal}
-    />
+
+it("should render registration modal upon register button click", () => {
+  render(
+      <ModalComponent
+        modalOpen={modalOpen}
+        onSubmission={mockSubmission}
+        clearModal={mockClearModal}
+      />
   );
-  expect(container).toMatchInlineSnapshot(`<div />`);
+
+  const registerButton = screen.getByRole('button', { name: 'Register' });
+
+  user.click(registerButton);
+
+  expect(screen.getByText(/Registration details/i)).toBeInTheDocument();
+
 });
+
+it("should render error message if username field is missing on register", () => {
+  render(
+      <ModalComponent
+        modalOpen={modalOpen}
+        onSubmission={mockSubmission}
+        clearModal={mockClearModal}
+      />
+  );
+
+  const registerButton = screen.getByRole('button', { name: 'Register' });
+
+  user.click(registerButton);
+
+  const passwordInput = screen.getByTestId('password');
+
+  user.type(passwordInput, 'testing123');
+
+  const emailInput = screen.getByTestId('useremail')
+
+  user.type(emailInput, 'testing123@gmail.com');
+
+  const submitButton = screen.getByRole('button', { name: 'Enter' });
+
+  user.click(submitButton);
+
+  expect(screen.getByText(/All fields are required/i)).toBeInTheDocument();
+
+})
+
+it("should submit and trigger mockSubmission if no registration fields are missing", () => {
+  render(
+      <ModalComponent
+        modalOpen={modalOpen}
+        onSubmission={mockSubmission}
+        clearModal={mockClearModal}
+      />
+  );
+
+  const registerButton = screen.getByRole('button', { name: 'Register' });
+
+  user.click(registerButton);
+
+  const usernameInput = screen.getByTestId('username');
+
+  user.type(usernameInput, 'registerUser123');
+
+  const passwordInput = screen.getByTestId('password');
+
+  user.type(passwordInput, 'testing123');
+
+  const emailInput = screen.getByTestId('useremail')
+
+  user.type(emailInput, 'testing123@gmail.com');
+
+  const submitButton = screen.getByRole('button', { name: 'Enter'});
+
+  user.click(submitButton);
+
+  expect(mockSubmission).toHaveBeenCalledWith({
+    username: 'registerUser123',
+    email: 'testing123@gmail.com',
+    password: 'testing123'
+  });
+
+})
+
+
+// test("take a snapshot of the container", () => {
+//   const { container } = render(
+//     <ModalComponent
+//       modalOpen={modalOpen}
+//       onSubmission={mockSubmission}
+//       clearModal={mockClearModal}
+//     />
+//   );
+//   expect(container).toMatchInlineSnapshot(`<div />`);
+// });
