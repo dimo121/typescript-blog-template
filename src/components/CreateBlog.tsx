@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataService } from '../services/DataService/DataService';
+import { DataService } from '../controllers/DataService/DataService';
 import EntryFormPage from './EntryFormPage';
 import { User } from '../types/TypeDefs';
 import { Redirect } from 'react-router';
@@ -24,13 +24,22 @@ export class CreateBlog extends React.Component<ICreateBlogProps,ICreateBlogStat
       userId: '',
       completed: false
     };
+
+    this.retrieveUserId = this.retrieveUserId.bind(this);
   }
 
   async componentDidMount(){
 
-    let userId:string = await this.retrieveUserId() as string;
+    let userId:string = '';
+    try {
+      userId = await this.retrieveUserId() as string;
+    } catch (error) {
+      console.log(error)
+    }
+    
+    console.log(userId);
 
-    this.setState({userId});
+    if(userId) this.setState({userId});
     
   }
 
@@ -39,8 +48,7 @@ export class CreateBlog extends React.Component<ICreateBlogProps,ICreateBlogStat
       if(this.props.user) {
         this.props.user.user.getUserAttributes((err,result) => {
           if(err){
-            alert(err);
-            return '';
+            return err;
           } else{
             if(result){
               resolve(result[0].Value);
@@ -59,19 +67,20 @@ export class CreateBlog extends React.Component<ICreateBlogProps,ICreateBlogStat
       <div className="create-container">
         <h1>Create blog</h1>
         <EntryFormPage
-          onSubmission={async (title:string,content:string) => {
-
+          onSubmission={async (title:string,content:string,blogPhotoId:string) => {
             const result:boolean = await this.props.dataService.createBlog({
               title,
               content,
+              blogPhotoId,
               user: this.state.userId
             });
 
             if(result === true){
               this.setState({completed:true});
             }
-            
           }}
+          dataService={this.props.dataService}
+          userId={this.state.userId}
         />
         {this.state.completed && <Redirect to='/dashboard' />}
       </div>

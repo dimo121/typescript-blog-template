@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataService } from '../services/DataService/DataService';
+import { DataService } from '../controllers/DataService/DataService';
 import { Blog, Search, User } from '../types/TypeDefs';
 import { BlogItem } from './BlogItem';
 import { BlogListFilter } from './BlogListFilter';
@@ -100,7 +100,7 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
         <div className="blog-container">
           {this.state.blogCollection.map((item) => (
             <div key={item.id}>
-              <BlogItem blog={{ ...item }} />
+              <BlogItem blog={{ ...item }} dataService={this.props.dataService}/>
               <button
                 className="blog-button delete-button"
                 //onClick={() => this.funcDeleteBlog(item.id)}

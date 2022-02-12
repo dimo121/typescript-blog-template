@@ -7,9 +7,13 @@ export interface NewUserInput {
     password: string;
 }
 
-export type NewEntryInput = Omit<Entry, 'id'|'createdAt'>
+type NewBlogPhoto = {
+    blogPhotoId : string
+}
 
-export type NewBlogInput = Omit<Item, 'id'|'createdAt' >
+export type NewEntryInput = Omit<Entry, 'id'|'createdAt'> & NewBlogPhoto
+
+export type NewBlogInput = Omit<Item, 'id'|'createdAt' > & NewBlogPhoto
 
 export interface User {
     username: string;
@@ -34,6 +38,7 @@ type Item = {
 
 export interface Blog extends Item{
     entries?: Entry[];
+    blogPhotoId?: string;
 }
 
 export interface Entry extends Item{

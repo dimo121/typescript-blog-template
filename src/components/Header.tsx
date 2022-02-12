@@ -1,7 +1,7 @@
 import React from 'react';
 import img from './react-logo.png';
-import { ModalComponent } from './Modal';
-import { AuthService } from '../services/AuthService/AuthService';
+import ModalComponent from './Modal';
+import { AuthService } from '../controllers/AuthService/AuthService';
 import { User, NewUserInput } from '../types/TypeDefs';
 import { NavLink } from 'react-router-dom';
 
@@ -73,15 +73,16 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
 
     render() {
 
-        if(this.props.user) {
-            this.props.user.user.getUserAttributes((err,result) => {
-                if(err){
-                console.log(err);
-                } else{
-                    if(result) console.log(result[0].Value)
-                }
-          });
-        }
+        // if(this.props.user) {
+        //     this.props.user.user.getUserAttributes((err,result) => {
+        //         if(err){
+        //             console.log(err);
+        //         } else{
+        //             if(result) 
+        //                 console.log(result[0].Value)
+        //         }
+        //   });
+        // }
 
         return(
         <header className="header-container">
@@ -131,6 +132,7 @@ export class Header extends React.Component <IHeaderProps,IHeaderState> {
                 modalOpen={this.state.modalOpen}
                 clearModal={this.clearModal}
                 onSubmission={this.onSubmission}
+                authService={this.props.authService}
             />
         </header>
         )

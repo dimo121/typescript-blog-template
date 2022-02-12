@@ -2,9 +2,19 @@ import { Blog, Entry, NewBlogInput, NewEntryInput, NewUserInput } from '../../ty
 import awsconfig from '../../aws-exports';
 import Amplify, { API, Auth } from 'aws-amplify';
 import { LOAD_BLOGS, FIND_BLOG, CREATE_BLOG, CREATE_ENTRY, BLOGS_BY_USER, CREATE_USER } from "./protocol";
-
+import { base64Encode } from '../../utils/base64Encode';
+import AWS, { S3 } from 'aws-sdk';
+import { config } from '../config';
+import { generateRandomId } from '../../utils/generateId';
 
 Amplify.configure(awsconfig);
+API.configure(awsconfig);
+
+AWS.config.region = 'ap-southeast-2';
+
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: config.IDENTITY_POOL_ID
+});
 
 export class DataService {
 
@@ -37,11 +47,72 @@ export class DataService {
         return result.data.blog;
     }
 
+    public async getBlogFile(key:string):Promise<string>{
+
+        let result: any;
+
+        const s3Client = new S3({
+            region: config.REGION
+        })
+
+        const params = {
+            "Bucket": config.BLOGS_PHOTOS_BUCKET,
+            "Key": 'blogs/' + key
+        };
+
+        try {
+            result = await s3Client.getObject(params).promise();    
+        } catch (error:any) {
+            console.log('500 - ', error);
+        }
+
+        return result;
+    }
+
+    public async uploadBlogFile(file: File){
+
+        let authToken;
+
+        try{
+            authToken = await this.getAuthToken();
+        }catch(e){
+            console.log(e);
+        }
+        
+        let fileBase64 = await base64Encode(file);
+
+        const blogPhotoId = generateRandomId();
+
+        let result: any; 
+        
+        try{
+            result = await API.post('blogs-photos-api',`blogs/?filename=${blogPhotoId}`, {
+                body: fileBase64,
+                headers: {
+                    "Authorization": `Bearer ${authToken}`,
+                    "Content-type": 'image/jpeg'
+                }
+            });
+            
+        }catch(e){
+            console.log(e);
+            return '';
+        } 
+
+        console.log('From REST : ', result)
+
+        return blogPhotoId;
+    }
+
     public async createBlog(blog:NewBlogInput): Promise<boolean>{
+
         let resultBlog: Blog;
+
 
         try{
             const authToken = await this.getAuthToken();
+
+            console.log('Auth token: ', authToken);
 
             resultBlog = await API.graphql({    query:CREATE_BLOG, 
                                                 variables:{createBlogInput:{ ...blog }},

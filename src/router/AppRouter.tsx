@@ -9,8 +9,8 @@ import Home from '../components/Home';
 import history from '../utils/history';
 import { Route, Router, Switch }  from 'react-router-dom';
 import { User } from '../types/TypeDefs';
-import { AuthService } from '../services/AuthService/AuthService';
-import { DataService } from '../services/DataService/DataService';
+import { AuthService } from '../controllers/AuthService/AuthService';
+import { DataService } from '../controllers/DataService/DataService';
 import { CreateEntry } from '../components/CreateEntry';
 import { Footer } from '../components/Footer';
 import { MyBlogsPage } from '../components/MyBlogsPage';
@@ -32,13 +32,12 @@ export default class AppRouter extends React.Component<{},IAppState>{
     this.state = {
       user: undefined
     }
-
+      
     this.setUser = this.setUser.bind(this);
   }
 
   private authService: AuthService = new AuthService();
   private dataService: DataService = new DataService();
-
 
   private setUser(user:User|undefined){
     
@@ -100,5 +99,3 @@ export default class AppRouter extends React.Component<{},IAppState>{
     )
   }
 }
-
-//update 4/12/21

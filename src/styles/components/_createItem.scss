@@ -1,15 +1,15 @@
 .create-container {
   background: $gainsboro;
   border-radius: 2rem;
-  width: 75%;
-  height: 45em;
+  width: 85%;
+  height: auto;
   margin: $xl-size 0 0 $xl-size;
   padding: 2rem;
   position: absolute;
   overflow: hidden;
 
   h1{
-    margin-left: .7em;
+    margin: 3rem 4rem;
     font-family: 'Source code pro', Helvetica;
   }
 
@@ -25,8 +25,24 @@
 //   }
 // }
 
-@media(min-width:800px) {
+@media(max-width:800px) {
   .create-container{
-    width: 85%;
+
+    margin : $l-size $m-size;
+
+    h1{
+      margin: 3rem 2rem;
+    }
+  }
+}
+
+@media(max-width:450px) {
+  .create-container{
+
+    margin : $m-size 0 0 $s-size;
+    
+    h1{
+      margin: 3rem 2rem;
+    }
   }
 }

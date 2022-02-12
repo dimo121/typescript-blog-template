@@ -1,6 +1,7 @@
 .entry-form-container {
-  width: 100%;
-  margin: 3rem auto;
+  width: 90%;
+  height: auto;
+  margin: 3rem 2rem;
   padding: 2rem;
 
   textarea {
@@ -8,3 +9,16 @@
     margin: 0 auto;
   }
 }
+
+@media(max-width:800px){
+  .entry-form-container{
+    margin: 0;
+    width:90%;
+  }
+}
+
+// @media(max-width:450px){
+//   .entry-form-container{
+//     margin: 0;
+//   }
+// }

@@ -1,11 +1,8 @@
-// *** transferring to Appsync client *** //
-
-
 import { BlogItem } from "./BlogItem";
 import { BlogListFilter } from "./BlogListFilter";
 import React from "react";
 import { Blog, Search } from "../types/TypeDefs";
-import { DataService } from "../services/DataService/DataService";
+import { DataService } from "../controllers/DataService/DataService";
 import { Spinner } from './Spinner';
 import paginateLocal from '../utils/paginate';
 import filterBlogs from '../utils/filter';
@@ -76,7 +73,7 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
           />
           <div className="blog-container">
             {resultBlogs?.map((item:Blog) => (
-              <BlogItem key={item.id} blog={{ ...item }} />
+              <BlogItem key={item.id} blog={{ ...item }} dataService={this.props.dataService}/>
             ))}
           </div>
           <div className="page-numbers">

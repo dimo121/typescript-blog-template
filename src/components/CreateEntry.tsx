@@ -2,12 +2,12 @@ import EntryFormPage from './EntryFormPage';
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, useLocation } from 'react-router-dom';
 import { User } from '../types/TypeDefs';
-import { DataService } from '../services/DataService/DataService';
+import { DataService } from '../controllers/DataService/DataService';
 import { Redirect } from 'react-router';
 
 interface ICreateEntryProps {
   dataService: DataService;
-  user: User|undefined;
+  user?: User;
 }
 
 interface CustomState {
@@ -52,18 +52,21 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
     <div className="create-container">
       <h1>Create entry</h1>
       <EntryFormPage
-        onSubmission={async (title:string,content:string) => {
+        onSubmission={async (title:string,content:string,blogPhotoId:string) => {
 
           const result: boolean = await props.dataService.createEntry({
             title,
             content,
             user: userId,
-            blog_id : state.blog_id
+            blog_id : state.blog_id,
+            blogPhotoId
           });
 
           setResult(result);
           
         }}
+        dataService={props.dataService}
+        userId={userId}
       />
       {completed && <Redirect to='/dashboard' />}
     </div>

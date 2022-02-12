@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import Header from '../components/Header';
-import { AuthService } from '../services/AuthService/AuthService';
+import { AuthService } from '../controllers/AuthService/AuthService';
 import { Router } from 'react-router-dom';
 import history from '../utils/history';
 import '../styles/styles.css';
-import Enzyme, { mount } from 'enzyme'; 
+import Enzyme from 'enzyme'; 
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 Enzyme.configure({

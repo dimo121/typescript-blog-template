@@ -87,6 +87,7 @@ export const LOAD_BLOGS = gql`
       title
       content
       createdAt
+      blogPhotoId
       entries {
         id
       }
@@ -104,6 +105,7 @@ export const FIND_BLOG = gql`
       title
       content
       createdAt
+      blogPhotoId
       entries {
         id
         title

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { EmailService } from '../services/EmailService/EmailService';
+import { EmailService } from '../controllers/EmailService/EmailService';
 
 const Contact:React.FC = () => {
 
