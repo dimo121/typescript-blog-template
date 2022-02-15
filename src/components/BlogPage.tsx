@@ -1,5 +1,5 @@
 import React from "react";
-import { BlogItem } from "./BlogItem";
+import BlogItem from "./BlogItem";
 import { EntryItem } from "./EntryItem";
 import { Blog } from '../types/TypeDefs';
 import { RouteComponentProps } from "react-router-dom";
@@ -25,7 +25,8 @@ export class BlogPage extends React.Component<IBlogPageProps & RouteComponentPro
         title: '',
         content: '',
         user:'',
-        blogPhotoId: ''
+        blogPhotoId: '',
+        entries:[]
       } 
     }
   }
@@ -37,7 +38,7 @@ export class BlogPage extends React.Component<IBlogPageProps & RouteComponentPro
   private async loadBlog(){
 
     const result:Blog = await this.props.dataService.loadBlog(this.props.match.params.id);
-    
+
     this.setState({blog: {...result}});
   }
 
@@ -49,7 +50,7 @@ export class BlogPage extends React.Component<IBlogPageProps & RouteComponentPro
         <BlogItem key={this.state.blog?.id} blog={{ ...this.state.blog }} dataService={this.props.dataService}/>
         <h3>Entries:</h3>
         {this.state.blog?.entries?.map((item) => {
-          return <EntryItem key={item.id} entry={item} />;
+          return <EntryItem key={item.id} entry={{...item}} dataService={this.props.dataService}/>;
         })}
       </div>
     );

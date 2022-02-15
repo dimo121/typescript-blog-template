@@ -11,7 +11,11 @@ type NewBlogPhoto = {
     blogPhotoId : string
 }
 
-export type NewEntryInput = Omit<Entry, 'id'|'createdAt'> & NewBlogPhoto
+type NewEntryPhoto = {
+    entryPhotoId: string
+}
+
+export type NewEntryInput = Omit<Entry, 'id'|'createdAt'> & NewEntryPhoto
 
 export type NewBlogInput = Omit<Item, 'id'|'createdAt' > & NewBlogPhoto
 
@@ -43,6 +47,7 @@ export interface Blog extends Item{
 
 export interface Entry extends Item{
     blog_id: string;
+    entryPhotoId?: string;
 }
 
 export type Search = 'Title'|'Content';

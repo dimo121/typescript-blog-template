@@ -36,7 +36,7 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
       let blogPhotoId: string = '';
 
       if(file)
-      blogPhotoId = await props.dataService.uploadBlogFile(file);
+      await props.dataService.uploadBlogFile(file).then(res => blogPhotoId = res).catch(err => console.log(err));
 
       props.onSubmission(
         title,
@@ -76,9 +76,9 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
 
     return () => fileSelector?.removeEventListener('change', handleImageUpload);
 
-  },[]);
+  },[imageToUpload]);
 
-  
+  console.log('User id from CreateBlog component', props.userId);
 
     return (
       <div className="entry-form-container">
@@ -128,17 +128,3 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
 }
 
 export default EntryFormPage;
-
-
-/*
-<label htmlFor="content">Content:</label>
-          <br />
-          <textarea
-            id="content"
-            name="content"
-            cols={100}
-            rows={20}
-            placeholder="Enter content here"
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>):void => this.setState({content: e.target.value})}
-          ></textarea>
-*/

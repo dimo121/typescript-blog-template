@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataService } from '../controllers/DataService/DataService';
 import EntryFormPage from './EntryFormPage';
 import { User } from '../types/TypeDefs';
@@ -7,85 +7,58 @@ import { Redirect } from 'react-router';
 
 interface ICreateBlogProps {
   dataService: DataService;
-  user?: User;
+  currentUser?: User;
 }
 
-interface ICreateBlogState {
-  userId: string;
-  completed: boolean;
-}
+const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
 
-export class CreateBlog extends React.Component<ICreateBlogProps,ICreateBlogState> {
+  const [userId,setUserId] = useState<string>('');
+  const [completed,setCompleted] = useState<boolean>(false);
 
-  constructor(props:ICreateBlogProps) {
-    super(props);
-    
-    this.state = {
-      userId: '',
-      completed: false
-    };
-
-    this.retrieveUserId = this.retrieveUserId.bind(this);
-  }
-
-  async componentDidMount(){
-
-    let userId:string = '';
-    try {
-      userId = await this.retrieveUserId() as string;
-    } catch (error) {
-      console.log(error)
-    }
-    
-    console.log(userId);
-
-    if(userId) this.setState({userId});
-    
-  }
-
-  private retrieveUserId(){
-    return new Promise((resolve,reject) => {
-      if(this.props.user) {
-        this.props.user.user.getUserAttributes((err,result) => {
-          if(err){
-            return err;
-          } else{
-            if(result){
-              resolve(result[0].Value);
-            }
-          }
+  useEffect(() => {
+    if(props.currentUser){
+      const retrieveUserId = () => {
+        return new Promise((resolve) => {
+            props.currentUser!.user.getUserAttributes((err,result) => {
+              if(err){
+                alert(err);
+                return '';
+              } else{
+                if(result){
+                  resolve(result[0].Value);
+                }
+              }
+            })
         })
-      } else {
-        reject('');
       }
-    })
-  }
 
-  render(){
+      retrieveUserId().then(res => { 
+        setUserId(res as string);
+      });
+    }
+  },[props.currentUser]);
 
-    return (
+  return (
       <div className="create-container">
         <h1>Create blog</h1>
         <EntryFormPage
-          onSubmission={async (title:string,content:string,blogPhotoId:string) => {
-            const result:boolean = await this.props.dataService.createBlog({
+          onSubmission={(title:string,content:string,blogPhotoId:string) => {
+            props.dataService.createBlog({
               title,
               content,
               blogPhotoId,
-              user: this.state.userId
-            });
+              user: userId
+            }).then(res => {
+              if(res === true) setCompleted(true);
+            }).catch(err => console.log(err));
 
-            if(result === true){
-              this.setState({completed:true});
-            }
           }}
-          dataService={this.props.dataService}
-          userId={this.state.userId}
+          dataService={props.dataService}
+          userId={userId}
         />
-        {this.state.completed && <Redirect to='/dashboard' />}
+        {completed && <Redirect to='/dashboard' />}
       </div>
-      );
-  };
+    );
 };
 
 export default CreateBlog;

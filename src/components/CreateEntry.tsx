@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 
 interface ICreateEntryProps {
   dataService: DataService;
-  user?: User;
+  currentUser?: User;
 }
 
 interface CustomState {
@@ -17,53 +17,48 @@ interface CustomState {
 export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> = (props) => {
 
   const { state } = useLocation<CustomState>();
-  const [userId,setId] = useState<string>('');
-  const [completed, setResult] = useState<boolean>(false);
-
+  const [userId,setUserId] = useState<string>('');
+  const [completed, setCompleted] = useState<boolean>(false);
 
   useEffect(() => {
-    const retrieveUserId = () => {
-      return new Promise((resolve,reject) => {
-        if(props.user) {
-          props.user.user.getUserAttributes((err,result) => {
-            if(err){
-              alert(err);
-              return '';
-            } else{
-              if(result){
-                resolve(result[0].Value);
+    if(props.currentUser){
+      const retrieveUserId = () => {
+        return new Promise((resolve) => {
+            props.currentUser!.user.getUserAttributes((err,result) => {
+              if(err){
+                alert(err);
+                return '';
+              } else{
+                if(result){
+                  resolve(result[0].Value);
+                }
               }
-            }
-          })
-        } else {
-          reject('');
-        }
-      })
+            })
+        })
+      }
+
+      retrieveUserId().then(res => { 
+        setUserId(res as string);
+      });
     }
-
-    retrieveUserId().then(response => {
-      setId(response as string);
-    });
-
-  },[props.user])
-
+  },[props.currentUser]);
 
   return (
     <div className="create-container">
       <h1>Create entry</h1>
       <EntryFormPage
-        onSubmission={async (title:string,content:string,blogPhotoId:string) => {
+        onSubmission={(title:string,content:string,blogPhotoId:string) => {
 
-          const result: boolean = await props.dataService.createEntry({
+          props.dataService.createEntry({
             title,
             content,
             user: userId,
             blog_id : state.blog_id,
-            blogPhotoId
-          });
+            entryPhotoId: blogPhotoId
+          }).then(res => {
+            if(res === true) setCompleted(true);
+          }).catch(() => console.log('Error creating entry'));
 
-          setResult(result);
-          
         }}
         dataService={props.dataService}
         userId={userId}

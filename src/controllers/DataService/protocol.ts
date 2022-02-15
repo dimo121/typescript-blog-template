@@ -63,6 +63,7 @@ export const BLOGS_BY_USER = gql`
       title
       content
       createdAt
+      blogPhotoId
       entries {
         id
       }
@@ -74,8 +75,8 @@ export const BLOGS_BY_USER = gql`
 `;
 
 export const DELETE_BLOG = gql`
-  mutation ($deleteBlogId: String!) {
-    deleteBlog(id: $deleteBlogId) {
+  mutation ($deleteBlogInput: deleteBlogType!) {
+    deleteBlog(input:$deleteBlogInput) {
       id
     }
   }
@@ -111,6 +112,7 @@ export const FIND_BLOG = gql`
         title
         content
         createdAt
+        entryPhotoId
         owner {
           username
         }

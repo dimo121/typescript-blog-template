@@ -1,20 +1,11 @@
 import { Blog, Entry, NewBlogInput, NewEntryInput, NewUserInput } from '../../types/TypeDefs';
-import awsconfig from '../../aws-exports';
-import Amplify, { API, Auth } from 'aws-amplify';
-import { LOAD_BLOGS, FIND_BLOG, CREATE_BLOG, CREATE_ENTRY, BLOGS_BY_USER, CREATE_USER } from "./protocol";
+import { API, Auth } from 'aws-amplify';
+import { LOAD_BLOGS, FIND_BLOG, CREATE_BLOG, CREATE_ENTRY, BLOGS_BY_USER, CREATE_USER, DELETE_BLOG } from "./protocol";
 import { base64Encode } from '../../utils/base64Encode';
-import AWS, { S3 } from 'aws-sdk';
+import { S3 } from 'aws-sdk';
 import { config } from '../config';
 import { generateRandomId } from '../../utils/generateId';
 
-Amplify.configure(awsconfig);
-API.configure(awsconfig);
-
-AWS.config.region = 'ap-southeast-2';
-
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: config.IDENTITY_POOL_ID
-});
 
 export class DataService {
 
@@ -33,6 +24,7 @@ export class DataService {
         
         try{    
             const result: any = await API.graphql({query:BLOGS_BY_USER, variables:{ userId: id}});
+            console.log(result);
             return result.data.blogsByUser;
         } catch(err){
             console.log('From dataservice ',err);
@@ -128,9 +120,28 @@ export class DataService {
         return true;
     }
 
-    // public async deleteBlog(id: string): Promise<void> {
+    public async deleteBlog(id:string,user:string): Promise<boolean> {
+        
+        try {
+            const authToken = await this.getAuthToken();
 
-    // }
+            //let result:string;
+
+            const result = await API.graphql({
+                query:DELETE_BLOG,
+                variables:{deleteBlogInput: {id,user}},
+                authMode: 'AMAZON_COGNITO_USER_POOLS',
+                authToken
+            });
+            
+            console.log('From dataService result: ',result);
+
+            return true;
+        } catch (error) {
+            console.log('From dataservice error: ',error); 
+            return false;           
+        }
+    }
 
     public async createEntry(entry:NewEntryInput): Promise<boolean>{
         

@@ -1,13 +1,13 @@
 import React from 'react';
 import { DataService } from '../controllers/DataService/DataService';
 import { Blog, Search, User } from '../types/TypeDefs';
-import { BlogItem } from './BlogItem';
+import BlogItem from './BlogItem';
 import { BlogListFilter } from './BlogListFilter';
 import { Spinner } from './Spinner';
+import { Redirect } from 'react-router-dom';
 import paginateLocal from '../utils/paginate';
 import filter from '../utils/filter';
 
-//import { BLOGS_BY_USER, DELETE_BLOG } from '../apollo/protocol';
 
 interface IMyBlogsPageProps {
   dataService: DataService;
@@ -20,6 +20,8 @@ interface IMyBlogsPageState {
   page: number;
   text: string;
   search: Search;
+  userId: string;
+  deleted:boolean;
 }
 
 export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPageState> {
@@ -32,12 +34,14 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
       loading: true,
       page: 1,
       text: '',
-      search: "Title"
+      search: "Title",
+      userId: '',
+      deleted: false
     }
   }
 
   private retrieveUserId(): Promise<string>{
-    return new Promise((res) => {
+    return new Promise((res,rej) => {
       if(this.props.user) {
         this.props.user.user.getUserAttributes((err,result) => {
           if(err){
@@ -50,7 +54,7 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
           }
         })
       } else {
-        res('Error retrieving user id');
+        rej('Error retrieving user id');
       }
     })
   }
@@ -62,14 +66,20 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
 
   private async loadBlogs():Promise<void>{
 
-    const id:string = await this.retrieveUserId() as string;
+    let id:string;
 
-    if (id === 'Error retrieving user id') return;
+    try {
+      id = await this.retrieveUserId() as string;
+    } catch (error) {
+      console.log(error);
+      return;
+    }
 
     const blogCollection:Blog[] = await this.props.dataService.getBlogsByUser(id);
 
     this.setState({ blogCollection,
-                    loading: false });
+                    loading: false,
+                    userId:id });
   
   }
 
@@ -98,12 +108,18 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
             setSearch={(searchArg:Search) => this.setState({search: searchArg})}
           />
         <div className="blog-container">
-          {this.state.blogCollection.map((item) => (
-            <div key={item.id}>
+          {this.state.blogCollection.map((item,index) => (
+            <div key={index}>
               <BlogItem blog={{ ...item }} dataService={this.props.dataService}/>
               <button
                 className="blog-button delete-button"
-                //onClick={() => this.funcDeleteBlog(item.id)}
+                onClick={async () => {
+                  const result:boolean = await this.props.dataService.deleteBlog(item.id,this.state.userId)
+                
+                  if(result){
+                    this.setState({deleted:true});
+                  }
+                }}
               >
                 Delete
               </button>
@@ -121,6 +137,7 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
                 </button>
               ))}
           </div>
+          {this.state.deleted && <Redirect to='/dashboard' />}
       </div>
     );
   };

@@ -1,5 +1,9 @@
 
 import React, { lazy, Suspense } from 'react';
+import awsconfig from '../aws-exports';
+import Amplify, { API } from 'aws-amplify';
+import AWS from 'aws-sdk';
+import { config } from '../controllers/config';
 import '../styles/styles.css';
 import Header from '../components/Header';
 import BlogPage from '../components/BlogPage';
@@ -19,6 +23,14 @@ import { ScrollToTop } from '../components/ScrollToTop';
 const Contact = lazy(() => import("../components/Contact"));
 const Partners = lazy(() => import("../components/Partners"));
 
+Amplify.configure(awsconfig);
+API.configure(awsconfig);
+
+AWS.config.region = 'ap-southeast-2';
+
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: config.IDENTITY_POOL_ID
+});
 
 interface IAppState {
   user: User | undefined
@@ -65,12 +77,12 @@ export default class AppRouter extends React.Component<{},IAppState>{
                   />
                   <Route exact path="/createblog"
                         render={(props) => (
-                            <CreateBlog {...props} dataService={this.dataService} user={this.state.user}/>
+                            <CreateBlog {...props} dataService={this.dataService} currentUser={this.state.user}/>
                         )} 
                   />
                   <Route exact path="/createentry"
                         render={(props) => (
-                            <CreateEntry {...props} dataService={this.dataService} user={this.state.user}/>
+                            <CreateEntry {...props} dataService={this.dataService} currentUser={this.state.user}/>
                         )} 
                   />
                   <Route exact path="/myblogs"

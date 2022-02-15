@@ -1,79 +1,54 @@
-import { BlogItem } from "./BlogItem";
+import BlogItem from "./BlogItem";
 import { BlogListFilter } from "./BlogListFilter";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Blog, Search } from "../types/TypeDefs";
 import { DataService } from "../controllers/DataService/DataService";
 import { Spinner } from './Spinner';
 import paginateLocal from '../utils/paginate';
 import filterBlogs from '../utils/filter';
 
-interface IDashState {
-  text: string;
-  search: Search;
-  page: number;
-  blogCollection: Blog[];
-  loading: boolean;
-}
-
 interface IDashProps {
   dataService: DataService
 }
 
+const Dashboard:React.FC<IDashProps> = (props) => {
 
-export default class Dashboard extends React.Component<IDashProps,IDashState> {
+  const [text,setText] = useState<string>('');
+  const [search,setSearch] = useState<Search>('Title');
+  const [page,setPage] = useState<number>(1);
+  const [blogCollection,setBlogCollection] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  constructor(props:IDashProps) {
-    super(props);
 
-    this.state = {
-      text : '',
-      search : 'Title',
-      page : 1,
-      blogCollection: [],
-      loading: true
-    }
+  useEffect(() => {
 
-    this.loadBlogs = this.loadBlogs.bind(this);
-
-  }
-
-  componentDidMount(){
-    this.loadBlogs();
-  }
-
-  private async loadBlogs():Promise<void> {
+    props.dataService.getBlogs().then(resultBlogs => {
+      setBlogCollection(resultBlogs);
+      setLoading(false);
+    }).catch((e) => console.log(e));
     
-    let resultBlogs: Blog[] = await this.props.dataService.getBlogs();
+  },[props.dataService]);
+  
+  if(loading) return <Spinner />;
 
-    this.setState({ blogCollection: resultBlogs,
-                    loading: false});
+  let resultBlogs: Blog[] = filterBlogs(blogCollection,text,search)
 
-  }
+  const displayLength = resultBlogs.length;
 
-  public render() {
-
-      if(this.state.loading) return <Spinner />;
-
-      let resultBlogs: Blog[] = filterBlogs(this.state.blogCollection,this.state.text,this.state.search)
-
-      const displayLength = resultBlogs.length;
-
-      resultBlogs = paginateLocal(resultBlogs, this.state.page);
+  resultBlogs = paginateLocal(resultBlogs, page);
       
       return (
         <div>
           <BlogListFilter
-            text={this.state.text}
-            search={this.state.search}
-            setText={(textArg:string) => this.setState({
-                                                          text: textArg,
-                                                          page: 1
-                                                      })}
-            setSearch={(searchArg:Search) => this.setState({search: searchArg})}
+            text={text}
+            search={search}
+            setText={(textArg:string) => {  setText(textArg);
+                                            setPage(1);}}
+            setSearch={(searchArg:Search) => setSearch(searchArg)}
           />
           <div className="blog-container">
             {resultBlogs?.map((item:Blog) => (
-              <BlogItem key={item.id} blog={{ ...item }} dataService={this.props.dataService}/>
+              <BlogItem key={item.id} blog={{ ...item }} dataService={props.dataService}/>
             ))}
           </div>
           <div className="page-numbers">
@@ -81,7 +56,7 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
                 <button
                   key={index}
                   className="page-button"
-                  onClick={() => this.setState({page: (index+1)})}
+                  onClick={() => setPage(index+1)}
                 >
                   {index + 1}
                 </button>
@@ -89,6 +64,6 @@ export default class Dashboard extends React.Component<IDashProps,IDashState> {
             </div>
         </div>
       )
-    }
-}
+  }
 
+export default Dashboard;

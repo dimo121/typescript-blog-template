@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import Modal from "react-modal";
 import { NewUserInput } from "../types/TypeDefs";
 import * as EmailValidator from 'email-validator';
@@ -16,32 +16,161 @@ interface CustomEvent {
   target: HTMLInputElement
 }
 
+interface IModalState {
+  code: string
+  email: string
+  username: string
+  password: string
+  error: string
+  registerMod: boolean
+  verify: boolean
+}
+
+type modalActionGuard = 'REGISTER'|'SIGNIN'|'VERIFY'|'CHANGE_USER'|'CHANGE_EMAIL'|'CHANGE_PASSWORD'|'CHANGE_CODE'|'SET_ERROR'|'RESET'|'REGISTER_CLICK';
+
+interface IAction {
+  type: modalActionGuard;
+  newState: Partial<IModalState>
+}
+
+
+const modalReducer = (state:IModalState,action:IAction):IModalState => {
+
+  const {type,newState} = action;
+
+  switch(type){
+    case 'REGISTER': case 'VERIFY': case 'SIGNIN': case 'RESET': case 'REGISTER_CLICK':
+    {
+      return {
+        ...state,
+        ...newState
+      };
+    }
+    case 'SET_ERROR':{
+      return {
+        ...state,
+        error: newState.error!
+      }
+    }
+    case 'CHANGE_CODE':{
+      return {
+        ...state,
+        code: newState.code!
+      }
+    }
+    case 'CHANGE_EMAIL':{
+      return {
+        ...state,
+        email: newState.email!
+      }
+    }
+    case 'CHANGE_PASSWORD':{
+      return {
+        ...state,
+        password: newState.password!
+      }
+    }
+    case 'CHANGE_USER':{
+      return {
+        ...state,
+        username: newState.username!
+      }
+    }
+    default: {
+      throw new Error(`Unhandled action type ${type}`);
+    }
+  }
+}
 
 const ModalComponent:React.FC<IModalProps> = (props) => {
 
-  const [code,setCode] = useState<string>('');
-  const [email,setEmail] = useState<string>('');
-  const [username,setUsername] = useState<string>('');
-  const [password,setPassword] = useState<string>('');
-  const [error,setError] = useState<string>('');
-  const [registerMod, setRegisterMod] = useState<boolean>(false);
-  const [verify, setVerify] = useState<boolean>(false);
+  const [state,dispatch] = useReducer(modalReducer, {
+    code : '',
+    email: '',
+    username: '',
+    password: '',
+    error: '',
+    registerMod: false,
+    verify: false
+  })
 
-  const onChangeUsername = (e:CustomEvent) => {
-    setUsername(e.target.value);
-  };
+  const { code, email, username, password, error, registerMod, verify } = state;
 
-  const onChangeEmail = (e:CustomEvent) => {
-    setEmail(e.target.value);
-  }
+  const postRegister = React.useCallback(() => {
+        dispatch({type: 'REGISTER', newState: {
+            registerMod: false,
+            error: '',
+            email: '',
+            password: '',
+            username: '',
+            verify: true
+          }
+        });
+      },[]);
 
-  const onChangePassword = (e:CustomEvent) => {
-    setPassword(e.target.value);
-  }
+  const postSignin = React.useCallback(() => {
+    dispatch({type: 'SIGNIN', newState: {
+        error: '',
+        email: '',
+        password: '',
+        verify: false
+    }});
+  },[]);
 
-  const onChangeCode = (e:CustomEvent) => {
-    setCode(e.target.value)
-  }
+  const postVerify = React.useCallback(() => {
+    dispatch({type: 'VERIFY', newState: {
+      verify: false
+    }});
+  },[]);
+
+  const onChangeUsername = React.useCallback((e:CustomEvent) => {
+    dispatch({type: 'CHANGE_USER', newState: {
+      username: e.target.value
+    }});
+  },[]);
+
+  const onChangeEmail = React.useCallback((e:CustomEvent) => {
+    dispatch({type: 'CHANGE_EMAIL', newState: {
+      email: e.target.value
+    }});
+  },[]);
+
+  const onChangePassword = React.useCallback((e:CustomEvent) => {
+    dispatch({type: 'CHANGE_PASSWORD', newState: {
+      password: e.target.value
+    }});
+  },[]);
+
+  const onChangeCode = React.useCallback((e:CustomEvent) => {
+    dispatch({type: 'CHANGE_CODE', newState: {
+      code: e.target.value
+    }});
+  },[]);
+
+  const setError = React.useCallback((error) => {
+    dispatch({type: "SET_ERROR",newState: {
+      error
+    }});
+  },[]);
+
+  const onReset = React.useCallback(() => dispatch({type:'RESET',newState: {
+    email: '',
+    username: '',
+    password: '',
+    error: '',
+    registerMod: false,
+  }})
+  ,[]);
+
+  const onRegisterClick = React.useCallback(() => dispatch({type:'REGISTER_CLICK',newState: {
+    email: '',
+    username: '',
+    password: '',
+    error: '',
+    registerMod: true,
+  }})
+  ,[]);
+
 
   const verifySignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,12 +180,10 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
     answer = await props.authService.confirmSignUp(username,code);
 
     if (answer === true) {
-      setRegisterMod(false);
-      setUsername('');
-      setCode('');
-      setVerify(false);
       
+      postVerify();
       props.clearModal();
+
     } else {
       console.log('Please re-enter code')
     }
@@ -94,16 +221,10 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
         password: password 
       });
 
-      setRegisterMod(false);
-      setError('');
-      setEmail('');
-      setPassword('');
-
-      if(registerMod){  
-        setVerify(true);
+      if(registerMod){
+        postRegister();
       } else {
-        setUsername('');
-        setVerify(false);
+        postSignin()
 
         props.clearModal();
       }
@@ -183,11 +304,7 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
           {error && (<div className="modal-error" data-testid="modal-error"><h5>{error}</h5></div>)}
           <div className="modal-button-spacer">
             <button className="main-button" onClick={() => {
-              setRegisterMod(false);
-              setError('');
-              setEmail('');
-              setPassword('');
-              setUsername('');
+              onReset();
               props.clearModal();
               }}>
               Cancel
@@ -198,8 +315,7 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
         {!registerMod && (<div>
           <h5>If you are not a member please register</h5>
           <button className="main-button" onClick={() => {  
-            setRegisterMod(true);
-            setError('');
+            onRegisterClick();
           }}>
             Register
           </button>

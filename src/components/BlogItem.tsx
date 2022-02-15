@@ -11,7 +11,7 @@ interface IBlogItemProps {
 }
 
 
-export const BlogItem:React.FC<IBlogItemProps> = (props) => {
+const BlogItem:React.FC<IBlogItemProps> = (props) => {
 
   const [image,setImage] = useState<string>('');
   const [editorState,setEditor] = useState<EditorState>(EditorState.createEmpty());
@@ -83,3 +83,5 @@ export const BlogItem:React.FC<IBlogItemProps> = (props) => {
     </React.Fragment>
   );
 }
+
+export default BlogItem;
