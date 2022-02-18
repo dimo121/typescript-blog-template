@@ -12,14 +12,16 @@ interface ICreateBlogProps {
 
 const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
 
+  const { currentUser, dataService } = props;
+
   const [userId,setUserId] = useState<string>('');
   const [completed,setCompleted] = useState<boolean>(false);
 
   useEffect(() => {
-    if(props.currentUser){
+    if(currentUser){
       const retrieveUserId = () => {
         return new Promise((resolve) => {
-            props.currentUser!.user.getUserAttributes((err,result) => {
+            currentUser!.user.getUserAttributes((err,result) => {
               if(err){
                 alert(err);
                 return '';
@@ -36,14 +38,14 @@ const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
         setUserId(res as string);
       });
     }
-  },[props.currentUser]);
+  },[currentUser]);
 
   return (
       <div className="create-container">
         <h1>Create blog</h1>
         <EntryFormPage
           onSubmission={(title:string,content:string,blogPhotoId:string) => {
-            props.dataService.createBlog({
+            dataService.createBlog({
               title,
               content,
               blogPhotoId,
@@ -53,7 +55,7 @@ const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
             }).catch(err => console.log(err));
 
           }}
-          dataService={props.dataService}
+          dataService={dataService}
           userId={userId}
         />
         {completed && <Redirect to='/dashboard' />}

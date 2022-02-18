@@ -13,21 +13,22 @@ interface IDashProps {
 
 const Dashboard:React.FC<IDashProps> = (props) => {
 
+  const { dataService } = props
+
   const [text,setText] = useState<string>('');
   const [search,setSearch] = useState<Search>('Title');
   const [page,setPage] = useState<number>(1);
   const [blogCollection,setBlogCollection] = useState<Blog[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-
   useEffect(() => {
 
-    props.dataService.getBlogs().then(resultBlogs => {
+    dataService.getBlogs().then(resultBlogs => {
       setBlogCollection(resultBlogs);
       setLoading(false);
     }).catch((e) => console.log(e));
     
-  },[props.dataService]);
+  },[dataService]);
   
   if(loading) return <Spinner />;
 
@@ -48,7 +49,7 @@ const Dashboard:React.FC<IDashProps> = (props) => {
           />
           <div className="blog-container">
             {resultBlogs?.map((item:Blog) => (
-              <BlogItem key={item.id} blog={{ ...item }} dataService={props.dataService}/>
+              <BlogItem key={item.id} blog={{ ...item }} dataService={dataService}/>
             ))}
           </div>
           <div className="page-numbers">

@@ -17,7 +17,7 @@ import { AuthService } from '../controllers/AuthService/AuthService';
 import { DataService } from '../controllers/DataService/DataService';
 import { CreateEntry } from '../components/CreateEntry';
 import { Footer } from '../components/Footer';
-import { MyBlogsPage } from '../components/MyBlogsPage';
+import MyBlogsPage from '../components/MyBlogsPage';
 import { ScrollToTop } from '../components/ScrollToTop';
 
 const Contact = lazy(() => import("../components/Contact"));

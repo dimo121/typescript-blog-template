@@ -11,7 +11,10 @@ interface IEntryFormProps {
   userId: String;
 }
 
+
 const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
+
+  const { userId, dataService, onSubmission } = props;
 
   const [title,setTitle] = useState<string>('');
   const [error,setError] = useState<string>('');
@@ -26,7 +29,7 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
 
     if (!title||!contentToSubmit){
       setError('Both title and content are required');
-    } else if(props.userId) {
+    } else if(userId) {
       setError('');
       
       const input = document.getElementById('file-upload') as HTMLInputElement;
@@ -36,9 +39,9 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
       let blogPhotoId: string = '';
 
       if(file)
-      await props.dataService.uploadBlogFile(file).then(res => blogPhotoId = res).catch(err => console.log(err));
+      await dataService.uploadBlogFile(file).then(res => blogPhotoId = res).catch(err => console.log(err));
 
-      props.onSubmission(
+      onSubmission(
         title,
         contentToSubmit,
         blogPhotoId
@@ -50,17 +53,13 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
 
   }
 
-  const onEditorChange = (editorState:EditorState) => {
-    setEditorState(editorState);
-  }
-
   useEffect(() => {
 
     const fileSelector = document.getElementById('file-upload');
 
     const handleImageUpload = (event:any) => {
 
-      const file: any | null = (event.target as HTMLInputElement).files![0]
+      const file: any = (event.target as HTMLInputElement).files![0]
 
       const binaryData:string[] = [];
 
@@ -78,7 +77,6 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
 
   },[imageToUpload]);
 
-  console.log('User id from CreateBlog component', props.userId);
 
     return (
       <div className="entry-form-container">
@@ -97,7 +95,7 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
           <Editor 
             editorState={editorState}
             wrapperClassName="entryEditorWrapper"
-            onEditorStateChange={onEditorChange}
+            onEditorStateChange={(editorState:EditorState) => setEditorState(editorState)}
           />
           <br />
           <br />
@@ -126,5 +124,6 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
       </div>
     );
 }
+
 
 export default EntryFormPage;

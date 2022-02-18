@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataService } from '../controllers/DataService/DataService';
 import { Blog, Search, User } from '../types/TypeDefs';
 import BlogItem from './BlogItem';
@@ -14,110 +14,95 @@ interface IMyBlogsPageProps {
   user: User|undefined;
 }
 
-interface IMyBlogsPageState {
-  blogCollection: Blog[];
-  loading: boolean;
-  page: number;
-  text: string;
-  search: Search;
-  userId: string;
-  deleted:boolean;
-}
 
-export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPageState> {
+const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
   
-  constructor(props:IMyBlogsPageProps){
-    super(props);
+  const { user, dataService } = props;
 
-    this.state = {
-      blogCollection: [],
-      loading: true,
-      page: 1,
-      text: '',
-      search: "Title",
-      userId: '',
-      deleted: false
-    }
-  }
+  const [blogCollection,setBlogCollection] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(1);
+  const [text, setText] = useState<string>('');
+  const [search, setSearch] = useState<Search>('Title');
+  const [userId, setUserId] = useState<string>(''); 
+  const [deleted, setDeleted] = useState<boolean>(false);
 
-  private retrieveUserId(): Promise<string>{
-    return new Promise((res,rej) => {
-      if(this.props.user) {
-        this.props.user.user.getUserAttributes((err,result) => {
-          if(err){
-            alert(err);
-            return '';
-          } else{
-            if(result){
-              res(result[0].Value);
+
+  useEffect(() => {
+    const retrieveUserId = (): Promise<string> => {
+      return new Promise((res,rej) => {
+        if(user) {
+          user.user.getUserAttributes((err,result) => {
+            if(err){
+              alert(err);
+              return '';
+            } else{
+              if(result){
+                res(result[0].Value);
+              }
             }
-          }
-        })
-      } else {
-        rej('Error retrieving user id');
-      }
-    })
-  }
-
-  componentDidMount(){
-    this.loadBlogs();
-  }
-
-
-  private async loadBlogs():Promise<void>{
-
-    let id:string;
-
-    try {
-      id = await this.retrieveUserId() as string;
-    } catch (error) {
-      console.log(error);
-      return;
+          })
+        } else {
+          rej('Error retrieving user id');
+        }
+      })
     }
 
-    const blogCollection:Blog[] = await this.props.dataService.getBlogsByUser(id);
+    const loadBlogs = async ():Promise<void> => {
 
-    this.setState({ blogCollection,
-                    loading: false,
-                    userId:id });
+      let id:string;
   
-  }
+      try {
+        id = await retrieveUserId() as string;
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+  
+      const blogCollection:Blog[] = await dataService.getBlogsByUser(id);
+  
+      setBlogCollection(blogCollection);
+      setLoading(false);
+      setUserId(id);
+    
+    }
+
+    loadBlogs();
+  },[user,dataService]);
 
 
-  render(){
+    if(!user) return <h1 style={{fontSize : '1em', color:'white', padding:'4em',marginTop:'0'}}>Login to see user specific blogs</h1>;
 
-    if(!this.props.user) return <h1 style={{fontSize : '1em', color:'white', padding:'4em',marginTop:'0'}}>Login to see user specific blogs</h1>;
+    if(loading) return <Spinner />;
 
-    if(this.state.loading) return <Spinner />;
-
-    let resultBlogs: Blog[] = filter(this.state.blogCollection,this.state.text,this.state.search)
+    let resultBlogs: Blog[] = filter(blogCollection,text,search)
 
     const displayLength = resultBlogs.length;
 
-    resultBlogs = paginateLocal(resultBlogs, this.state.page);    
+    resultBlogs = paginateLocal(resultBlogs, page);    
 
     return (
       <div>
          <BlogListFilter
-            text={this.state.text}
-            search={this.state.search}
-            setText={(textArg:string) => this.setState({
-                                                          text: textArg,
-                                                          page: 1
-                                                        })}
-            setSearch={(searchArg:Search) => this.setState({search: searchArg})}
+            text={text}
+            search={search}
+            setText={(textArg:string) => {
+              setText(textArg);
+              setPage(1);
+            }}
+            setSearch={(searchArg:Search) => setSearch(searchArg)}
           />
         <div className="blog-container">
-          {this.state.blogCollection.map((item,index) => (
+          {resultBlogs.map((item,index) => (
             <div key={index}>
-              <BlogItem blog={{ ...item }} dataService={this.props.dataService}/>
+              <BlogItem blog={{ ...item }} dataService={dataService}/>
               <button
                 className="blog-button delete-button"
                 onClick={async () => {
-                  const result:boolean = await this.props.dataService.deleteBlog(item.id,this.state.userId)
+                  const result:boolean = await dataService.deleteBlog(item.id,userId)
                 
                   if(result){
-                    this.setState({deleted:true});
+                    setDeleted(true);
                   }
                 }}
               >
@@ -131,15 +116,16 @@ export class MyBlogsPage extends React.Component<IMyBlogsPageProps, IMyBlogsPage
                 <button
                   key={index}
                   className="page-button"
-                  onClick={() => this.setState({page: (index+1)})}
+                  onClick={() => setPage(index+1)}
                 >
                   {index + 1}
                 </button>
               ))}
           </div>
-          {this.state.deleted && <Redirect to='/dashboard' />}
+          {deleted && <Redirect to='/dashboard' />}
       </div>
     );
-  };
-}
+};
 
+
+export default MyBlogsPage;

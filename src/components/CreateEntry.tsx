@@ -16,15 +16,17 @@ interface CustomState {
 
 export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> = (props) => {
 
+  const { currentUser, dataService } = props;
+
   const { state } = useLocation<CustomState>();
   const [userId,setUserId] = useState<string>('');
   const [completed, setCompleted] = useState<boolean>(false);
 
   useEffect(() => {
-    if(props.currentUser){
+    if(currentUser){
       const retrieveUserId = () => {
         return new Promise((resolve) => {
-            props.currentUser!.user.getUserAttributes((err,result) => {
+            currentUser!.user.getUserAttributes((err,result) => {
               if(err){
                 alert(err);
                 return '';
@@ -41,7 +43,7 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
         setUserId(res as string);
       });
     }
-  },[props.currentUser]);
+  },[currentUser]);
 
   return (
     <div className="create-container">
@@ -49,7 +51,7 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
       <EntryFormPage
         onSubmission={(title:string,content:string,blogPhotoId:string) => {
 
-          props.dataService.createEntry({
+          dataService.createEntry({
             title,
             content,
             user: userId,
@@ -60,11 +62,10 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
           }).catch(() => console.log('Error creating entry'));
 
         }}
-        dataService={props.dataService}
+        dataService={dataService}
         userId={userId}
       />
       {completed && <Redirect to='/dashboard' />}
     </div>
   );
 };
-

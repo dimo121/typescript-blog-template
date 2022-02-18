@@ -14,12 +14,12 @@ export const EntryItem:React.FC<IEntryItemProps> = (props) => {
   const [image,setImage] = useState<string>('');
   const [editorState,setEditor] = useState<EditorState>(EditorState.createEmpty());
 
+  const { entry, dataService } = props;
+
   useEffect(() => {
 
-    console.log(props.entry);
-
-    if(props.entry.content){
-    const content = convertFromRaw(JSON.parse(props.entry.content));
+    if(entry.content){
+    const content = convertFromRaw(JSON.parse(entry.content));
 
     const editorNextState = EditorState.createWithContent(content);
 
@@ -28,7 +28,7 @@ export const EntryItem:React.FC<IEntryItemProps> = (props) => {
 
     const retrieveImage = async (key:string) => {
 
-      const result:any = await props.dataService.getBlogFile(key);
+      const result:any = await dataService.getBlogFile(key);
   
       let base64Data:string = '';
   
@@ -39,17 +39,17 @@ export const EntryItem:React.FC<IEntryItemProps> = (props) => {
       setImage(imageCompilation);
     }
 
-    if(props.entry.entryPhotoId){
-      retrieveImage(props.entry.entryPhotoId);
+    if(entry.entryPhotoId){
+      retrieveImage(entry.entryPhotoId);
     }
 
-  },[props.dataService, props.entry]);
+  },[dataService, entry]);
   
   return (
     <div className="item-container">
       <div className="item__upper">
-        <h1>{props.entry.title}</h1>
-        <span>{props.entry.createdAt}</span>
+        <h1>{entry.title}</h1>
+        <span>{entry.createdAt}</span>
       </div>
       <div className="item__inner">
         <Editor 
@@ -63,7 +63,7 @@ export const EntryItem:React.FC<IEntryItemProps> = (props) => {
             <img src={image} alt='entry_image' />
           </div>)}
       <div className="item__lower">
-        <p>Written by: {props.entry.owner?.username}</p>
+        <p>Written by: {entry.owner?.username}</p>
       </div>
     </div>
   );

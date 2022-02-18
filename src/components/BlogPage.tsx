@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BlogItem from "./BlogItem";
 import { EntryItem } from "./EntryItem";
 import { Blog } from '../types/TypeDefs';
@@ -9,52 +9,42 @@ interface IBlogPageProps {
   dataService: DataService;
 }
 
-interface IBlogPageState {
-  blog: Blog;
-}
+const BlogPage:React.FC<IBlogPageProps & RouteComponentProps<{ id: string }>> = (props) => {
 
-export class BlogPage extends React.Component<IBlogPageProps & RouteComponentProps<{ id: string }>,IBlogPageState> {
+    const {dataService, match} = props;
+  
+    const [blog, setBlog] = useState<Blog>({
+      id: '',
+      createdAt: '',
+      title: '',
+      content: '',
+      user:'',
+      blogPhotoId: '',
+      entries:[]
+    });
 
-  constructor(props:IBlogPageProps&RouteComponentProps<{id:string}>){
-    super(props);
+    useEffect(() => {
+      const loadBlog = async () => {
 
-    this.state = {
-      blog : {
-        id: '',
-        createdAt: '',
-        title: '',
-        content: '',
-        user:'',
-        blogPhotoId: '',
-        entries:[]
-      } 
-    }
-  }
+        const result:Blog = await dataService.loadBlog(match.params.id);
+    
+        setBlog({...result});
+      }
 
-  componentDidMount(){
-    this.loadBlog();
-  }
+      loadBlog();
+    },[dataService, match]);
 
-  private async loadBlog(){
-
-    const result:Blog = await this.props.dataService.loadBlog(this.props.match.params.id);
-
-    this.setState({blog: {...result}});
-  }
-
-  render(){
     //let data:Blog[] = db_mock.filter(item => item.id === parseInt(this.props.match.params.id))
 
     return (
       <div className="blog-container">
-        <BlogItem key={this.state.blog?.id} blog={{ ...this.state.blog }} dataService={this.props.dataService}/>
+        <BlogItem key={blog?.id} blog={{ ...blog }} dataService={dataService}/>
         <h3>Entries:</h3>
-        {this.state.blog?.entries?.map((item) => {
-          return <EntryItem key={item.id} entry={{...item}} dataService={this.props.dataService}/>;
+        {blog?.entries?.map((item) => {
+          return <EntryItem key={item.id} entry={{...item}} dataService={dataService}/>;
         })}
       </div>
     );
-  }
 };
 
 export default BlogPage;

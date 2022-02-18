@@ -11,6 +11,8 @@ interface IFilterProps {
 
 export const BlogListFilter:React.FC<IFilterProps> = (props) => {
   
+    const { text, search, setText, setSearch } = props;
+
     return(
       <div className="list-filter-container">
         <h3 className="search-title">Search by:</h3>
@@ -18,14 +20,14 @@ export const BlogListFilter:React.FC<IFilterProps> = (props) => {
           <input
             className="search-bar"
             type="text"
-            value={props.text}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => props.setText(e.target.value)}
+            value={text}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
           />
           <span>
             <select
               className="search-pulldown"
-              value={props.search}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => props.setSearch(e.target.value as Search)}
+              value={search}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSearch(e.target.value as Search)}
             >
               <option value='Title'>Title</option>
               <option value='Content'>Content</option>

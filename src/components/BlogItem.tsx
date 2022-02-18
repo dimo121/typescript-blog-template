@@ -13,13 +13,15 @@ interface IBlogItemProps {
 
 const BlogItem:React.FC<IBlogItemProps> = (props) => {
 
+  const {blog, dataService} = props;
+
   const [image,setImage] = useState<string>('');
   const [editorState,setEditor] = useState<EditorState>(EditorState.createEmpty());
 
   useEffect(() => {
 
-    if(props.blog.content){
-    const content = convertFromRaw(JSON.parse(props.blog.content));
+    if(blog.content){
+    const content = convertFromRaw(JSON.parse(blog.content));
 
     const editorNextState = EditorState.createWithContent(content);
 
@@ -28,7 +30,7 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
 
     const retrieveImage = async (key:string) => {
 
-      const result:any = await props.dataService.getBlogFile(key);
+      const result:any = await dataService.getBlogFile(key);
   
       let base64Data:string = '';
   
@@ -39,19 +41,19 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
       setImage(imageCompilation);
     }
 
-    if(props.blog.blogPhotoId){
-      retrieveImage(props.blog.blogPhotoId);
+    if(blog.blogPhotoId){
+      retrieveImage(blog.blogPhotoId);
     }
 
-  },[props.dataService, props.blog]);
+  },[dataService, blog]);
 
   return (
     <React.Fragment>
-      <NavLink style={{ textDecoration: 'none' }} to={`/blog/${props.blog.id}`}>
+      <NavLink style={{ textDecoration: 'none' }} to={`/blog/${blog.id}`}>
         <div className="item-container">
           <div className="item__upper">
-            <h1>{props.blog.title}</h1>
-            <span>{props.blog.createdAt}</span>
+            <h1>{blog.title}</h1>
+            <span>{blog.createdAt}</span>
           </div>
           <div className="item__inner">
             <Editor 
@@ -65,8 +67,8 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
             <img src={image} alt='blog_image' />
           </div>)}
           <div className="item__lower">
-            <p>Written by: {props.blog.owner?.username}</p>
-            <p>Replies: {props.blog.entries?.length}</p>
+            <p>Written by: {blog.owner?.username}</p>
+            <p>Replies: {blog.entries?.length}</p>
           </div>
         </div>
       </NavLink>
@@ -74,7 +76,7 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
         to={{
           pathname: '/createentry',
           state: {
-            blog_id: props.blog.id,
+            blog_id: blog.id,
           },
         }}
       >
