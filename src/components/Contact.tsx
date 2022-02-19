@@ -25,10 +25,10 @@ const Contact:React.FC = () => {
     }
 
     return (
-        <div className='create-container'>
+        <div className='s4-cc'>
             <h1>Contact us</h1>
             <h5><i>Please fill in the form and we will respond within 48 business hours</i></h5>
-            <div className="entry-form-container">
+            <div className="s4-cc__ec">
                 <form onSubmit={onSubmit}>
                     <label htmlFor="name">Name:</label>
                     <br />
@@ -77,7 +77,7 @@ const Contact:React.FC = () => {
                     <br />
                     <input className="button" type="submit" value="Send" />
                 </form>
-                {error && <p className="entry-error">Error : {error}</p>}
+                {error && <p className="s4-cc__entry-error">Error : {error}</p>}
             </div>
         </div>
     )

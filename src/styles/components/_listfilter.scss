@@ -1,4 +1,4 @@
-.list-filter-container {
+.s2-lf-wrapper {
   background: rgba(35, 36, 39, 0.7);
   border-radius: 1rem;
   width: 20em;
@@ -8,33 +8,33 @@
   padding: 1.5rem;
 }
 
-.search-title{
+.s2-lf__title{
   color: white;
   font-size: 0.8em;
   margin: 0 0 0.5em 0.8em;
 }
 
-.search-container{
+.s2-lf__container{
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.search-bar {
+.s2-lf__bar {
   background: white;
   outline: 1px solid black;
   height: $m-size;
   width: 20rem;
 }
 
-.search-pulldown {
+.s2-lf__pulldown {
   border: 1px solid black;
   height: $lm-size;
 }
 
 @media(min-width:450px) {
 
-  .list-filter-container{
+  .s2-lf-wrapper{
     margin: 3.5em 0 0 4.2em;
   }
 
@@ -42,7 +42,7 @@
 
 @media(min-width:800px) {
 
-  .list-filter-container{
+  .s2-lf-wrapper{
     margin: 5em 0 0 7em;
   }
 

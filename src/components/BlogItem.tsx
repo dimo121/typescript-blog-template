@@ -5,6 +5,7 @@ import { Blog } from '../types/TypeDefs';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertFromRaw } from 'draft-js';
 
+
 interface IBlogItemProps {
   blog: Blog;
   dataService: DataService
@@ -50,23 +51,23 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
   return (
     <React.Fragment>
       <NavLink style={{ textDecoration: 'none' }} to={`/blog/${blog.id}`}>
-        <div className="item-container">
-          <div className="item__upper">
+        <div className="section-1-bi">
+          <div className="s1-bi__upper">
             <h1>{blog.title}</h1>
             <span>{blog.createdAt}</span>
           </div>
-          <div className="item__inner">
+          <div className="s1-bi__inner">
             <Editor 
               toolbarHidden
               editorState={editorState}
-              wrapperClassName="entryEditorWrapper displayEditorWrapper"
+              wrapperClassName="s1-bi__entry-wrapper s1-bi__display-wrapper"
               readOnly={true}
             />
           </div>
-          {image && (<div className="item__image center">
+          {image && (<div className="s1-bi__image center">
             <img src={image} alt='blog_image' />
           </div>)}
-          <div className="item__lower">
+          <div className="s1-bi__lower">
             <p>Written by: {blog.owner?.username}</p>
             <p>Replies: {blog.entries?.length}</p>
           </div>

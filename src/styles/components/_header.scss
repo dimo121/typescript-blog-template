@@ -1,5 +1,5 @@
 
-.header-container {
+.s6-hc {
     background: #39445F; 
 	color: white;
     width: 100vw;
@@ -7,7 +7,7 @@
     border-bottom: 3px solid $header-dark;
 }
 
-.header-title {
+.s6-hc__title {
 	h1 {
 		font-family: 'Nunito', sans-serif;
 		font-weight: bold;
@@ -17,13 +17,13 @@
 	}
 }
 
-.header-logo {
+.s6-hc__logo {
 	height:35px; 
 	width:40px;
 	margin: 1em 0.5em -.1em 0.2em;
 }
 
-.nav-container {
+.s6-hc__nc {
 
 	margin: 0;
 	height: 0;
@@ -68,14 +68,14 @@
 	}
 }
 
-.nav-toggle {
+.s6-hc__toggle {
 	background: transparent;
 	border: 0;
 	outline: 0;
 	padding: 0;
 }
 
-.nav-signin {
+.s6-hc__signin {
 	display: flex;
 	margin-top:-1em;
 	margin-right:0;
@@ -99,7 +99,7 @@
 
 @media(min-width:450px){
 
-	.nav-container {
+	.s6-hc__nc {
 
 		height: 4em;
 
@@ -138,7 +138,7 @@
 		
 	}
 
-	.nav-signin{
+	.s6-hc__signin{
 
 		margin-top: -1em;
 		margin-right:0;
@@ -157,7 +157,7 @@
 	
 	}
 
-	.header-title {
+	.s6-hc__title {
 	
 		h1 {
 			font-size: $xl-size;
@@ -166,20 +166,20 @@
 		}
 	}
 
-	.header-logo{
+	.s6-hc__logo{
 		height:48px; 
 		width:55px;
 		margin: 1em 0.5em -0.1em 0.2em;
 	}
 
-	.nav-link-active {
+	.s6-hc__link--active {
 		border-bottom: 2px solid white;
 	}
 }
 
 @media(min-width:800px){
 
-	.nav-container{
+	.s6-hc__nc{
 
 		ul li a {
 			margin: 0 $xl-size 0 0; 
@@ -191,7 +191,7 @@
 
 
 @media (prefers-reduced-motion: no-preference) {
-	.header-logo {
+	.s6-hc__logo {
 		animation: Header-logo-spin infinite 20s linear;
 	}
 }

@@ -1,4 +1,4 @@
-.create-container {
+.s4-cc {
   background: $gainsboro;
   border-radius: 2rem;
   width: 85%;
@@ -19,14 +19,32 @@
   }
 }
 
+.s4-cc__ec {
+  width: 90%;
+  height: auto;
+  margin: 3rem 2rem;
+  padding: 2rem;
+
+  textarea {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+
+// @media(max-width:450px){
+//   .s4-cc__ec{
+//     margin: 0;
+//   }
+// }
 // @media(min-width:450px) {
-//   .create-container{
+//   .s4-cc{
 //     width: 75%;
 //   }
 // }
 
 @media(max-width:800px) {
-  .create-container{
+  .s4-cc{
 
     margin : $l-size $m-size;
 
@@ -34,10 +52,16 @@
       margin: 3rem 2rem;
     }
   }
+
+  .s4-cc__ec{
+    margin: 0;
+    width:90%;
+  }
 }
 
+
 @media(max-width:450px) {
-  .create-container{
+  .s4-cc{
 
     margin : $m-size 0 0 $s-size;
     

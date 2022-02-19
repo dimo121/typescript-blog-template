@@ -47,7 +47,7 @@ const Dashboard:React.FC<IDashProps> = (props) => {
                                             setPage(1);}}
             setSearch={(searchArg:Search) => setSearch(searchArg)}
           />
-          <div className="blog-container">
+          <div className="s3-bc">
             {resultBlogs?.map((item:Blog) => (
               <BlogItem key={item.id} blog={{ ...item }} dataService={dataService}/>
             ))}

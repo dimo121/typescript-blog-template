@@ -57,41 +57,41 @@ const Header:React.FC<IHeaderProps> = (props) => {
 
 
     return (
-        <header className="header-container">
-            <div className="header-title">
+        <header className="s6-hc">
+            <div className="s6-hc__title">
                 <span>
-                    <h1><img  src={img} className='header-logo' alt="React logo" />React.JS blog</h1>
+                    <h1><img  src={img} className='s6-hc__logo' alt="React logo" />React.JS blog</h1>
                 </span>
-                <button className="nav-toggle" onClick={isActive ? closeMenu: openMenu}>
+                <button className="s6-hc__toggle" onClick={isActive ? closeMenu: openMenu}>
                     <span className="hamburger" data-testid="hamburger">
                         <span className="hamburger-inner"></span>
                     </span>
                 </button>
             </div>
-            <div className="nav-container">
+            <div className="s6-hc__nc">
                 <ul>
                     <li>
-                        <NavLink exact onClick={closeMenu} className="nav-links" activeClassName="nav-link-active" to="/">
+                        <NavLink exact onClick={closeMenu} activeClassName="s6-hc__link--active" to="/">
                             Home
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={closeMenu} className="nav-links" activeClassName="nav-link-active" to="/dashboard">
+                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/dashboard">
                             Dashboard
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={closeMenu} className="nav-links" activeClassName="nav-link-active" to="/createblog">
+                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/createblog">
                             Create blog
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={closeMenu} className="nav-links" activeClassName="nav-link-active" to="/myblogs">
+                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/myblogs">
                             My blogs
                         </NavLink>
                     </li>
                     <li>
-                        <div className="nav-signin">
+                        <div className="s6-hc__signin">
                             <h3>{user ? `Signed in as : ${user.username}` : ''}</h3>
                             <button className="main-button" onClick={onSignInClick}>
                                 {user ? "Sign Out" : "Sign In"}

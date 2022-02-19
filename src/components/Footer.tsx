@@ -5,7 +5,7 @@ import img2 from "../images/twitter_icon.svg";
 import img3 from "../images/instagram_icon.svg"
 
 export const Footer:React.FC = () => (
-  <div className="footer-container">
+  <div className="s5-fc">
     <ul>
       <li>Follow us on: </li>
       <li>
@@ -45,12 +45,12 @@ export const Footer:React.FC = () => (
         </a>
       </li>
       <li>
-        <NavLink className="footer-links" to="/contactus">
+        <NavLink to="/contactus">
           Contact Us
         </NavLink>
       </li>
       <li>
-        <NavLink className="footer-links" to="/partners">
+        <NavLink to="/partners">
           Partners
         </NavLink>
       </li>

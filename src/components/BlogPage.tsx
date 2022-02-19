@@ -37,7 +37,7 @@ const BlogPage:React.FC<IBlogPageProps & RouteComponentProps<{ id: string }>> = 
     //let data:Blog[] = db_mock.filter(item => item.id === parseInt(this.props.match.params.id))
 
     return (
-      <div className="blog-container">
+      <div className="s3-bc">
         <BlogItem key={blog?.id} blog={{ ...blog }} dataService={dataService}/>
         <h3>Entries:</h3>
         {blog?.entries?.map((item) => {

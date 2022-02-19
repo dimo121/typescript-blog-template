@@ -20,7 +20,7 @@
   opacity: 0;
 }
 
-.modal {
+.s7-modal {
   background: $gainsboro;
   border: 2px solid darken($gainsboro, 15%);
   border-radius: 20px;
@@ -43,11 +43,11 @@
 
 }
 
-.modal-title {
+.s7-modal__title {
   margin: 0 0 $m-size 0;
 }
 
-.modal-error {
+.s7-modal__error {
   position: absolute;
   right:0;
   left: 0;
@@ -56,11 +56,11 @@
   white-space: pre;
 }
 
-.modal-verify{
+.s7-modal__verify{
   margin-top: 14rem;
 }
 
-.modal-verify__form{
+.s7-modal__form{
   margin-top:4em;
   
   input{
@@ -68,6 +68,6 @@
   }
 }
 
-.modal-button-spacer{
+.s7-modal__spacer{
   margin-top: 7em;
 }

@@ -46,7 +46,7 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
   },[currentUser]);
 
   return (
-    <div className="create-container">
+    <div className="s4-cc">
       <h1>Create entry</h1>
       <EntryFormPage
         onSubmission={(title:string,content:string,blogPhotoId:string) => {

@@ -4,7 +4,7 @@ import img2 from "../images/udemy.png";
 import img3 from "../images/react-logo.png";
 
 const Partners:React.FC = () => (
-    <div className="sponsor-container">
+    <div className="s8-sc">
       <ul>
         <li>
           <h1>Meet our partners</h1>

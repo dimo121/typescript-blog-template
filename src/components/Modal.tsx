@@ -238,14 +238,14 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
         onRequestClose={props.clearModal}
         closeTimeoutMS={0}
         ariaHideApp={false}
-        className="modal" 
+        className="s7-modal" 
       >
         {verify ? (
-          <div className="modal-verify">
+          <div className="s7-modal__verify">
             <h5>Please check your email and</h5>
             <h5>enter the 6-digit verification code</h5>
             <h5>to confirm your account</h5>
-            <form onSubmit={verifySignUp} className="modal-verify__form">
+            <form onSubmit={verifySignUp} className="s7-modal__form">
               <input type="text"
                   data-testid="code"
                   name="code"
@@ -260,7 +260,7 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
           </div>
         ) : (
         <>
-        <h3 className="modal-title">{ registerMod ? 'Registration details' : 'Sign in details' } </h3>
+        <h3 className="s7-modal__title">{ registerMod ? 'Registration details' : 'Sign in details' } </h3>
         <form onSubmit={onSubmission}>
           {registerMod && (
             <>
@@ -301,8 +301,8 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
             style={{ fontSize: "12px", height: "1.5rem", width: "22rem" }}
             onChange={onChangePassword}
           ></input>
-          {error && (<div className="modal-error" data-testid="modal-error"><h5>{error}</h5></div>)}
-          <div className="modal-button-spacer">
+          {error && (<div className="s7-modal__error" data-testid="modal-error"><h5>{error}</h5></div>)}
+          <div className="s7-modal__spacer">
             <button className="main-button" onClick={() => {
               onReset();
               props.clearModal();

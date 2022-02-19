@@ -41,7 +41,7 @@ const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
   },[currentUser]);
 
   return (
-      <div className="create-container">
+      <div className="s4-cc">
         <h1>Create blog</h1>
         <EntryFormPage
           onSubmission={(title:string,content:string,blogPhotoId:string) => {

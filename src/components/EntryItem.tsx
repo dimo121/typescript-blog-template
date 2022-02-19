@@ -46,23 +46,23 @@ export const EntryItem:React.FC<IEntryItemProps> = (props) => {
   },[dataService, entry]);
   
   return (
-    <div className="item-container">
-      <div className="item__upper">
+    <div className="section-1-bi">
+      <div className="s1-bi__upper">
         <h1>{entry.title}</h1>
         <span>{entry.createdAt}</span>
       </div>
-      <div className="item__inner">
+      <div className="s1-bi__inner">
         <Editor 
           toolbarHidden
           editorState={editorState}
-          wrapperClassName="entryEditorWrapper displayEditorWrapper"
+          wrapperClassName="s1-bi__entry-wrapper s1-bi__display-wrapper"
           readOnly={true}
         />
       </div>
-      {image && (<div className="item__image center">
+      {image && (<div className="s1-bi__image center">
             <img src={image} alt='entry_image' />
           </div>)}
-      <div className="item__lower">
+      <div className="s1-bi__lower">
         <p>Written by: {entry.owner?.username}</p>
       </div>
     </div>

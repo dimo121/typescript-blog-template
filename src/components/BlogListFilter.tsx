@@ -14,18 +14,18 @@ export const BlogListFilter:React.FC<IFilterProps> = (props) => {
     const { text, search, setText, setSearch } = props;
 
     return(
-      <div className="list-filter-container">
-        <h3 className="search-title">Search by:</h3>
-        <div className="search-container">
+      <div className="s2-lf-wrapper">
+        <h3 className="s2-lf__title">Search by:</h3>
+        <div className="s2-lf__container">
           <input
-            className="search-bar"
+            className="s2-lf__bar"
             type="text"
             value={text}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
           />
           <span>
             <select
-              className="search-pulldown"
+              className="s2-lf__pulldown"
               value={search}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSearch(e.target.value as Search)}
             >

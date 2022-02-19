@@ -92,7 +92,7 @@ const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
             }}
             setSearch={(searchArg:Search) => setSearch(searchArg)}
           />
-        <div className="blog-container">
+        <div className="s3-bc">
           {resultBlogs.map((item,index) => (
             <div key={index}>
               <BlogItem blog={{ ...item }} dataService={dataService}/>

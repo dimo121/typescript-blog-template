@@ -1,4 +1,4 @@
-.blog-container {
+.s3-bc {
   margin-top: 10em;
   position: absolute;
   display: flex;
@@ -16,7 +16,7 @@
   }
 }
 
-.item-container {
+.section-1-bi {
   background-color: rgba(35, 36, 39, 0.7); //#33363A;
   border-left: 9px solid $grey-blue;
   color: white;
@@ -31,7 +31,7 @@
 
 }
 
-.item__inner {
+.s1-bi__inner {
   padding-top: 1.5em;
   flex: 1 1 auto;
   display: flex;
@@ -42,13 +42,13 @@
   }
 }
 
-.entryEditorWrapper {
+.s1-bi__entry-wrapper {
   height:20em;
   background: white;
   opacity: 1;
 }
 
-.displayEditorWrapper {
+.s1-bi__display-wrapper {
   background-color : rgba(35, 36, 50,0);
   height: auto; 
   max-height: 20em;
@@ -56,7 +56,7 @@
   margin-left: 2em;
 }
 
-.item__upper {
+.s1-bi__upper {
   display: flex;
   flex-direction: column;
   color: white;
@@ -77,15 +77,15 @@
   }
 }
 
-.item__lower{
+.s1-bi__lower{
   margin: 3em 0 0 1em;
 }
 
-.item__image{
+.s1-bi__image{
   text-align: center;
 }
 
-.item__image img{
+.s1-bi__image img{
   width: auto;
   height: auto;
   max-height: 25em;
@@ -94,7 +94,7 @@
 
 @media(min-width:450px) {
 
-  .blog-container{
+  .s3-bc{
     h3{
       margin-top:6rem;
       margin-left: 6rem;
@@ -102,12 +102,12 @@
     }
   }
 
-  .item-container{
+  .section-1-bi{
     margin: $l-size auto 0 4.2em;
     width: 38em;
   }
 
-  .item__inner {
+  .s1-bi__inner {
     padding-top: 2em;
   
     p {
@@ -116,7 +116,7 @@
     }
   }
 
-  .item__upper{
+  .s1-bi__upper{
     
     span {
       margin: 1rem 0 0 $l-size;
@@ -130,18 +130,18 @@
     }
   }
 
-  .item__lower{
+  .s1-bi__lower{
     margin: $m-size $l-size;
   }
 
-  .entryEditorWrapper {
+  .s1-bi__entry-wrapper {
     height:40em;
   }
 }
 
 @media(min-width:800px) {
 
-  .blog-container{
+  .s3-bc{
     margin-top: 12em;
     
     h3{
@@ -150,12 +150,12 @@
   
   }
 
-  .item-container{
+  .section-1-bi{
     margin: $xl-size auto 0 7em;
     width: 65em;
   }
 
-  .item__inner {
+  .s1-bi__inner {
     padding-top: 2.5em;
   
     p {
@@ -164,7 +164,7 @@
     }
   }
 
-  .item__upper{
+  .s1-bi__upper{
     flex-direction: row;
 
     h1 {
@@ -176,7 +176,7 @@
     }
   }
 
-  .item__lower{
+  .s1-bi__lower{
     margin: $m-size $l-size;
   }
 }

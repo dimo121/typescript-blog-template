@@ -79,7 +79,7 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
 
 
     return (
-      <div className="entry-form-container">
+      <div className="s4-cc__ec">
         <form onSubmit={onSubmit}>
           <label htmlFor="title">Title:</label>
           <br />
@@ -94,7 +94,7 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
           <br />
           <Editor 
             editorState={editorState}
-            wrapperClassName="entryEditorWrapper"
+            wrapperClassName="s1-bi__entry-wrapper"
             onEditorStateChange={(editorState:EditorState) => setEditorState(editorState)}
           />
           <br />
@@ -107,7 +107,7 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
           <br />
           <input className="button" type="submit" value="Save" />
         </form>
-        {error && <p className="entry-error">Error : {error}</p>}
+        {error && <p>Error : {error}</p>}
         <br/>
         <button onClick={() => setImage('')}>Clear image</button>
         <br/>
