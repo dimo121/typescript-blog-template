@@ -71,29 +71,29 @@ const Header:React.FC<IHeaderProps> = (props) => {
             <div className="s6-hc__nc">
                 <ul>
                     <li>
-                        <NavLink exact onClick={closeMenu} activeClassName="s6-hc__link--active" to="/">
+                        <NavLink exact onClick={closeMenu} activeClassName="s6-hc__link--active" to="/" tabIndex={1}>
                             Home
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/dashboard">
+                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/dashboard" tabIndex={2}>
                             Dashboard
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/createblog">
+                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/createblog" tabIndex={3}>
                             Create blog
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/myblogs">
+                        <NavLink onClick={closeMenu} activeClassName="s6-hc__link--active" to="/myblogs" tabIndex={4}>
                             My blogs
                         </NavLink>
                     </li>
                     <li>
                         <div className="s6-hc__signin">
                             <h3>{user ? `Signed in as : ${user.username}` : ''}</h3>
-                            <button className="main-button" onClick={onSignInClick}>
+                            <button className="main-button" onClick={onSignInClick} tabIndex={5}>
                                 {user ? "Sign Out" : "Sign In"}
                             </button>
                         </div>

@@ -64,8 +64,6 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
     verify: false
   })
 
-  const { code, email, username, password, error, registerMod, verify } = state;
-
   const postRegister = React.useCallback(() => {
         dispatch({type: 'REGISTER', newState: {
             registerMod: false,
@@ -141,6 +139,7 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
   }})
   ,[]);
 
+  const { code, email, username, password, error, registerMod, verify } = state;
 
   const verifySignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

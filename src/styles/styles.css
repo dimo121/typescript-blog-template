@@ -77,6 +77,9 @@ button:disabled {
   transform: scale(0.94);
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); }
 
+.main-button:focus-visible {
+  outline: 1.5px black solid; }
+
 @media (min-width: 450px) {
   .blog-button {
     margin: -6em 0 0 42em; } }
@@ -297,6 +300,8 @@ button:disabled {
     line-height: 1.8em; }
   .s6-hc__signin button {
     margin: 0 1em; }
+  .s6-hc__signin button:focus-visible {
+    outline: 1.5px black solid; }
 
 @media (min-width: 450px) {
   .s6-hc__nc {

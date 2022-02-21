@@ -64,6 +64,9 @@ button:disabled {
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
+.main-button:focus-visible {
+  outline: 1.5px black solid;
+}
 
 @media(min-width:450px){
 
