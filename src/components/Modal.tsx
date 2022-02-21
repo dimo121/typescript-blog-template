@@ -39,42 +39,12 @@ const modalReducer = (state:IModalState,action:IAction):IModalState => {
   const {type,newState} = action;
 
   switch(type){
-    case 'REGISTER': case 'VERIFY': case 'SIGNIN': case 'RESET': case 'REGISTER_CLICK':
+    case 'REGISTER': case 'VERIFY': case 'SIGNIN': case 'RESET': case 'REGISTER_CLICK': case 'SET_ERROR': case 'CHANGE_CODE': case 'CHANGE_EMAIL': case 'CHANGE_PASSWORD': case 'CHANGE_USER':
     {
       return {
         ...state,
         ...newState
       };
-    }
-    case 'SET_ERROR':{
-      return {
-        ...state,
-        error: newState.error!
-      }
-    }
-    case 'CHANGE_CODE':{
-      return {
-        ...state,
-        code: newState.code!
-      }
-    }
-    case 'CHANGE_EMAIL':{
-      return {
-        ...state,
-        email: newState.email!
-      }
-    }
-    case 'CHANGE_PASSWORD':{
-      return {
-        ...state,
-        password: newState.password!
-      }
-    }
-    case 'CHANGE_USER':{
-      return {
-        ...state,
-        username: newState.username!
-      }
     }
     default: {
       throw new Error(`Unhandled action type ${type}`);
@@ -314,9 +284,7 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
         </form>
         {!registerMod && (<div>
           <h5>If you are not a member please register</h5>
-          <button className="main-button" onClick={() => {  
-            onRegisterClick();
-          }}>
+          <button className="main-button" onClick={onRegisterClick}>
             Register
           </button>
         </div>)}

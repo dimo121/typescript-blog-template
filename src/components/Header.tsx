@@ -46,12 +46,12 @@ const Header:React.FC<IHeaderProps> = (props) => {
     const onSubmission = async (user:NewUserInput): Promise<void> => {
         if(!user.username){
             const authUser = await authService.login(user.email, user.password)
-            console.log('Login: ', authUser);
+            //console.log('Login: ', authUser);
             setUser(authUser);
         }
         else{
-            const authUser = await authService.signUp(user.username,user.password,user.email)
-            console.log('Registered: ', authUser);
+            await authService.signUp(user.username,user.password,user.email)
+            //console.log('Registered: ', authUser);
         }
     }
 
@@ -60,7 +60,7 @@ const Header:React.FC<IHeaderProps> = (props) => {
         <header className="s6-hc">
             <div className="s6-hc__title">
                 <span>
-                    <h1><img  src={img} className='s6-hc__logo' alt="React logo" />React.JS blog</h1>
+                    <h1><img  src={img} className='s6-hc__logo' alt="React logo" />React.JS blog template</h1>
                 </span>
                 <button className="s6-hc__toggle" onClick={isActive ? closeMenu: openMenu}>
                     <span className="hamburger" data-testid="hamburger">

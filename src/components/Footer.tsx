@@ -1,15 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import img from "../images/facebook_icon.svg";
-import img2 from "../images/twitter_icon.svg";
-import img3 from "../images/instagram_icon.svg"
+import img2 from "../images/portfolio-icon.png";
+import img3 from "../images/github-logo-cat.png";
 
 export const Footer:React.FC = () => (
   <div className="s5-fc">
     <ul>
-      <li>Follow us on: </li>
+      <li>Follow me on: </li>
       <li>
-        <a href="http://www.facebook.com">
+        <a href="https://www.facebook.com">
           <p>Facebook</p>
           <span>
             <img
@@ -21,25 +21,25 @@ export const Footer:React.FC = () => (
         </a>
       </li>
       <li>
-        <a href="http://www.twitter.com">
-          <p>Twitter</p>
+        <a href="http://dimo-portfolio.net">
+          <p>Portfolio</p>
           <span>
             <img
               src={img2}
-              alt="twitter"
-              style={{ height: "3rem", width: "3rem" }}
+              alt="portfolio"
+              style={{ height: "3rem", width: "3rem", marginTop:"1rem" }}
             ></img>
           </span>
         </a>
       </li>
       <li>
-        <a href="http://www.instagram.com">
-          <p>Instagram</p>
+        <a href="http://www.github.com/dimo121">
+          <p>Github</p>
           <span>
             <img
               src={img3}
-              alt="Instagram"
-              style={{ height: "5rem", width: "5rem" }}
+              alt="Github"
+              style={{ height: "4rem", width: "5.5rem" }}
             ></img>
           </span>
         </a>

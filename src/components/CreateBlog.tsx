@@ -21,7 +21,7 @@ const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
     if(currentUser){
       const retrieveUserId = () => {
         return new Promise((resolve) => {
-            currentUser!.user.getUserAttributes((err,result) => {
+            currentUser.user.getUserAttributes((err,result) => {
               if(err){
                 alert(err);
                 return '';
@@ -64,3 +64,4 @@ const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
 };
 
 export default CreateBlog;
+
