@@ -23,7 +23,6 @@ export class AuthService {
         try{
             const user = await Auth.signIn(email, password) as CognitoUser;
 
-            // console.log(user);
             // await this.getAWSTemporaryCreds(user);
 
             return {

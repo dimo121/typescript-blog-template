@@ -19,6 +19,7 @@ import { CreateEntry } from '../components/CreateEntry';
 import { Footer } from '../components/Footer';
 import MyBlogsPage from '../components/MyBlogsPage';
 import { ScrollToTop } from '../components/ScrollToTop';
+import { Spinner } from '../components/Spinner';
 
 const Contact = lazy(() => import("../components/Contact"));
 const Partners = lazy(() => import("../components/Partners"));
@@ -93,12 +94,12 @@ export default class AppRouter extends React.Component<{},IAppState>{
                   />
                   <Route exact path="/partners" 
                         render={() => 
-                    <Suspense fallback={<h1>Loading...</h1>}>
+                    <Suspense fallback={<Spinner />}>
                       <Partners />
                     </Suspense>} 
                   />
                   <Route exact path="/contactus" render={() => 
-                    <Suspense fallback={<h1>Loading...</h1>}>
+                    <Suspense fallback={<Spinner />}>
                       <Contact />
                     </Suspense>}
                   />

@@ -9,7 +9,7 @@
   overflow: hidden;
 
   h1{
-    margin: 3rem 4rem;
+    margin: 3rem $xl-size;
     font-family: 'Source code pro', Helvetica;
   }
 
@@ -43,7 +43,7 @@
 //   }
 // }
 
-@media(max-width:800px) {
+@media(max-width:900px) {
   .s4-cc{
 
     margin : $l-size $m-size;

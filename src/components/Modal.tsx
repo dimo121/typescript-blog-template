@@ -64,80 +64,64 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
     verify: false
   })
 
-  const postRegister = React.useCallback(() => {
-        dispatch({type: 'REGISTER', newState: {
+  const postRegister = () => dispatch({type: 'REGISTER', newState: {
             registerMod: false,
             error: '',
             email: '',
             password: '',
             username: '',
             verify: true
-          }
-        });
-      },[]);
+          }});
 
-  const postSignin = React.useCallback(() => {
-    dispatch({type: 'SIGNIN', newState: {
+
+  const postSignin = () => dispatch({type: 'SIGNIN', newState: {
         error: '',
         email: '',
         password: '',
         verify: false
-    }});
-  },[]);
+  }});
 
-  const postVerify = React.useCallback(() => {
-    dispatch({type: 'VERIFY', newState: {
+  const postVerify = () => dispatch({type: 'VERIFY', newState: {
       verify: false
-    }});
-  },[]);
-
-  const onChangeUsername = React.useCallback((e:CustomEvent) => {
-    dispatch({type: 'CHANGE_USER', newState: {
+  }});
+  
+  const onChangeUsername = (e:CustomEvent) => dispatch({type: 'CHANGE_USER', newState: {
       username: e.target.value
-    }});
-  },[]);
+  }});
 
-  const onChangeEmail = React.useCallback((e:CustomEvent) => {
-    dispatch({type: 'CHANGE_EMAIL', newState: {
+  const onChangeEmail = (e:CustomEvent) => dispatch({type: 'CHANGE_EMAIL', newState: {
       email: e.target.value
-    }});
-  },[]);
+  }});
 
-  const onChangePassword = React.useCallback((e:CustomEvent) => {
-    dispatch({type: 'CHANGE_PASSWORD', newState: {
+
+  const onChangePassword = (e:CustomEvent) => dispatch({type: 'CHANGE_PASSWORD', newState: {
       password: e.target.value
     }});
-  },[]);
 
-  const onChangeCode = React.useCallback((e:CustomEvent) => {
-    dispatch({type: 'CHANGE_CODE', newState: {
+  const onChangeCode = (e:CustomEvent) => dispatch({type: 'CHANGE_CODE', newState: {
       code: e.target.value
-    }});
-  },[]);
+  }});
 
-  const setError = React.useCallback((error) => {
-    dispatch({type: "SET_ERROR",newState: {
+  const setError = (error:string) => dispatch({type: "SET_ERROR",newState: {
       error
-    }});
-  },[]);
+  }});
 
-  const onReset = React.useCallback(() => dispatch({type:'RESET',newState: {
+
+  const onReset = () => dispatch({type:'RESET',newState: {
     email: '',
     username: '',
     password: '',
     error: '',
     registerMod: false,
-  }})
-  ,[]);
+  }});
 
-  const onRegisterClick = React.useCallback(() => dispatch({type:'REGISTER_CLICK',newState: {
+  const onRegisterClick = () => dispatch({type:'REGISTER_CLICK',newState: {
     email: '',
     username: '',
     password: '',
     error: '',
     registerMod: true,
-  }})
-  ,[]);
+  }});
 
   const { code, email, username, password, error, registerMod, verify } = state;
 

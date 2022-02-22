@@ -176,15 +176,5 @@ export class DataService {
         }
 
     }
-    // public getEntries():Entry[] {
-    //     //return this.entryCollection
-    //     return [];
-    // }
-
-
-    // public addEntry():void {
-    //     //this.entryCollection.push(entry); 
-    //     return;
-    // }
 
 }

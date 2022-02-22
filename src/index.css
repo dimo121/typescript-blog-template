@@ -17,6 +17,12 @@ code {
 
 .main-container {
   min-height: 100vh;
+  min-width: 100vw;
   margin-top: -1.6rem;
 }
 
+.page-container {
+  background: #303A52;
+  height: 140em;
+  width: 100%;
+}

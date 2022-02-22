@@ -16,11 +16,6 @@
   transform: scale(0.94);
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); }
 
-.page-container {
-  background: #303A52;
-  height: 140em;
-  width: 100vw; }
-
 .button {
   height: 4rem;
   width: 12rem;
@@ -84,7 +79,7 @@ button:disabled {
   .blog-button {
     margin: -6em 0 0 42em; } }
 
-@media (min-width: 800px) {
+@media (min-width: 900px) {
   .blog-button {
     margin: -6em 0 0 77em; }
   .page-numbers {
@@ -142,7 +137,7 @@ button:disabled {
   position: absolute;
   overflow: hidden; }
   .s4-cc h1 {
-    margin: 3rem 4rem;
+    margin: 3rem 4.8rem;
     font-family: 'Source code pro', Helvetica; }
   .s4-cc h5 {
     margin-left: 1.7em;
@@ -157,7 +152,7 @@ button:disabled {
     width: 80%;
     margin: 0 auto; }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .s4-cc {
     margin: 3.2rem 1.6rem; }
     .s4-cc h1 {
@@ -233,7 +228,7 @@ button:disabled {
 .s6-hc {
   background: #39445F;
   color: white;
-  width: 100vw;
+  width: 100%;
   margin: 0;
   border-bottom: 3px solid #33363a; }
 
@@ -352,7 +347,7 @@ button:disabled {
   .s6-hc__link--active {
     border-bottom: 2px solid white; } }
 
-@media (min-width: 800px) {
+@media (min-width: 900px) {
   .s6-hc__nc ul li a {
     margin: 0 4.8rem 0 0; } }
 
@@ -467,7 +462,7 @@ button:disabled {
   .s1-bi__entry-wrapper {
     height: 40em; } }
 
-@media (min-width: 800px) {
+@media (min-width: 900px) {
   .s3-bc {
     margin-top: 12em; }
     .s3-bc h3 {
@@ -524,7 +519,7 @@ button:disabled {
   .s2-lf-wrapper {
     margin: 3.5em 0 0 4.2em; } }
 
-@media (min-width: 800px) {
+@media (min-width: 900px) {
   .s2-lf-wrapper {
     margin: 5em 0 0 7em; } }
 
