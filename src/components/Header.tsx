@@ -45,13 +45,11 @@ const Header:React.FC<IHeaderProps> = (props) => {
   
     const onSubmission = async (user:NewUserInput): Promise<void> => {
         if(!user.username){
-            const authUser = await authService.login(user.email, user.password)
-            //console.log('Login: ', authUser);
+            const authUser = await authService.login(user.email, user.password);
             setUser(authUser);
         }
         else{
-            await authService.signUp(user.username,user.password,user.email)
-            //console.log('Registered: ', authUser);
+            await authService.signUp(user.username,user.password,user.email);
         }
     }
 
@@ -108,10 +106,6 @@ const Header:React.FC<IHeaderProps> = (props) => {
             />
         </header>
     )
-}
-
-Header.defaultProps = {
-    user: undefined
 }
 
 export default Header;

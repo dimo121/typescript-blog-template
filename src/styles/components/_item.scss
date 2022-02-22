@@ -43,15 +43,15 @@
 }
 
 .s1-bi__entry-wrapper {
-  height:20em;
+  height:40em;
   background: white;
   opacity: 1;
+  overflow: hidden;
 }
 
 .s1-bi__display-wrapper {
   background-color : rgba(35, 36, 50,0);
-  height: auto; 
-  max-height: 20em;
+  overflow: scroll;
   width: 92%;
   margin-left: 2em;
 }
@@ -135,7 +135,7 @@
   }
 
   .s1-bi__entry-wrapper {
-    height:40em;
+    height:50em;
   }
 }
 

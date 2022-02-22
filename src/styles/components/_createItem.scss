@@ -9,12 +9,12 @@
   overflow: hidden;
 
   h1{
-    margin: 3rem $xl-size;
+    margin: 3rem 4.2rem;
     font-family: 'Source code pro', Helvetica;
   }
 
   h5{
-    margin-left: 1.7em;
+    margin-left: $xl-size;
     font-weight: lighter;
   }
 }
@@ -32,17 +32,6 @@
 }
 
 
-// @media(max-width:450px){
-//   .s4-cc__ec{
-//     margin: 0;
-//   }
-// }
-// @media(min-width:450px) {
-//   .s4-cc{
-//     width: 75%;
-//   }
-// }
-
 @media(max-width:900px) {
   .s4-cc{
 
@@ -50,6 +39,10 @@
 
     h1{
       margin: 3rem 2rem;
+    }
+
+    h5{
+      margin-left: 1.7em;
     }
   }
 

@@ -55,7 +55,8 @@ export const EntryItem:React.FC<IEntryItemProps> = (props) => {
         <Editor 
           toolbarHidden
           editorState={editorState}
-          wrapperClassName="s1-bi__entry-wrapper s1-bi__display-wrapper"
+          editorClassName="s1-bi__display-wrapper"
+          editorStyle={{overflow: 'hidden'}}
           readOnly={true}
         />
       </div>
