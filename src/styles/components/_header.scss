@@ -4,6 +4,7 @@
 	color: white;
     width: 100%;
     margin: 0;
+	padding-top:1em;
     border-bottom: 3px solid $header-dark;
 }
 
@@ -103,8 +104,12 @@
 
 @media(min-width:450px){
 
-	.s6-hc__nc {
+	.s6-hc{
+		padding: 0;
+	}
 
+	.s6-hc__nc {
+		
 		height: 4em;
 
 		ul {

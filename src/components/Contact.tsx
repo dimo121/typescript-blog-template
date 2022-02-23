@@ -16,10 +16,8 @@ const Contact:React.FC = () => {
 
         try{ 
             emailService.sendEmail({name,email,subject,content})
-            console.log("Email sent successfully : ",name," ",email," ",subject," ",content);
         }catch(e:any){
             setError(e);
-            console.log(e);
         }
 
     }

@@ -58,7 +58,7 @@ const Header:React.FC<IHeaderProps> = (props) => {
         <header className="s6-hc">
             <div className="s6-hc__title">
                 <span>
-                    <h1><img  src={img} className='s6-hc__logo' alt="React logo" />React.JS blog template</h1>
+                    <h1><img  src={img} className='s6-hc__logo' alt="React logo" />React.JS blog</h1>
                 </span>
                 <button className="s6-hc__toggle" onClick={isActive ? closeMenu: openMenu}>
                     <span className="hamburger" data-testid="hamburger">

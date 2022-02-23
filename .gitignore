@@ -1,2 +1,4 @@
 node_modules/
 build/
+src/aws-exports.ts
+src/controllers/config.ts
