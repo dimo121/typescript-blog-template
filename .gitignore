@@ -1,4 +1,7 @@
-node_modules/
-build/
-src/aws-exports.ts
-src/controllers/config.ts
+node_modules
+build
+react-app-env.d.ts
+config.ts
+aws-exports.ts
+setupTests.ts
+

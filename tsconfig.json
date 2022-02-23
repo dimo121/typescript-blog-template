@@ -26,8 +26,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src/**/*"
-  ],
+    "src/**/*", "config.ts", "aws-exports.ts"  ],
   "exclude": [
     "node_modules",
     "build"

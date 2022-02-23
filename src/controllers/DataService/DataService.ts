@@ -3,7 +3,7 @@ import { API, Auth } from 'aws-amplify';
 import { LOAD_BLOGS, FIND_BLOG, CREATE_BLOG, CREATE_ENTRY, BLOGS_BY_USER, CREATE_USER, DELETE_BLOG } from "./protocol";
 import { base64Encode } from '../../utils/base64Encode';
 import { S3 } from 'aws-sdk';
-import { config } from '../config';
+import { config } from '../../config';
 import { generateRandomId } from '../../utils/generateId';
 
 

@@ -1,4 +1,4 @@
-import { config } from '../config';
+import { config } from '../../config';
 import { send } from 'emailjs-com';
 import { EmailMessage } from '../../types/TypeDefs';
 

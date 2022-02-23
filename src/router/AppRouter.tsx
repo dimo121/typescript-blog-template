@@ -3,7 +3,7 @@ import React, { lazy, Suspense } from 'react';
 import awsconfig from '../aws-exports';
 import Amplify, { API } from 'aws-amplify';
 import AWS from 'aws-sdk';
-import { config } from '../controllers/config';
+import { config } from '../config';
 import '../styles/styles.css';
 import Header from '../components/Header';
 import BlogPage from '../components/BlogPage';
@@ -27,7 +27,7 @@ const Partners = lazy(() => import("../components/Partners"));
 Amplify.configure(awsconfig);
 API.configure(awsconfig);
 
-AWS.config.region = 'ap-southeast-2';
+AWS.config.region = config.REGION;
 
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId: config.IDENTITY_POOL_ID
@@ -58,7 +58,6 @@ export default class AppRouter extends React.Component<{},IAppState>{
       user
     });
       
-    console.log('Logged in user is: ', user?.username);
   };
 
   render(){

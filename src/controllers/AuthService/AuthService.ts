@@ -1,6 +1,6 @@
 import { User, UserAttribute } from '../../types/TypeDefs';
 import Amplify, { Auth } from 'aws-amplify';
-import { config } from '../config';
+import { config } from '../../config';
 import { CognitoUser } from '@aws-amplify/auth';
 // import { Credentials } from 'aws-sdk/lib/credentials';
 // import AWS from 'aws-sdk';
@@ -56,7 +56,7 @@ export class AuthService {
                 user
             };
         } catch (error) {
-            console.log('error signing up:', error);
+            console.log('Error signing up:', error);
             return undefined;
         }
     }
