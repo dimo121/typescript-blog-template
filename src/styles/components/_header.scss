@@ -30,16 +30,16 @@
 	height: 0;
 
     ul {
-		position: fixed;
+		position: absolute;
 		top: 8em;
 		right: 0;
 		background: #2C354A;
 		margin: 0;
 		width: 50%;
-		height:100vh;
+		height:50vh;
 		text-align: left;
 		visibility: hidden;
-		z-index:1;
+		z-index:2;
 
 		.nav-is-active & {
 			visibility: unset;

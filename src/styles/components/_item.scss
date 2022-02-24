@@ -34,7 +34,6 @@
 .s1-bi__inner {
   padding-top: 1.5em;
   flex: 1 1 auto;
-  display: flex;
 
   p {
     flex: 0 0 18em;
@@ -53,7 +52,7 @@
   background-color : rgba(35, 36, 50,0);
   overflow: scroll;
   width: 92%;
-  margin-left: 2em;
+  margin-left: 1em;
 }
 
 .s1-bi__upper {
@@ -136,6 +135,10 @@
 
   .s1-bi__entry-wrapper {
     height:50em;
+  }
+
+  .s1-bi__display-wrapper {
+    margin-left: 2em;
   }
 }
 

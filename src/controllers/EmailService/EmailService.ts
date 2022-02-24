@@ -14,7 +14,7 @@ export class EmailService {
 
         } catch(err:any){
 
-            throw new Error(err);
+            console.log(err);
         }
     }
 

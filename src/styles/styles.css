@@ -251,16 +251,16 @@ button:disabled {
   margin: 0;
   height: 0; }
   .s6-hc__nc ul {
-    position: fixed;
+    position: absolute;
     top: 8em;
     right: 0;
     background: #2C354A;
     margin: 0;
     width: 50%;
-    height: 100vh;
+    height: 50vh;
     text-align: left;
     visibility: hidden;
-    z-index: 1; }
+    z-index: 2; }
     .nav-is-active .s6-hc__nc ul {
       visibility: unset; }
     .s6-hc__nc ul li:first-of-type {
@@ -396,8 +396,7 @@ button:disabled {
 
 .s1-bi__inner {
   padding-top: 1.5em;
-  flex: 1 1 auto;
-  display: flex; }
+  flex: 1 1 auto; }
   .s1-bi__inner p {
     flex: 0 0 18em;
     margin-left: 1em; }
@@ -412,7 +411,7 @@ button:disabled {
   background-color: rgba(35, 36, 50, 0);
   overflow: scroll;
   width: 92%;
-  margin-left: 2em; }
+  margin-left: 1em; }
 
 .s1-bi__upper {
   display: flex;
@@ -465,7 +464,9 @@ button:disabled {
   .s1-bi__lower {
     margin: 1.6rem 3.2rem; }
   .s1-bi__entry-wrapper {
-    height: 50em; } }
+    height: 50em; }
+  .s1-bi__display-wrapper {
+    margin-left: 2em; } }
 
 @media (min-width: 900px) {
   .s3-bc {
@@ -552,8 +553,7 @@ button:disabled {
   height: 30em;
   width: 17em;
   padding: 3.2rem;
-  text-align: center;
-  z-index: 1; }
+  text-align: center; }
   .s7-modal input {
     width: 20rem;
     height: 4rem; }

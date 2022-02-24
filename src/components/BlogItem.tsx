@@ -61,7 +61,9 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
               toolbarHidden
               editorState={editorState}
               editorClassName="s1-bi__display-wrapper"
-              editorStyle={{overflow: 'hidden'}}
+              editorStyle={{
+                overflow: 'hidden'
+              }}
               readOnly={true}
             />
           </div>

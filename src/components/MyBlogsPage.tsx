@@ -43,7 +43,7 @@ const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
             }
           })
         } else {
-          rej('Error retrieving user id');
+          rej('');
         }
       })
     }
