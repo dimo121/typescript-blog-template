@@ -1,0 +1,16 @@
+
+.home {
+    font-size : 1.2em;
+    color:white;
+    padding:8em 2em;
+    margin-top:0;
+    width:34em;
+    line-height:2em;
+    font-weight:lighter;
+}
+
+@media(max-width:460px){
+    .home{
+        width: 16em;
+    }
+}

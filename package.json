@@ -40,13 +40,17 @@
     "zen-observable-ts": "0.8.19"
   },
   "scripts": {
-    "build:css": "node-sass src/styles/styles.scss -o src/styles",
+    "clean": "rimraf scss",
+    "compile": "node-sass --output-style=expanded --source-map=true src/styles/styles.scss -o src/styles",
+    "prefix": "postcss --use autoprefixer --no-map < src/styles/styles.css | postcss --use cssnano > src/styles/styles.min.css",
+    "build:css": "yarn run clean && yarn run compile && yarn run prefix",
     "watch:css": "yarn run build:css && node-sass src/styles/styles.scss -o src/styles -w -r",
     "start:js": "react-scripts start",
     "start": "npm-run-all -p watch:css start:js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node src/server/index.js"
   },
   "eslintConfig": {
     "extends": [
@@ -71,7 +75,11 @@
     "@types/uuid": "^8.3.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
     "amazon-cognito-identity-js": "^5.1.2",
+    "autoprefixer": "^10.4.2",
     "enzyme": "^3.11.0",
-    "prettier": "^2.4.1"
+    "postcss": "^8.4.7",
+    "postcss-cli": "^9.1.0",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2"
   }
 }

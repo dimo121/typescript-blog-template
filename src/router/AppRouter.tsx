@@ -1,10 +1,9 @@
-
 import React, { lazy, Suspense } from 'react';
 import awsconfig from '../aws-exports';
 import Amplify, { API } from 'aws-amplify';
 import AWS from 'aws-sdk';
 import { config } from '../config';
-import '../styles/styles.css';
+import '../styles/styles.min.css';
 import Header from '../components/Header';
 import BlogPage from '../components/BlogPage';
 import CreateBlog from '../components/CreateBlog';
