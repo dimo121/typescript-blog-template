@@ -26,7 +26,7 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
     if(currentUser){
       const retrieveUserId = () => {
         return new Promise((resolve) => {
-            currentUser!.user.getUserAttributes((err,result) => {
+            currentUser.user.getUserAttributes((err,result) => {
               if(err){
                 alert(err);
                 return '';

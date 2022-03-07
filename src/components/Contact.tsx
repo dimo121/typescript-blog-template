@@ -11,13 +11,13 @@ const Contact:React.FC = () => {
     
     const emailService: EmailService = new EmailService();
 
-    const onSubmit = (e:React.SyntheticEvent<EventTarget>) => {
+    const onSubmit = async (e:React.SyntheticEvent<EventTarget>) => {
         e.preventDefault();
 
         try{ 
-            emailService.sendEmail({name,email,subject,content})
-        }catch(e:any){
-            setError(e);
+            await emailService.sendEmail({name,email,subject,content})
+        }catch(err:any){
+            setError(err);
         }
 
     }

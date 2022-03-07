@@ -8,7 +8,7 @@ import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 interface IEntryFormProps {
   onSubmission : (title:string,content:string,blogPhotoId:string) => void;
   dataService: DataService;
-  userId: String;
+  userId: string;
 }
 
 
@@ -38,8 +38,9 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
 
       let blogPhotoId: string = '';
 
-      if(file)
-      await dataService.uploadBlogFile(file).then(res => blogPhotoId = res).catch(err => console.log(err));
+      if(file){
+        await dataService.uploadBlogFile(file).then(res => blogPhotoId = res).catch(err => console.log(err));
+      }
 
       onSubmission(
         title,
@@ -95,7 +96,7 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
           <Editor 
             editorState={editorState}
             wrapperClassName="s1-bi__entry-wrapper"
-            onEditorStateChange={(editorState:EditorState) => setEditorState(editorState)}
+            onEditorStateChange={(transitionState:EditorState) => setEditorState(transitionState)}
           />
           <br />
           <br />

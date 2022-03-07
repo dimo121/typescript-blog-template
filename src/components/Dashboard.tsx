@@ -23,8 +23,8 @@ const Dashboard:React.FC<IDashProps> = (props) => {
 
   useEffect(() => {
 
-    dataService.getBlogs().then(resultBlogs => {
-      setBlogCollection(resultBlogs);
+    dataService.getBlogs().then(result => {
+      setBlogCollection(result);
       setLoading(false);
     }).catch((e) => console.log(e));
     

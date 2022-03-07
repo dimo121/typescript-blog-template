@@ -43,13 +43,13 @@ const Header:React.FC<IHeaderProps> = (props) => {
         setModal(false);
     };
   
-    const onSubmission = async (user:NewUserInput): Promise<void> => {
-        if(!user.username){
-            const authUser = await authService.login(user.email, user.password);
+    const onSubmission = async (userSubmit:NewUserInput): Promise<void> => {
+        if(!userSubmit.username){
+            const authUser = await authService.login(userSubmit.email, userSubmit.password);
             setUser(authUser);
         }
         else{
-            await authService.signUp(user.username,user.password,user.email);
+            await authService.signUp(userSubmit.username,userSubmit.password,userSubmit.email);
         }
     }
 

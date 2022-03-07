@@ -21,7 +21,7 @@ export const Footer:React.FC = () => (
         </a>
       </li>
       <li>
-        <a href="http://dimo-portfolio.net">
+        <a href="https://dimo-portfolio.net">
           <p>Portfolio</p>
           <span>
             <img
@@ -33,7 +33,7 @@ export const Footer:React.FC = () => (
         </a>
       </li>
       <li>
-        <a href="http://www.github.com/dimo121">
+        <a href="https://www.github.com/dimo121">
           <p>Github</p>
           <span>
             <img
