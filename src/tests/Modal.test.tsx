@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { ModalComponent } from "../components/Modal";
+import Modal from '../components/Modal';
+import { AuthService } from "../controllers/AuthService/AuthService";
 //import { User } from '../types/TypeDefs';
 import user from "@testing-library/user-event";
 
@@ -9,12 +10,15 @@ const mockSubmission = jest.fn();
 
 const mockClearModal = jest.fn(); 
 
+const authService = new AuthService();
+
 it("test if modal is open and rendering elements", () => {
   render(
-    <ModalComponent
+    <Modal
       modalOpen={modalOpen}
       onSubmission={mockSubmission}
       clearModal={mockClearModal}
+      authService={authService}
     />
   );
 
@@ -31,10 +35,11 @@ it("test if modal is open and rendering elements", () => {
 
 it("test registration modal is rendering after register button is pressed", () => {
   render(
-    <ModalComponent
+    <Modal
       modalOpen={modalOpen}
       onSubmission={mockSubmission}
       clearModal={mockClearModal}
+      authService={authService}
     />
   );
 
@@ -54,10 +59,11 @@ it("test registration modal is rendering after register button is pressed", () =
 
 it("should render error message if Email field is missing", () => {
     render(
-        <ModalComponent
+        <Modal
           modalOpen={modalOpen}
           onSubmission={mockSubmission}
           clearModal={mockClearModal}
+          authService={authService}
         />
     );
 
@@ -75,10 +81,11 @@ it("should render error message if Email field is missing", () => {
 
 it("should render error message if Password field is missing", () => {
     render(
-        <ModalComponent
+        <Modal
           modalOpen={modalOpen}
           onSubmission={mockSubmission}
           clearModal={mockClearModal}
+          authService={authService}
         />
     );
 
@@ -96,10 +103,11 @@ it("should render error message if Password field is missing", () => {
 
 it("should submit and trigger mockSubmission if no fields are missing", () => {
     render(
-        <ModalComponent
+        <Modal
           modalOpen={modalOpen}
           onSubmission={mockSubmission}
           clearModal={mockClearModal}
+          authService={authService}
         />
     );
 
@@ -126,10 +134,11 @@ it("should submit and trigger mockSubmission if no fields are missing", () => {
 
 it("should render registration modal upon register button click", () => {
   render(
-      <ModalComponent
+      <Modal
         modalOpen={modalOpen}
         onSubmission={mockSubmission}
         clearModal={mockClearModal}
+        authService={authService}
       />
   );
 
@@ -143,10 +152,11 @@ it("should render registration modal upon register button click", () => {
 
 it("should render error message if username field is missing on register", () => {
   render(
-      <ModalComponent
+      <Modal
         modalOpen={modalOpen}
         onSubmission={mockSubmission}
         clearModal={mockClearModal}
+        authService={authService}
       />
   );
 
@@ -172,10 +182,11 @@ it("should render error message if username field is missing on register", () =>
 
 it("should submit and trigger mockSubmission if no registration fields are missing", () => {
   render(
-      <ModalComponent
+      <Modal
         modalOpen={modalOpen}
         onSubmission={mockSubmission}
         clearModal={mockClearModal}
+        authService={authService}
       />
   );
 
@@ -210,7 +221,7 @@ it("should submit and trigger mockSubmission if no registration fields are missi
 
 // test("take a snapshot of the container", () => {
 //   const { container } = render(
-//     <ModalComponent
+//     <Modal
 //       modalOpen={modalOpen}
 //       onSubmission={mockSubmission}
 //       clearModal={mockClearModal}
