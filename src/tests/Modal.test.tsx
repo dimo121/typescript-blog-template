@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Modal from '../components/Modal';
 import { AuthService } from "../controllers/AuthService/AuthService";
-//import { User } from '../types/TypeDefs';
 import user from "@testing-library/user-event";
 
 let modalOpen: boolean = true;
@@ -218,14 +217,3 @@ it("should submit and trigger mockSubmission if no registration fields are missi
 
 })
 
-
-// test("take a snapshot of the container", () => {
-//   const { container } = render(
-//     <Modal
-//       modalOpen={modalOpen}
-//       onSubmission={mockSubmission}
-//       clearModal={mockClearModal}
-//     />
-//   );
-//   expect(container).toMatchInlineSnapshot(`<div />`);
-// });

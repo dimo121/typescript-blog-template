@@ -27,47 +27,39 @@ const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
   const [userId, setUserId] = useState<string>(''); 
   const [deleted, setDeleted] = useState<boolean>(false);
 
-
   useEffect(() => {
-    const retrieveUserId = (): Promise<string> => {
-      return new Promise((res,rej) => {
-        if(user) {
-          user.user.getUserAttributes((err,result) => {
-            if(err){
-              alert(err);
-              return '';
-            } else{
+    if(user) {
+      const retrieveUserId = (): Promise<string> => {
+        return new Promise((res) => {
+            user.user.getUserAttributes((_,result) => { 
               if(result){
                 res(result[0].Value);
               }
-            }
-          })
-        } else {
-          rej('');
-        }
-      })
-    }
-
-    const loadBlogs = async ():Promise<void> => {
-
-      let id:string;
-  
-      try {
-        id = await retrieveUserId() as string;
-      } catch (error) {
-        console.log(error);
-        return;
+            })
+        })
       }
-  
-      const blogCollection:Blog[] = await dataService.getBlogsByUser(id);
-  
-      setBlogCollection(blogCollection);
-      setLoading(false);
-      setUserId(id);
-    
-    }
 
-    loadBlogs();
+      const loadBlogs = async ():Promise<void> => {
+
+        let id:string;
+    
+        try {
+          id = await retrieveUserId();
+        } catch (error) {
+          console.log(error);
+          return;
+        }
+    
+        const newBlogCollection:Blog[] = await dataService.getBlogsByUser(id);
+    
+        setBlogCollection(newBlogCollection);
+        setLoading(false);
+        setUserId(id);
+      
+      }
+
+      loadBlogs();
+    }
   },[user,dataService]);
 
 

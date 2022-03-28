@@ -2,8 +2,6 @@ import { User, UserAttribute } from '../../types/TypeDefs';
 import Amplify, { Auth } from 'aws-amplify';
 import { config } from '../../config';
 import { CognitoUser } from '@aws-amplify/auth';
-// import { Credentials } from 'aws-sdk/lib/credentials';
-// import AWS from 'aws-sdk';
 
 
 Amplify.configure({
@@ -22,8 +20,6 @@ export class AuthService {
     public async login(email: string, password:string): Promise<User|undefined>{
         try{
             const user = await Auth.signIn(email, password) as CognitoUser;
-
-            // await this.getAWSTemporaryCreds(user);
 
             return {
                 username: user.getUsername(),
@@ -78,31 +74,5 @@ export class AuthService {
             console.log('Error signing out: ', error)
         }
     }
-
-    // private async getAWSTemporaryCreds(user: CognitoUser){
-    //     const cognitoIdentityPool = `cognito-idp.${config.REGION}.amazonaws.com/${config.USER_POOL_ID}`; 
-    //     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    //         IdentityPoolId: config.IDENTITY_POOL_ID,
-    //         Logins: {
-    //             [cognitoIdentityPool]: user.getSignInUserSession()!.getIdToken().getJwtToken()
-    //         }
-    //     }, {
-    //         region: config.REGION
-    //     });
-    //     await this.refreshCredentials();
-    // }
-
-    
-    // private async refreshCredentials(): Promise<void>{
-    //     return new Promise((resolve, reject)=>{
-    //         (AWS.config.credentials as Credentials).refresh(err =>{
-    //             if (err) {
-    //                 reject(err)
-    //             } else {
-    //                 resolve()
-    //             }
-    //         })
-    //     })
-    // }
 
 }

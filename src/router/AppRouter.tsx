@@ -57,7 +57,7 @@ export default class AppRouter extends React.Component<{},IAppState>{
       user
     });
       
-  };
+  }
 
   render(){
     return (

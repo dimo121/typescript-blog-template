@@ -4,7 +4,7 @@ import { LOAD_BLOGS, FIND_BLOG, CREATE_BLOG, CREATE_ENTRY, BLOGS_BY_USER, CREATE
 import { base64Encode } from '../../utils/base64Encode';
 import { S3 } from 'aws-sdk';
 import { config } from '../../config';
-import { generateRandomId } from '../../utils/generateId';
+import { nanoid } from 'nanoid';
 
 
 export class DataService {
@@ -24,10 +24,8 @@ export class DataService {
         
         try{    
             const result: any = await API.graphql({query:BLOGS_BY_USER, variables:{ userId: id}});
-            console.log(result);
             return result.data.blogsByUser;
-        } catch(err){
-            console.log('From dataservice ',err);
+        } catch {
             return [];
         }
     }
@@ -54,8 +52,8 @@ export class DataService {
 
         try {
             result = await s3Client.getObject(params).promise();    
-        } catch (error:any) {
-            console.log('500 - ', error);
+        } catch (e) {
+            console.log('500 - ', e);
         }
 
         return result;
@@ -68,17 +66,15 @@ export class DataService {
         try{
             authToken = await this.getAuthToken();
         }catch(e){
-            console.log(e);
+            console.log('500 -', e);
         }
         
         let fileBase64 = await base64Encode(file);
 
-        const blogPhotoId = generateRandomId();
-
-        let result: any; 
+        const blogPhotoId = nanoid();
         
         try{
-            result = await API.post('blogs-photos-api',`blogs/?filename=${blogPhotoId}`, {
+            await API.post('blogs-photos-api',`blogs/?filename=${blogPhotoId}`, {
                 body: fileBase64,
                 headers: {
                     "Authorization": `Bearer ${authToken}`,
@@ -87,35 +83,27 @@ export class DataService {
             });
             
         }catch(e){
-            console.log(e);
             return '';
         } 
 
-        console.log('From REST : ', result)
 
         return blogPhotoId;
     }
 
     public async createBlog(blog:NewBlogInput): Promise<boolean>{
 
-        let resultBlog: Blog;
-
-
         try{
             const authToken = await this.getAuthToken();
 
             console.log('Auth token: ', authToken);
 
-            resultBlog = await API.graphql({    query:CREATE_BLOG, 
+            await API.graphql({    query:CREATE_BLOG, 
                                                 variables:{createBlogInput:{ ...blog }},
                                                 authMode: 'AMAZON_COGNITO_USER_POOLS',
                                                 authToken }) as Blog;
-        } catch(e){
-            console.log(e);
+        } catch {
             return false;
         }
-
-        console.log('Blog created succesfully ', resultBlog);
 
         return true;
     }
@@ -125,41 +113,33 @@ export class DataService {
         try {
             const authToken = await this.getAuthToken();
 
-            //let result:string;
-
-            const result = await API.graphql({
+            await API.graphql({
                 query:DELETE_BLOG,
                 variables:{deleteBlogInput: {id,user}},
                 authMode: 'AMAZON_COGNITO_USER_POOLS',
                 authToken
             });
-            
-            console.log('From dataService result: ',result);
 
             return true;
-        } catch (error) {
-            console.log('From dataservice error: ',error); 
+        } catch {
             return false;           
         }
     }
 
     public async createEntry(entry:NewEntryInput): Promise<boolean>{
         
-        let resultEntry: Entry;
+       
 
         try{
             const authToken = await this.getAuthToken();
 
-            resultEntry = await API.graphql({   query:CREATE_ENTRY, 
+            await API.graphql({   query:CREATE_ENTRY, 
                                                 variables:{createEntryInput:{ ...entry}},
                                                 authMode: 'AMAZON_COGNITO_USER_POOLS',
                                                 authToken }) as Entry;
-        }catch(e){
-            console.log(e);
+        }catch {
             return false;
         }
-
-        console.log('Entry created succesfully ', resultEntry)
 
         return true;
     }

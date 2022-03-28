@@ -155,7 +155,7 @@ button:disabled {
 
 .s4-cc h1 {
   margin: 3rem 4.2rem;
-  font-family: 'Source code pro', Helvetica;
+  font-family: 'Nunito', Helvetica, sans-serif;
 }
 
 .s4-cc h5 {
@@ -210,10 +210,6 @@ button:disabled {
   height: 24px;
 }
 
-.hamburger-inner {
-  right: 0;
-}
-
 @media (min-width: 450px) {
   .hamburger,
   .hamburger-inner {
@@ -239,6 +235,7 @@ button:disabled {
 
 .hamburger-inner {
   top: 50%;
+  right: 0;
   margin-top: -1px;
   transition-duration: 0.22s;
   transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);

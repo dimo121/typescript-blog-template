@@ -9,10 +9,6 @@
   height: $header-hamburger--size;
 }
 
-.hamburger-inner{
-  right: 0;
-}
-
 @media(min-width:450px){
   .hamburger,
   .hamburger-inner {
@@ -38,6 +34,7 @@
 
 .hamburger-inner {
   top: 50%;
+  right: 0;
   margin-top: -($header-hamburger--thickness / 2);
   transition-duration: 0.22s;
   transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
