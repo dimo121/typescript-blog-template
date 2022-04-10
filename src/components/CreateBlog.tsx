@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { DataService } from '../controllers/DataService/DataService';
-import EntryFormPage from './EntryFormPage';
+import { createBlog } from '../controllers/DataService/DataService';
+import { EntryFormPage } from './EntryFormPage';
 import { User } from '../types/TypeDefs';
 import { Redirect } from 'react-router';
 
 
 interface ICreateBlogProps {
-  dataService: DataService;
   currentUser?: User;
 }
 
-const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
+export const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
 
-  const { currentUser, dataService } = props;
+  const { currentUser } = props;
 
   const [userId,setUserId] = useState<string>('');
   const [completed,setCompleted] = useState<boolean>(false);
@@ -41,7 +40,7 @@ const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
         <h1>Create blog</h1>
         <EntryFormPage
           onSubmission={(title:string,content:string,blogPhotoId:string) => {
-            dataService.createBlog({
+            createBlog({
               title,
               content,
               blogPhotoId,
@@ -51,13 +50,9 @@ const CreateBlog: React.FC<ICreateBlogProps> = (props) => {
             }).catch(err => console.log(err));
 
           }}
-          dataService={dataService}
           userId={userId}
         />
         {completed && <Redirect to='/dashboard' />}
       </div>
     );
 };
-
-export default CreateBlog;
-

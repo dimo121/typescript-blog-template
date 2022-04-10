@@ -1,12 +1,11 @@
-import EntryFormPage from './EntryFormPage';
+import { EntryFormPage } from './EntryFormPage';
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, useLocation } from 'react-router-dom';
 import { User } from '../types/TypeDefs';
-import { DataService } from '../controllers/DataService/DataService';
+import { createEntry } from '../controllers/DataService/DataService';
 import { Redirect } from 'react-router';
 
 interface ICreateEntryProps {
-  dataService: DataService;
   currentUser?: User;
 }
 
@@ -16,7 +15,7 @@ interface CustomState {
 
 export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> = (props) => {
 
-  const { currentUser, dataService } = props;
+  const { currentUser } = props;
 
   const { state } = useLocation<CustomState>();
   const [userId,setUserId] = useState<string>('');
@@ -46,8 +45,7 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
       <h1>Create entry</h1>
       <EntryFormPage
         onSubmission={(title:string,content:string,blogPhotoId:string) => {
-
-          dataService.createEntry({
+          createEntry({
             title,
             content,
             user: userId,
@@ -58,7 +56,6 @@ export const CreateEntry:React.FC<ICreateEntryProps & RouteComponentProps<{}>> =
           }).catch(() => console.log('Error creating entry'));
 
         }}
-        dataService={dataService}
         userId={userId}
       />
       {completed && <Redirect to='/dashboard' />}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Home:React.FC = () => {
+export const Home:React.FC = () => {
 
     return(    
         <h1 className='home'>
@@ -9,5 +9,3 @@ const Home:React.FC = () => {
         </h1>
     );
 }
-
-export default Home;

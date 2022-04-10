@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { DataService } from '../controllers/DataService/DataService';
+import { getBlogsByUser, deleteBlog } from '../controllers/DataService/DataService';
 import { Blog, Search, User } from '../types/TypeDefs';
-import BlogItem from './BlogItem';
+import { BlogItem } from './BlogItem';
 import { BlogListFilter } from './BlogListFilter';
 import { Spinner } from './Spinner';
 import { Redirect } from 'react-router-dom';
@@ -10,14 +10,13 @@ import filter from '../utils/filter';
 
 
 interface IMyBlogsPageProps {
-  dataService: DataService;
   user: User|undefined;
 }
 
 
-const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
+export const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
   
-  const { user, dataService } = props;
+  const { user } = props;
 
   const [blogCollection,setBlogCollection] = useState<Blog[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -50,7 +49,7 @@ const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
           return;
         }
     
-        const newBlogCollection:Blog[] = await dataService.getBlogsByUser(id);
+        const newBlogCollection:Blog[] = await getBlogsByUser(id);
     
         setBlogCollection(newBlogCollection);
         setLoading(false);
@@ -60,7 +59,7 @@ const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
 
       loadBlogs();
     }
-  },[user,dataService]);
+  },[user]);
 
 
     if(!user) return <h1 style={{fontSize : '1em', color:'white', padding:'4em',marginTop:'0'}}>Login to see user specific blogs</h1>;
@@ -87,11 +86,11 @@ const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
         <div className="s3-bc">
           {resultBlogs.map((item,index) => (
             <div key={index}>
-              <BlogItem blog={{ ...item }} dataService={dataService}/>
+              <BlogItem blog={{ ...item }} />
               <button
                 className="blog-button delete-button"
                 onClick={async () => {
-                  const result:boolean = await dataService.deleteBlog(item.id,userId)
+                  const result:boolean = await deleteBlog(item.id,userId)
                 
                   if(result){
                     setDeleted(true);
@@ -118,6 +117,3 @@ const MyBlogsPage:React.FC<IMyBlogsPageProps> = (props) => {
       </div>
     );
 };
-
-
-export default MyBlogsPage;

@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import img from './react-logo.png';
-import Modal from './Modal';
-import { AuthService } from '../controllers/AuthService/AuthService';
+import { ModalComponent } from './Modal';
+import { login, signUp } from '../controllers/AuthService/AuthService';
 import { User, NewUserInput } from '../types/TypeDefs';
 import { NavLink } from 'react-router-dom';
 
 
 interface IHeaderProps {
-    authService: AuthService;
     user?: User;
     setUser: (authUser:User|undefined) => void;
 }
 
-const Header:React.FC<IHeaderProps> = (props) => {
+export const Header:React.FC<IHeaderProps> = (props) => {
     
-    const { authService, user, setUser } = props;
+    const { user, setUser } = props;
 
     const [modalOpen,setModal] = useState<boolean>(false);
     const [isActive, setActive] =  useState<boolean>(false);
@@ -45,11 +44,11 @@ const Header:React.FC<IHeaderProps> = (props) => {
   
     const onSubmission = async (userSubmit:NewUserInput): Promise<void> => {
         if(!userSubmit.username){
-            const authUser = await authService.login(userSubmit.email, userSubmit.password);
+            const authUser = await login(userSubmit.email, userSubmit.password);
             setUser(authUser);
         }
         else{
-            await authService.signUp(userSubmit.username,userSubmit.password,userSubmit.email);
+            await signUp(userSubmit.username,userSubmit.password,userSubmit.email);
         }
     }
 
@@ -98,14 +97,12 @@ const Header:React.FC<IHeaderProps> = (props) => {
                     </li>
                 </ul>
             </div>
-            <Modal
+            <ModalComponent
                 modalOpen={modalOpen}
                 clearModal={clearModal}
                 onSubmission={onSubmission}
-                authService={authService}
             />
         </header>
     )
 }
 
-export default Header;

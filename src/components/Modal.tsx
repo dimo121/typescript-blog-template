@@ -2,14 +2,13 @@ import React, { useReducer } from "react";
 import Modal from "react-modal";
 import { NewUserInput } from "../types/TypeDefs";
 import * as EmailValidator from 'email-validator';
-import { AuthService } from "../controllers/AuthService/AuthService";
+import { confirmSignUp } from "../controllers/AuthService/AuthService";
 
 
 interface IModalProps {
   onSubmission: (user:NewUserInput) => void;
   clearModal: () => void;
   modalOpen: boolean;
-  authService: AuthService;
 }
 
 interface CustomEvent {
@@ -52,7 +51,7 @@ const modalReducer = (state:IModalState,action:IAction):IModalState => {
   }
 }
 
-const ModalComponent:React.FC<IModalProps> = (props) => {
+export const ModalComponent:React.FC<IModalProps> = (props) => {
 
   const [state,dispatch] = useReducer(modalReducer, {
     code : '',
@@ -130,7 +129,7 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
 
     let answer:boolean = false;
 
-    answer = await props.authService.confirmSignUp(username,code);
+    answer = await confirmSignUp(username,code);
 
     if (answer === true) {
       
@@ -277,4 +276,3 @@ const ModalComponent:React.FC<IModalProps> = (props) => {
   )
 }
 
-export default ModalComponent;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DataService } from '../controllers/DataService/DataService';
+import { uploadBlogFile } from '../controllers/DataService/DataService';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import img from './image_box.png';
@@ -7,14 +7,12 @@ import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 interface IEntryFormProps {
   onSubmission : (title:string,content:string,blogPhotoId:string) => void;
-  dataService: DataService;
   userId: string;
 }
 
+export const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
 
-const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
-
-  const { userId, dataService, onSubmission } = props;
+  const { userId, onSubmission } = props;
 
   const [title,setTitle] = useState<string>('');
   const [error,setError] = useState<string>('');
@@ -39,7 +37,7 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
       let blogPhotoId: string = '';
 
       if(file){
-        await dataService.uploadBlogFile(file).then(res => blogPhotoId = res).catch(err => console.log(err));
+        await uploadBlogFile(file).then(res => blogPhotoId = res).catch(err => console.log(err));
       }
 
       onSubmission(
@@ -125,6 +123,3 @@ const EntryFormPage: React.FC<IEntryFormProps> = (props) => {
       </div>
     );
 }
-
-
-export default EntryFormPage;

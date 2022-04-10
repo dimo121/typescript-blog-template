@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { DataService } from '../controllers/DataService/DataService';
+import { getBlogFile } from '../controllers/DataService/DataService';
 import { Blog } from '../types/TypeDefs';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertFromRaw } from 'draft-js';
@@ -8,13 +8,11 @@ import { EditorState, convertFromRaw } from 'draft-js';
 
 interface IBlogItemProps {
   blog: Blog;
-  dataService: DataService
 }
 
+export const BlogItem:React.FC<IBlogItemProps> = (props) => {
 
-const BlogItem:React.FC<IBlogItemProps> = (props) => {
-
-  const {blog, dataService} = props;
+  const {blog} = props;
 
   const [image,setImage] = useState<string>('');
   const [editorState,setEditor] = useState<EditorState>(EditorState.createEmpty());
@@ -31,7 +29,7 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
 
     const retrieveImage = async (key:string) => {
 
-      const result:any = await dataService.getBlogFile(key);
+      const result:any = await getBlogFile(key);
   
       let base64Data:string = '';
   
@@ -46,7 +44,7 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
       retrieveImage(blog.blogPhotoId);
     }
 
-  },[dataService, blog]);
+  },[ blog]);
 
   return (
     <React.Fragment>
@@ -89,5 +87,3 @@ const BlogItem:React.FC<IBlogItemProps> = (props) => {
     </React.Fragment>
   );
 }
-
-export default BlogItem;

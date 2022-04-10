@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DataService } from '../controllers/DataService/DataService';
+import { getBlogFile } from '../controllers/DataService/DataService';
 import { Entry } from '../types/TypeDefs';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertFromRaw } from 'draft-js';
@@ -7,14 +7,13 @@ import { EditorState, convertFromRaw } from 'draft-js';
 
 interface IEntryItemProps {
   entry: Entry;
-  dataService: DataService;
 }
 
 export const EntryItem:React.FC<IEntryItemProps> = (props) => {
   const [image,setImage] = useState<string>('');
   const [editorState,setEditor] = useState<EditorState>(EditorState.createEmpty());
 
-  const { entry, dataService } = props;
+  const { entry } = props;
 
   useEffect(() => {
 
@@ -28,7 +27,7 @@ export const EntryItem:React.FC<IEntryItemProps> = (props) => {
 
     const retrieveImage = async (key:string) => {
 
-      const result:any = await dataService.getBlogFile(key);
+      const result:any = await getBlogFile(key);
   
       let base64Data:string = '';
   
@@ -43,7 +42,7 @@ export const EntryItem:React.FC<IEntryItemProps> = (props) => {
       retrieveImage(entry.entryPhotoId);
     }
 
-  },[dataService, entry]);
+  },[entry]);
   
   return (
     <div className="section-1-bi">

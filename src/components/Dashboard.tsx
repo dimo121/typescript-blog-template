@@ -1,19 +1,14 @@
-import BlogItem from "./BlogItem";
+import { BlogItem } from "./BlogItem";
 import { BlogListFilter } from "./BlogListFilter";
 import React, { useEffect, useState } from "react";
 import { Blog, Search } from "../types/TypeDefs";
-import { DataService } from "../controllers/DataService/DataService";
+import { getBlogs } from "../controllers/DataService/DataService";
 import { Spinner } from './Spinner';
 import paginateLocal from '../utils/paginate';
 import filterBlogs from '../utils/filter';
 
-interface IDashProps {
-  dataService: DataService
-}
 
-const Dashboard:React.FC<IDashProps> = (props) => {
-
-  const { dataService } = props
+export const Dashboard:React.FC = () => {
 
   const [text,setText] = useState<string>('');
   const [search,setSearch] = useState<Search>('Title');
@@ -23,12 +18,12 @@ const Dashboard:React.FC<IDashProps> = (props) => {
 
   useEffect(() => {
 
-    dataService.getBlogs().then(result => {
+    getBlogs().then(result => {
       setBlogCollection(result);
       setLoading(false);
     }).catch((e) => console.log(e));
     
-  },[dataService]);
+  },[]);
   
   if(loading) return <Spinner />;
 
@@ -49,7 +44,7 @@ const Dashboard:React.FC<IDashProps> = (props) => {
           />
           <div className="s3-bc">
             {resultBlogs?.map((item:Blog) => (
-              <BlogItem key={item.id} blog={{ ...item }} dataService={dataService}/>
+              <BlogItem key={item.id} blog={{ ...item }} />
             ))}
           </div>
           <div className="page-numbers">
@@ -66,5 +61,3 @@ const Dashboard:React.FC<IDashProps> = (props) => {
         </div>
       )
   }
-
-export default Dashboard;

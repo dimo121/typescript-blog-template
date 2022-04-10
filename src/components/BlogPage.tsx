@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import BlogItem from "./BlogItem";
+import { BlogItem } from "./BlogItem";
 import { EntryItem } from "./EntryItem";
 import { Blog } from '../types/TypeDefs';
 import { RouteComponentProps } from "react-router-dom";
-import { DataService } from "../controllers/DataService/DataService";
+import { loadBlog } from "../controllers/DataService/DataService";
 
-interface IBlogPageProps {
-  dataService: DataService;
-}
 
-const BlogPage:React.FC<IBlogPageProps & RouteComponentProps<{ id: string }>> = (props) => {
+export const BlogPage:React.FC<RouteComponentProps<{ id: string }>> = (props) => {
 
-    const {dataService, match} = props;
+    const {match} = props;
   
     const [blog, setBlog] = useState<Blog>({
       id: '',
@@ -24,25 +21,23 @@ const BlogPage:React.FC<IBlogPageProps & RouteComponentProps<{ id: string }>> = 
     });
 
     useEffect(() => {
-      const loadBlog = async () => {
+      const loadBlogLocal = async () => {
 
-        const result:Blog = await dataService.loadBlog(match.params.id);
+        const result:Blog = await loadBlog(match.params.id);
     
         setBlog({...result});
       }
 
-      loadBlog();
-    },[dataService, match]);
+      loadBlogLocal();
+    },[match]);
 
     return (
       <div className="s3-bc">
-        <BlogItem key={blog?.id} blog={{ ...blog }} dataService={dataService}/>
+        <BlogItem key={blog?.id} blog={{ ...blog }} />
         <h3>Entries:</h3>
         {blog?.entries?.map((item) => {
-          return <EntryItem key={item.id} entry={{...item}} dataService={dataService}/>;
+          return <EntryItem key={item.id} entry={{...item}} />;
         })}
       </div>
     );
 };
-
-export default BlogPage;

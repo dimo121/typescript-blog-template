@@ -4,19 +4,17 @@ import Amplify, { API } from 'aws-amplify';
 import AWS from 'aws-sdk';
 import { config } from '../config';
 import '../styles/styles.min.css';
-import Header from '../components/Header';
-import BlogPage from '../components/BlogPage';
-import CreateBlog from '../components/CreateBlog';
-import Dashboard from '../components/Dashboard';
-import Home from '../components/Home';
+import { Header } from '../components/Header';
+import { BlogPage } from '../components/BlogPage';
+import { CreateBlog } from '../components/CreateBlog';
+import { Dashboard } from '../components/Dashboard';
+import { Home } from '../components/Home';
 import history from '../utils/history';
 import { Route, Router, Switch }  from 'react-router-dom';
 import { User } from '../types/TypeDefs';
-import { AuthService } from '../controllers/AuthService/AuthService';
-import { DataService } from '../controllers/DataService/DataService';
 import { CreateEntry } from '../components/CreateEntry';
 import { Footer } from '../components/Footer';
-import MyBlogsPage from '../components/MyBlogsPage';
+import { MyBlogsPage } from '../components/MyBlogsPage';
 import { ScrollToTop } from '../components/ScrollToTop';
 import { Spinner } from '../components/Spinner';
 
@@ -48,8 +46,8 @@ export default class AppRouter extends React.Component<{},IAppState>{
     this.setUser = this.setUser.bind(this);
   }
 
-  private authService: AuthService = new AuthService();
-  private dataService: DataService = new DataService();
+  // private authService: AuthService = new AuthService();
+  // private dataService: DataService = new DataService();
 
   private setUser(user:User|undefined){
     
@@ -65,31 +63,25 @@ export default class AppRouter extends React.Component<{},IAppState>{
           <Router history={history}>
             <div>
               <ScrollToTop />
-              <Header user={this.state.user} setUser={this.setUser} authService={this.authService}/>
+              <Header user={this.state.user} setUser={this.setUser} />
               <div className='page-container'>
                 <Switch>
                   <Route exact path='/' component={Home} />
-                  <Route exact path='/dashboard' 
-                          render={(props) => (
-                            <Dashboard {...props} dataService={this.dataService} />
-                          )} 
-                  />
+                  <Route exact path='/dashboard' component={Dashboard} />
                   <Route exact path="/createblog"
                         render={(props) => (
-                            <CreateBlog {...props} dataService={this.dataService} currentUser={this.state.user}/>
+                            <CreateBlog {...props} currentUser={this.state.user}/>
                         )} 
                   />
                   <Route exact path="/createentry"
                         render={(props) => (
-                            <CreateEntry {...props} dataService={this.dataService} currentUser={this.state.user}/>
+                            <CreateEntry {...props} currentUser={this.state.user}/>
                         )} 
                   />
                   <Route exact path="/myblogs"
-                        render={(props) => <MyBlogsPage {...props} dataService={this.dataService} user={this.state.user} />} 
+                        render={(props) => <MyBlogsPage {...props} user={this.state.user} />} 
                   />
-                  <Route exact path="/blog/:id" 
-                        render={(props) => <BlogPage {...props} dataService={this.dataService}/>}
-                  />
+                  <Route exact path="/blog/:id" component={BlogPage} />
                   <Route exact path="/partners" 
                         render={() => 
                     <Suspense fallback={<Spinner />}>
